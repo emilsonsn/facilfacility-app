@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {AnimationOptions} from "ngx-lottie";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { Router } from '@angular/router';
 import { SessionService } from '@store/session.service';
@@ -65,7 +64,4 @@ export class LoginComponent {
     }
   }
 
-  options: AnimationOptions = {
-    path: '/assets/json/login_animation.json',
-  };
 }
