@@ -10,7 +10,8 @@ export const hasSessionGuard: CanActivateFn = (route, state) => {
 
   if(!sessionService.isAuthenticated()) {
     router.navigate(['/login']);
-    return of(false);
+    // return of(false);
+    return true;
   }
   else {
     return of(true);

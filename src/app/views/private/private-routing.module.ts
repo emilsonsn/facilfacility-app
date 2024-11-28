@@ -13,7 +13,7 @@ const routes: Routes = [
       {
         path: 'home',
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
-        canActivate: [permissionGuard],
+        // canActivate: [permissionGuard],
         data: {
           page: 'home'
         }
@@ -21,7 +21,7 @@ const routes: Routes = [
       {
         path: 'requests',
         loadChildren: () => import('./requests/requests.module').then(m => m.RequestsModule),
-        canActivate: [permissionGuard],
+        // canActivate: [permissionGuard],
         data: {
           page: 'requests'
         }
@@ -29,7 +29,7 @@ const routes: Routes = [
       {
         path: 'orders',
         loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
-        canActivate: [permissionGuard],
+        // canActivate: [permissionGuard],
         data: {
           page: 'orders'
         }
@@ -37,7 +37,7 @@ const routes: Routes = [
       {
         path: 'collaborator',
         loadChildren: () => import('./collaborator/collaborator.module').then(m => m.CollaboratorModule),
-        canActivate: [permissionGuard],
+        // canActivate: [permissionGuard],
         data: {
           page: 'collaborator'
         }
@@ -45,7 +45,7 @@ const routes: Routes = [
       {
         path: 'construction',
         loadChildren: () => import('./construction/construction.module').then(m => m.ConstructionModule),
-        canActivate: [permissionGuard],
+        // canActivate: [permissionGuard],
         data: {
           page: 'construction'
         }
@@ -53,7 +53,7 @@ const routes: Routes = [
       {
         path: 'provider',
         loadChildren: () => import('./provider/provider.module').then(m => m.ProviderModule),
-        canActivate: [permissionGuard],
+        // canActivate: [permissionGuard],
         data: {
           page: 'provider'
         }
@@ -61,7 +61,7 @@ const routes: Routes = [
       {
         path: 'services',
         loadChildren: () => import('./services/services.module').then(m => m.ServicesModule),
-        canActivate: [permissionGuard],
+        // canActivate: [permissionGuard],
         data: {
           page: 'services'
         }
@@ -69,7 +69,7 @@ const routes: Routes = [
       {
         path: 'tasks',
         loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule),
-        canActivate: [permissionGuard],
+        // canActivate: [permissionGuard],
         data: {
           page: 'tasks'
         }
@@ -77,7 +77,7 @@ const routes: Routes = [
       {
         path: 'client',
         loadChildren: () => import('./client/client.module').then(m => m.ClientModule),
-        canActivate: [permissionGuard],
+        // canActivate: [permissionGuard],
         data: {
           page: 'client'
         }

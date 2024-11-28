@@ -88,15 +88,37 @@ export class SessionService {
       );
   }
 
+  // public getUserFromBack(): Observable<User> {
+  //     return this._userService.getUser()
+  //         .pipe(
+  //             map(user => user.data),
+  //             tap(user => {
+  //               this._sessionStore.update({ user });
+  //             }),
+  //             shareReplay()
+  //         )
+  // }
+
+  // Mock de dados no método getUserFromBack
   public getUserFromBack(): Observable<User> {
-      return this._userService.getUser()
-          .pipe(
-              map(user => user.data),
-              tap(user => {
-                this._sessionStore.update({ user });
-              }),
-              shareReplay()
-          )
+    const mockUser: User = {
+      id: 1,
+      name: 'Mock User',
+      email: 'mockuser@example.com',
+      phone: '1234567890',
+      cpf: '000.000.000-00',
+      cpf_cnpj: '00.000.000/0000-00',
+      birth_date: new Date('1990-01-01'), 
+      company_position: { position: 'Admin' },
+      created_at: new Date('2023-01-01'), 
+      updated_at: new Date('2023-01-01'), 
+    };
+    
+    
+    // Atualiza o estado com os dados mockados
+    this._sessionStore.update({ user: mockUser });
+
+    return of(mockUser).pipe(shareReplay());
   }
 
   public updateIsAuthenticated(isAuthenticated: boolean) {
@@ -110,7 +132,8 @@ export class SessionService {
     if(this._storage.get('access_token'))
       return true;
     else
-      return false;
+    // return false;
+      return true;
   }
 
 }

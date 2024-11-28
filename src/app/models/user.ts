@@ -1,23 +1,41 @@
+// export interface User {
+//   id? : number;
+//   name : string;
+//   email : string;
+//   phone : string;
+//   cpf : string;
+//   cpf_cnpj: string;
+//   birth_date: Date;
+//   company_position_id: string;
+//   sector_id: string;
+//   whatsapp: number;
+//   status : UserStatus;
+//   createdAt : string;
+//   updatedAt : string;
+//   admin?: boolean;
+//   photo?: string;
+
+//   sector?: UserSector;
+//   company_position?: UserPosition;
+// }
+
 export interface User {
-  id? : number;
-  name : string;
-  email : string;
-  phone : string;
-  cpf : string;
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  cpf: string;
   cpf_cnpj: string;
   birth_date: Date;
-  company_position_id: string;
-  sector_id: string;
-  whatsapp: number;
-  status : UserStatus;
-  createdAt : string;
-  updatedAt : string;
-  admin?: boolean;
-  photo?: string;
-
-  sector?: UserSector;
-  company_position?: UserPosition;
+  company_position: { position: string };
+  created_at: Date;
+  updated_at: Date;
+  photo?: string; 
+  sector?: { sector: string }; 
+  whatsapp?: string; 
 }
+
+
 
 export interface UserPosition {
   id? : string,
