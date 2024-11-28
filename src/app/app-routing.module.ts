@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'painel',
     loadChildren: () => import('./views/private/private.module').then(m => m.PrivateModule),
-    canActivate: [hasSessionGuard]
+     // canActivate: [hasSessionGuard]
   },
   {
     path: '**',
