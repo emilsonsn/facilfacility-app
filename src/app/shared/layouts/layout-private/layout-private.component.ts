@@ -19,6 +19,12 @@ export class LayoutPrivateComponent {
 
   public menuItem: IMenuItem[] = [
     {
+      label: 'Facilities',
+      icon: 'icon-facility-menu-item', 
+      route: '/painel/dashboard',
+      active: true,
+    },
+    {
       label: 'Home',
       icon: 'fa-solid fa-house',
       route: '/painel/home',

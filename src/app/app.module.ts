@@ -1,15 +1,17 @@
-import {DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule} from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import player from 'lottie-web';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {ToastrModule} from "ngx-toastr";
+import { ToastrModule } from "ngx-toastr";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
-import {provideLottieOptions} from "ngx-lottie";
+import { provideLottieOptions } from "ngx-lottie";
+import player from 'lottie-web';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DATE_PIPE_DEFAULT_OPTIONS, registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { MatIconModule } from '@angular/material/icon';
+import { LayoutsModule } from '@shared/layouts/layouts.module';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { provideNgxMask } from 'ngx-mask';
@@ -17,11 +19,13 @@ import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from '@services/auth-interceptor.service';
 import { BrowserstateInterceptor } from './interceptors/browserstate.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { IconService } from './services/icon.service';
 
+// Registra o idioma local (pt-BR)
 registerLocaleData(localePt, 'pt-BR');
 
+// Configuração personalizada para o CurrencyMask
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
   allowNegative: true,
@@ -34,7 +38,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, // Apenas o componente principal
   ],
   imports: [
     BrowserModule,
@@ -43,10 +47,12 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatMomentDateModule,
     HttpClientModule,
     CurrencyMaskModule,
+    MatIconModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right'
     }),
     NgbModule,
+    LayoutsModule, // Importa LayoutsModule para usar o SidebarComponent e outros layouts
   ],
   providers: [
     provideLottieOptions({
@@ -67,17 +73,13 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
         subscriptSizing: 'dynamic',
       }
     },
-    // {
-    //   provide: DATE_PIPE_DEFAULT_OPTIONS,
-    //   useValue: {timezone: '-0300'}
-    // },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
-		{ provide: HTTP_INTERCEPTORS, useClass: BrowserstateInterceptor, multi: true },
-    provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: BrowserstateInterceptor, multi: true },
     provideAnimations(),
     provideNativeDateAdapter(),
-    provideNgxMask()
+    provideNgxMask(),
+    IconService, // Serviço para gerenciar ícones SVG
   ],
   bootstrap: [AppComponent]
 })
