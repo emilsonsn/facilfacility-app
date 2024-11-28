@@ -47,7 +47,7 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  width: 100%; /* Faz o formulário ocupar toda a largura disponível */
+  width: 100%; 
 
   mat-form-field {
     width: 100%;
@@ -63,12 +63,12 @@
   }
 
   .forgot-password {
-    text-align: center; /* Centraliza o link */
+    text-align: center; 
     margin-top: 1rem;
 
     a {
       text-decoration: none;
-      color: #007bff;
+      color: #3D3D3D;
     }
   }
 }

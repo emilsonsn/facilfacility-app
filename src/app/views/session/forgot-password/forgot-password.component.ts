@@ -63,7 +63,7 @@ export class ForgotPasswordComponent {
   }
 
   options: AnimationOptions = {
-    path: '/assets/json/animation_no_recover.json',
+    path: '/assets/json/init_img.png',
   };
 
 }

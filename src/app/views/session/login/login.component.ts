@@ -34,16 +34,16 @@ export class LoginComponent {
 
   getEmailErrorMessage() {
     if (this.loginForm.get('email')?.hasError('required')) {
-      return 'Você deve inserir um email';
+      return 'You must enter an email';
     }
-    return this.loginForm.get('email')?.hasError('email') ? 'Email inválido' : '';
+    return this.loginForm.get('email')?.hasError('email') ? 'Invalid email' : '';
   }
 
   getPasswordErrorMessage() {
     if (this.loginForm.get('password')?.hasError('required')) {
       return 'Você deve inserir uma senha';
     }
-    return this.loginForm.get('password')?.hasError('minlength') ? 'A senha deve ter no mínimo 6 caracteres' : '';
+    return this.loginForm.get('password')?.hasError('minlength') ? 'Password must be at least 6 characters long' : '';
   }
 
   async onSubmit() {
