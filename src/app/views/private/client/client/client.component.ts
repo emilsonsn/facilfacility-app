@@ -1,31 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Client } from '@models/client';
-import { ClientService } from '@services/client.service';
+import { MockClientService } from './mock-client.service';
 import { DialogClientComponent } from '@shared/dialogs/dialog-client/dialog-client.component';
 import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
 import { ToastrService } from 'ngx-toastr';
-import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
-  styleUrl: './client.component.scss'
+  styleUrls: ['./client.component.scss']
 })
-export class ClientComponent {
+export class ClientComponent implements OnInit {
   public loading: boolean = false;
+  public clients: Client[] = []; // Definição da propriedade
 
   constructor(
     private readonly _dialog: MatDialog,
     private readonly _toastr: ToastrService,
-    private readonly _clientService: ClientService
+    private readonly _clientService: MockClientService // Usando o serviço mockado
   ) {}
 
-  private _initOrStopLoading(): void {
-    this.loading = !this.loading;
+  ngOnInit(): void {
+    this.fetchClients();
   }
 
-  openDialogClient(service?: Client) {
+  private fetchClients(): void {
+    this.loading = true;
+    this._clientService.getClients().subscribe((clients) => {
+      this.clients = clients;
+      this.loading = false;
+    });
+  }
+
+  openDialogClient(service?: Client): void {
     this._dialog
       .open(DialogClientComponent, {
         data: { service },
@@ -36,77 +44,22 @@ export class ClientComponent {
       .afterClosed()
       .subscribe((res) => {
         if (res) {
-          if (res.id) {
-            this._patchClient(res);
-            return;
-          }
-
-          this._postClient(res);
+          // Exemplo de manipulação
+          console.log(res);
         }
       });
   }
 
-  _patchClient(service: Client) {
-    this._initOrStopLoading();
-
-    this._clientService
-      .patchClient(service.id, service)
-      .pipe(finalize(() => this._initOrStopLoading()))
-      .subscribe({
-        next: (res) => {
-          if (res.status) {
-            this._toastr.success(res.message);
-          }
-        },
-        error: (err) => {
-          this._toastr.error(err.error.error);
-        },
-      });
-  }
-
-  _postClient(service: Client) {
-    this._initOrStopLoading();
-
-    this._clientService
-      .postClient(service)
-      .pipe(finalize(() => this._initOrStopLoading()))
-      .subscribe({
-        next: (res) => {
-          if (res.status) {
-            this._toastr.success(res.message);
-          }
-        },
-        error: (err) => {
-          this._toastr.error(err.error.error);
-        },
-      });
-  }
-
-  onDeleteClient(id: number) {
+  onDeleteClient(id: number): void {
     const text = 'Tem certeza? Essa ação não pode ser revertida!';
     this._dialog
       .open(DialogConfirmComponent, { data: { text } })
       .afterClosed()
       .subscribe((res: boolean) => {
         if (res) {
-          this._deleteClient(id);
+          this.clients = this.clients.filter((client) => client.id !== id); // Remove do mock
+          this._toastr.success('Cliente removido com sucesso');
         }
       });
   }
-
-  _deleteClient(id: number) {
-    this._initOrStopLoading();
-    this._clientService
-      .deleteClient(id)
-      .pipe(finalize(() => this._initOrStopLoading()))
-      .subscribe({
-        next: (res) => {
-          this._toastr.success(res.message);
-        },
-        error: (err) => {
-          this._toastr.error(err.error.error);
-        },
-      });
-  }
 }
-

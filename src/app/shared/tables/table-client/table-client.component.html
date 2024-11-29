@@ -1,4 +1,4 @@
-<div class="table-container">
+<!-- <div class="table-container">
   <div class="overflow-auto">
     <table class="table table-responsive">
       <thead>
@@ -8,7 +8,7 @@
             [ngStyle]="{ cursor: 'pointer' }"
             [class.active-order]="pageControl.orderField === col.slug"
           >
-            <!--(click)="onClickOrderBy(col.slug, col.order)" -->
+           
             <div
               class="{{col.align}}"
               style="color: #a2a1a8"
@@ -96,4 +96,98 @@
     aria-label="Select page"
   >
   </mat-paginator>
+</div> -->
+
+<!-- DADOS MOCKADOS -->
+
+<div class="table-container">
+  <div class="overflow-auto">
+    <table class="table table-responsive">
+      <thead>
+        <!-- Itera pelas colunas com trackBy -->
+        <tr>
+          <th
+            *ngFor="let col of columns; trackBy: trackByColumn"
+            [class.hasorder]="col.order"
+            [class.active-order]="col.slug"
+          >
+            <div class="{{ col.align }}" style="color: #a2a1a8">
+              {{ col.title }}
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Exibe spinner se estiver carregando -->
+        <tr *ngIf="loading">
+          <td [attr.colspan]="columns.length">
+            <div id="mat-loading">
+              <mat-spinner></mat-spinner>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Exibe mensagem se não houver clientes -->
+        <tr *ngIf="!loading && clients.length === 0">
+          <td [attr.colspan]="columns.length" class="text-center">
+            Nenhum resultado encontrado
+          </td>
+        </tr>
+
+        <!-- Renderiza os clientes -->
+        <tr
+          *ngFor="let client of clients; trackBy: trackByClient"
+          class="table-line-hover"
+        >
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              {{ client.name }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center">
+              {{ client.cpf_cnpj }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center">
+              {{ client.whatsapp | phoneMask }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center">
+              {{ client.email }}
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-end">
+              <div
+                matRipple
+                class="buttonTemplate"
+                (click)="clientClick(client)"
+              >
+                <i class="fa-solid fa-eye"></i>
+              </div>
+
+              <div
+                matRipple
+                class="buttonTemplate"
+                (click)="clientClick(client)"
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
+              </div>
+
+              <div
+                matRipple
+                class="buttonTemplate"
+                (click)="deleteClient(client.id)"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

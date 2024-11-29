@@ -1,13 +1,24 @@
+// export interface Client {
+//   id?: number;
+//   name: string;
+//   cpf_cnpj: string;
+//   phone: number;
+//   whatsapp: number;
+//   email: string;
+//   address: string;
+//   city: string;
+//   state: string;
+//   created_at?: Date;
+//   updated_at?: Date;
+// }
+
 export interface Client {
-  id?: number;
+  id: number;
   name: string;
   cpf_cnpj: string;
-  phone: number;
-  whatsapp: number;
+  whatsapp: number; // Alterar para number
   email: string;
-  address: string;
-  city: string;
-  state: string;
-  created_at?: Date;
-  updated_at?: Date;
 }
+
+
+

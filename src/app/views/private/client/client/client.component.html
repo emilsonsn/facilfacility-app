@@ -8,6 +8,7 @@
 <div id="componentTable" class="col-12 mt-4">
   <app-table-client
     [loading]="loading"
+    [clients]="clients"
     (onClientClick)="openDialogClient($event)"
     (onDeleteClientClick)="onDeleteClient($event)">
   </app-table-client>
