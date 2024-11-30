@@ -178,11 +178,17 @@ export class DialogRequestComponent {
   }
 
   public getUsers() {
-    this._userService.getUsers()
-      .subscribe(res => {
-        this.users = res.data;
-      })
-  }
+    const pageControl = { page: 1, take: 10 }; // Controle de paginação
+    const filters = {}; // Filtros, pode ser vazio ou personalizado
+
+    this._userService.getUsers(pageControl, filters).subscribe({
+      next: (response) => {
+        console.log('Usuários carregados:', response.data); // Processa a resposta
+      },
+      error: (err) => {
+        console.error('Erro ao carregar usuários:', err); // Lida com o erro
+      },
+    })}
 
   public getSuppliers() {
     this._supplierService.getSuppliers()

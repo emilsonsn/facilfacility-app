@@ -21,6 +21,11 @@ import { AuthInterceptorService } from '@services/auth-interceptor.service';
 import { BrowserstateInterceptor } from './interceptors/browserstate.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { IconService } from './services/icon.service';
+import { ClientComponent } from './views/private/client/client/client.component';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 // Registra o idioma local (pt-BR)
 registerLocaleData(localePt, 'pt-BR');
@@ -48,6 +53,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     HttpClientModule,
     CurrencyMaskModule,
     MatIconModule,
+    MatInputModule,
+    FormsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right'
     }),
@@ -83,4 +90,17 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(
+    private iconService: IconService,
+    private matIconRegistry: MatIconRegistry, // Adicionado "private"
+    private domSanitizer: DomSanitizer
+  ) {
+    // Registrar o ícone SVG para collapse-menu
+    this.matIconRegistry.addSvgIcon(
+      'collapse-menu',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/collapse-menu.svg')
+    );
+  }
+}
+

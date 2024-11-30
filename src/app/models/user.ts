@@ -21,19 +21,25 @@
 
 export interface User {
   id: number;
+  login: string;
   name: string;
-  email: string;
-  phone: string;
-  cpf: string;
-  cpf_cnpj: string;
-  birth_date: Date;
-  company_position: { position: string };
-  created_at: Date;
-  updated_at: Date;
-  photo?: string; 
-  sector?: { sector: string }; 
-  whatsapp?: string; 
+  profile: string;
+  active: boolean;
+  photo?: string; // Adicionado para evitar erro
+  company_position?: {
+    position: string;
+  }; // Adicionado para evitar erro
+  email?: string; // Adicionado para evitar erro
 }
+
+
+
+
+
+
+
+
+
 
 
 

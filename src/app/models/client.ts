@@ -15,10 +15,11 @@
 export interface Client {
   id: number;
   name: string;
-  cpf_cnpj: string;
-  whatsapp: number; // Alterar para number
-  email: string;
+  login: string;
+  profile: string;
+  active: boolean;
 }
+
 
 
 

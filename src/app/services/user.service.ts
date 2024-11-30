@@ -5,6 +5,7 @@ import {ApiResponse, ApiResponsePageable, DeleteApiResponse, PageControl} from '
 import {User, UserCards, UserPosition, UserSector, UserStatus} from '@models/user';
 import {Utils} from '@shared/utils';
 import {Observable} from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +19,25 @@ export class UserService {
   ) {
   }
 
-  public getUsers(pageControl?: PageControl, filters?): Observable<ApiResponsePageable<User>> {
-    const paginate = Utils.mountPageControl(pageControl);
-    const filterParams = Utils.mountPageControl(filters);
-
-    return this._http.get<ApiResponsePageable<User>>(`${environment.api}/${this.sessionEndpoint}/search?${paginate}${filterParams}`);
+  getUsers(
+    pageControl: PageControl,
+    filters: any
+  ): Observable<{ data: User[]; current_page: number; total: number; last_page: number }> {
+    return this._http.get('/api/users', { params: { ...filters, ...pageControl } }).pipe(
+      map((response: any) => ({
+        ...response,
+        data: response.data.map((user: any) => ({
+          id: user.id,
+          login: user.login,
+          name: user.name,
+          profile: user.profile,
+          active: user.active, // Mapeia o campo active do backend
+        })),
+      }))
+    );
   }
+  
+  
 
   public getCards(): Observable<ApiResponse<UserCards>> {
     return this._http.get<ApiResponse<UserCards>>(`${environment.api}/${this.sessionEndpoint}/cards`);

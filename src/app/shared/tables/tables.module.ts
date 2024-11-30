@@ -6,7 +6,7 @@ import { MatIconButton } from "@angular/material/button";
 import { TableOrdersComponent } from './table-orders/table-orders.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule, MatSpinner } from '@angular/material/progress-spinner';
 import { MatRippleModule } from '@angular/material/core';
 import { PipesModule } from '@shared/pipes/pipes.module';
 import { TableProviderComponent } from './table-provider/table-provider.component';
@@ -38,6 +38,7 @@ const tables = [
 @NgModule({
   declarations: [
     tables,
+    TableClientComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +53,8 @@ const tables = [
     AvatarModule,
   ],
   exports: [
-    tables
+    tables,
+    TableClientComponent
   ],
 })
 export class TablesModule { }

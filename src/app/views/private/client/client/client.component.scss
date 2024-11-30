@@ -1,0 +1,58 @@
+.custom-search-bar {
+    background-color: #FFF !important;
+    border-radius: 8px;
+    }
+  
+    ::ng-deep .mat-form-field-outline {
+      border-color: #ff0000 !important; /* Cor personalizada da borda */
+      border-width: 5px !important; /* Largura personalizada da borda */
+      border-radius: 8px; /* Para arredondar as bordas */
+    }
+  
+    ::ng-deep .mat-form-field-outline-start,
+    ::ng-deep .mat-form-field-outline-end {
+      border-color: #333 !important; /* Cor personalizada */
+    }
+  
+    /* Cor ao focar */
+    ::ng-deep.mat-focused .mat-form-field-outline {
+      border-color: #00ff40 !important; /* Cor laranja ao focar */
+    }
+
+  
+  
+
+  
+  
+  .add-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 71px;
+    height: 71px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .add-button mat-icon {
+    font-size: 24px;
+    color: white;
+  }
+  
+  .d-flex {
+    display: flex;
+  }
+  
+  .gap-3 {
+    gap: 1rem;
+  }
+  
+  .flex-grow-1 {
+    flex-grow: 1;
+  }
+  
+
+  

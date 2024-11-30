@@ -103,16 +103,17 @@ export class SessionService {
   public getUserFromBack(): Observable<User> {
     const mockUser: User = {
       id: 1,
+      login: 'mockuser',
       name: 'Mock User',
-      email: 'mockuser@example.com',
-      phone: '1234567890',
-      cpf: '000.000.000-00',
-      cpf_cnpj: '00.000.000/0000-00',
-      birth_date: new Date('1990-01-01'), 
-      company_position: { position: 'Admin' },
-      created_at: new Date('2023-01-01'), 
-      updated_at: new Date('2023-01-01'), 
+      profile: 'Client',
+      active: true,
+      email: 'mockuser@example.com', // Agora está no modelo
+      photo: 'https://example.com/photo.png', // Opcional
+      company_position: {
+        position: 'Admin',
+      }, // Opcional
     };
+    
     
     
     // Atualiza o estado com os dados mockados

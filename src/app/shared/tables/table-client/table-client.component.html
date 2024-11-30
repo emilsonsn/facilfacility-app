@@ -1,117 +1,11 @@
-<!-- <div class="table-container">
-  <div class="overflow-auto">
-    <table class="table table-responsive">
-      <thead>
-        @for (col of columns; track col) {
-          <th
-            [class.hasorder]="col.order"
-            [ngStyle]="{ cursor: 'pointer' }"
-            [class.active-order]="pageControl.orderField === col.slug"
-          >
-           
-            <div
-              class="{{col.align}}"
-              style="color: #a2a1a8"
-            >
-              {{ col.title }}
-              <i class="material-icons" *ngIf="pageControl.orderField === col.slug">
-                {{
-                  pageControl.order === "DESC" ? "arrow_downward" : "arrow_upward"
-                }}
-              </i>
-            </div>
-          </th>
-        }
-      </thead>
-      <tbody>
-      <tr *ngIf="loading">
-        <td [attr.colspan]="columns.length + 1">
-          <div id="mat-loading">
-            <mat-spinner></mat-spinner>
-          </div>
-        </td>
-      </tr>
-        @if (!loading) {
-          <tr *ngIf="!clients.length">
-            <td [attr.colspan]="columns.length + 1" class="text-center">
-              <div>Nenhum resultado encontrado</div>
-            </td>
-          </tr>
-          @for (client of clients; track client) {
-            <tr
-              class="table-line-hover"
-              style="outline: none; cursor: pointer"
-            >
-              <td>
-                <div
-                  class="d-flex align-items-center gap-2"
-                  style="white-space: nowrap"
-                >
-                  {{ client?.name }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center">
-                  {{ client?.cpf_cnpj | cpfCnpjMask }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center">
-                  {{ client?.whatsapp | phoneMask }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center">
-                  {{ client?.email }}
-                </div>
-              </td>
-              <td>
-                <div class="d-flex justify-content-end">
-                  <div matRipple class="buttonTemplate" (click)="onClientClick.emit(client)">
-                    <i class="fa-solid fa-eye"></i>
-                  </div>
-
-                  <div matRipple class="buttonTemplate" (click)="onClientClick.emit(client)">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                  </div>
-
-                  <div matRipple class="buttonTemplate" (click)="onDeleteClientClick.emit(client?.id)">
-                    <i class="fa-solid fa-trash"></i>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          }
-        }
-      </tbody>
-    </table>
-  </div>
-  <mat-paginator
-    [length]="pageControl.itemCount"
-    [pageSize]="pageControl.take"
-    [showFirstLastButtons]="true"
-    [pageSizeOptions]="[10, 25, 50, 100]"
-    [hidePageSize]="false"
-    [pageIndex]="pageControl.page - 1"
-    aria-label="Select page"
-  >
-  </mat-paginator>
-</div> -->
-
-<!-- DADOS MOCKADOS -->
-
 <div class="table-container">
   <div class="overflow-auto">
-    <table class="table table-responsive">
+    <table class="table table-responsive" style="background-color: #FFF;" >
       <thead>
-        <!-- Itera pelas colunas com trackBy -->
+        <!-- Cabeçalho das colunas -->
         <tr>
-          <th
-            *ngFor="let col of columns; trackBy: trackByColumn"
-            [class.hasorder]="col.order"
-            [class.active-order]="col.slug"
-          >
-            <div class="{{ col.align }}" style="color: #a2a1a8">
+          <th *ngFor="let col of columns; trackBy: trackByColumn">
+            <div class="{{ col.align }}" style="color: #B5B7C0;">
               {{ col.title }}
             </div>
           </th>
@@ -136,58 +30,50 @@
 
         <!-- Renderiza os clientes -->
         <tr
-          *ngFor="let client of clients; trackBy: trackByClient"
+          *ngFor="let client of clients; trackBy: trackByColumn"
           class="table-line-hover"
         >
           <td>
-            <div class="d-flex align-items-center gap-2">
-              {{ client.name }}
-            </div>
+            <div class="text-start">{{ client.login }}</div>
+          </td>
+          <td>
+            <div class="text-start">{{ client.name }}</div>
+          </td>
+          <td>
+            <div class="text-center">{{ client.profile }}</div>
           </td>
           <td>
             <div class="text-center">
-              {{ client.cpf_cnpj }}
-            </div>
-          </td>
-          <td>
-            <div class="text-center">
-              {{ client.whatsapp | phoneMask }}
-            </div>
-          </td>
-          <td>
-            <div class="text-center">
-              {{ client.email }}
-            </div>
-          </td>
-          <td>
-            <div class="d-flex justify-content-end">
-              <div
-                matRipple
-                class="buttonTemplate"
-                (click)="clientClick(client)"
-              >
-                <i class="fa-solid fa-eye"></i>
-              </div>
-
-              <div
-                matRipple
-                class="buttonTemplate"
-                (click)="clientClick(client)"
-              >
-                <i class="fa-solid fa-pen-to-square"></i>
-              </div>
-
-              <div
-                matRipple
-                class="buttonTemplate"
-                (click)="deleteClient(client.id)"
-              >
-                <i class="fa-solid fa-trash"></i>
-              </div>
+              <!-- Bolinha verde ou vermelha -->
+              <span
+                class="status-dot"
+                [ngStyle]="{ backgroundColor: client.active ? '#236F19' : '#C53232' }"
+              ></span>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+  <!-- Paginação -->
+  <mat-paginator
+    [length]="pageControl.itemCount"
+    [pageSize]="pageControl.take"
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    aria-label="Select page">
+  </mat-paginator>
 </div>
+
+<style>
+
+  .status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .table-container table td {
+  font-size: 14px;
+}
+
+</style>

@@ -26,7 +26,19 @@ $granatum-app-theme: mat.define-light-theme((
 // Aplica o tema para todos os componentes Angular Material
 @include mat.all-component-themes($granatum-app-theme);
 
-// Sobrescreve estilos específicos dos inputs
+table {
+  line-height: 2.5; 
+  background-color: #FFF;
+}
+
+tr{
+  background-color: #FFF;
+}
+
+td, th {
+  padding: 20px 20px; 
+}
+
 
 // Estilo das bordas dos inputs (apenas para appearance="outline")
 mat-form-field.mat-form-field-appearance-outline {
@@ -59,26 +71,11 @@ mat-form-field.mat-form-field-appearance-outline {
       border-color: red !important; /* Define a cor em caso de erro */
     }
   }
+
 }
 
-// Estilo do placeholder
-mat-form-field {
-  .mat-placeholder {
-    color: #C7C7CC !important; /* Define a cor do texto do placeholder */
-  }
 
-  &.mat-focused .mat-placeholder {
-    color: #C7C7CC !important; /* Define a cor do placeholder ao focar */
-  }
-}
 
-// Adiciona prioridade máxima para garantir que os estilos sejam aplicados
-.mat-input-element {
-  caret-color: #C7C7CC; /* Cor do cursor */
-}
 
-// Ajusta o texto e o label para garantir consistência visual
-.mat-form-field-label {
-  color: #C7C7CC !important; /* Cor do label flutuante */
-}
+
 

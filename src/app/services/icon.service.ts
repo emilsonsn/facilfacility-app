@@ -15,5 +15,11 @@ export class IconService {
       'icon-facility-menu-item',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/facility-menu-item.svg')
     );
+    
+    // Registra o ícone "add"
+    this.matIconRegistry.addSvgIcon(
+      'add-icon',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/add.svg')
+    );
   }
 }

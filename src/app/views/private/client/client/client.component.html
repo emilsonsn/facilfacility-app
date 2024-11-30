@@ -1,8 +1,17 @@
-<div class="mt-5 d-flex justify-content-end">
-  <button matRipple class="button yellow" (click)="openDialogClient()">
-    <i class="fa-solid fa-circle-plus"></i> Novo cliente
+<div class="d-flex align-items-center gap-3 mt-3">
+  <!-- Barra de pesquisa -->
+  <mat-form-field class="custom-search-bar mat-input-override search-bar flex-grow-1">
+    <mat-label>Search client</mat-label>
+    <input matInput [(ngModel)]="searchText" placeholder="Type to search..." />
+  </mat-form-field>
+  
+
+  <!-- Botão laranja -->
+  <button matRipple class="add-button" (click)="openDialogClient()">
+    <mat-icon svgIcon="add-icon" style="width: 71px; height: 71px;"></mat-icon>
   </button>
 </div>
+
 
 
 <div id="componentTable" class="col-12 mt-4">
