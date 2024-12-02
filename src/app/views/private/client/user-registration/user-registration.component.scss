@@ -30,5 +30,57 @@
   button:hover {
     background-color: #0056b3 !important; /* Cor no hover */
   }
+
+  .custom-bar {
+    background-color: #ffffff; /* Fundo branco */
+    border-radius: 8px; /* Bordas arredondadas */
+  }
+  
+  .custom-bar h4 {
+    font-weight: bold;
+    color: #3D3D3D; /* Cor do texto */
+  }
+  
+  .btn-primary {
+    background-color: #C5E5FF;
+    color: #3D3D3D;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+  }
+  
+  .btn-primary:hover {
+    background-color: #d4eaff;
+    color: #FFF;
+  }
+  
+  .fa-plus {
+    font-size: 16px;
+  }
+  
+  
+/* Estilo para o componente de layout */
+.layout-container {
+  row-gap: 1.5rem; /* Espaçamento entre linhas */
+}
+
+/* Estilo para ajustar em telas menores */
+@media (max-width: 800px) {
+  .layout-container {
+    flex-direction: column; /* Muda para layout em coluna */
+  }
+
+  .col-md-2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .col-md-10 {
+    width: 100%;
+  }
+}
+
   
   

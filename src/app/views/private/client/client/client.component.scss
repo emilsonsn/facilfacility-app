@@ -58,5 +58,25 @@
     flex-grow: 1;
   }
   
+  @media (max-width: 780px) {
+    .row {
+      flex-direction: column !important; /* Empilha as colunas */
+    }
+  
+    .col-md-2,
+    .col-md-10 {
+      width: 100% !important; /* Faz com que cada coluna ocupe toda a largura */
+    }
+  
+    .card {
+      margin-bottom: 20px; /* Adiciona espaçamento entre a imagem e o formulário */
+    }
+  
+    .pe-md-3,
+    .ps-md-3 {
+      padding: 0 !important; /* Remove padding extra em telas menores */
+    }
+  }
+  
 
   

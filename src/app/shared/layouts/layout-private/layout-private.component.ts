@@ -61,6 +61,11 @@ export class LayoutPrivateComponent {
       route: '/painel/users'
     },
     {
+      label: 'User Registration',
+      icon: 'fa-solid fa-user-tie',
+      route: '/painel/users/registration'
+    },
+    {
       label: 'Serviços',
       icon: 'fa-solid fa-tools',
       route: '/painel/services'
