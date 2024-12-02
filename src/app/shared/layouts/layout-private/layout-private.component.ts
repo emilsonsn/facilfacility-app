@@ -58,7 +58,7 @@ export class LayoutPrivateComponent {
     {
       label: 'User',
       icon: 'fa-solid fa-user-tie',
-      route: '/painel/client'
+      route: '/painel/users'
     },
     {
       label: 'Serviços',

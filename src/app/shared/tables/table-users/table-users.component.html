@@ -182,11 +182,14 @@
   </div>
   <!-- Paginação -->
   <mat-paginator
-    [length]="pageControl.itemCount"
-    [pageSize]="pageControl.take"
-    [pageSizeOptions]="[10, 25, 50, 100]"
-    aria-label="Select page">
+  [length]="pageControl.itemCount"
+  [pageSize]="pageControl.take"
+  [showFirstLastButtons]="true"
+  [pageSizeOptions]="[10, 25, 50, 100]"
+  aria-label="Select page"
+  >
   </mat-paginator>
+
 </div>
 
 

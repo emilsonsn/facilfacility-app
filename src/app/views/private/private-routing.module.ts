@@ -75,11 +75,11 @@ const routes: Routes = [
         }
       },
       {
-        path: 'client',
+        path: 'users',
         loadChildren: () => import('./client/client.module').then(m => m.ClientModule),
         // canActivate: [permissionGuard],
         data: {
-          page: 'client'
+          page: 'users'
         }
       },
       {

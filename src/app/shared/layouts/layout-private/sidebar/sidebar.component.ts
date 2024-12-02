@@ -42,9 +42,9 @@ export class SidebarComponent implements OnInit {
     // Simulando os itens do menu diretamente no frontend
     this.menuItem = [
       { label: 'Facilities', route: '/painel/dashboard', icon: 'fa-solid fa-tools' },
-      { label: 'Users', route: '/painel/client', icon: 'fa-solid fa-users' },
+      { label: 'Users', route: '/painel/users', icon: 'fa-solid fa-users' },
       { label: 'Client area', route: '/painel/settings', icon: 'fa-solid fa-bookmark' },
-      { label: 'Profile', route: '/painel/users', icon: 'fa-solid fa-user-tie' },
+      { label: 'Profile', route: '/painel/profile', icon: 'fa-solid fa-user-tie' },
     ];
   }
 
