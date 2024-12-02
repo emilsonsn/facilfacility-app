@@ -6,18 +6,17 @@
   </mat-form-field>
   
   <!-- Botão laranja -->
-  <button matRipple class="add-button" (click)="openDialogClient()">
-    <mat-icon svgIcon="add-icon" style="width: 71px; height: 71px;"></mat-icon>
+  <button matRipple class="add-button">
+    <i class="fa-solid fa-plus"></i>
   </button>
 </div>
 
 
 
 <div id="componentTable" class="col-12 mt-4">
-  <app-table-client
+  <app-user-table
     [loading]="loading"
-    [clients]="clients"
-    (onClientClick)="openDialogClient($event)"
+    [searchTerm]="searchText"
     (onDeleteClientClick)="onDeleteClient($event)">
-  </app-table-client>
+  </app-user-table>
 </div>

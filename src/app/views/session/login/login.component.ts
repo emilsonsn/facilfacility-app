@@ -56,11 +56,6 @@ export class LoginComponent {
       this._sessionQuery.user$.subscribe((user) => {
         this.user = user;
       });
-
-      if(this.user?.company_position?.position === 'Requester')
-        this._router.navigate(['/painel/orders']);
-      else
-        this._router.navigate(['/painel/home']);
     }
   }
 

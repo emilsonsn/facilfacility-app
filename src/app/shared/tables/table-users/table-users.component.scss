@@ -1,65 +1,15 @@
-mat-paginator {
-    display: flex;
-    justify-content: flex-end; /* Alinha a paginação à direita */
-    padding: 10px 0;
-  
-    .mat-paginator-range-label {
-      font-size: 14px; /* Tamanho da fonte */
-      color: #6c757d; /* Cor do texto */
-    }
-  
-    .mat-paginator-navigation-button {
-      border: 1px solid #ccc; /* Borda ao redor dos botões */
-      border-radius: 4px; /* Borda arredondada */
-      width: 35px;
-      height: 35px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 5px;
-      background-color: #f8f9fa; /* Fundo claro */
-      color: #6c757d; /* Cor dos ícones */
-      transition: background-color 0.3s ease, color 0.3s ease;
-  
-      &:hover {
-        background-color: #007bff; /* Fundo azul no hover */
-        color: #fff; /* Ícones brancos no hover */
-      }
-  
-      &[disabled] {
-        background-color: #e9ecef; /* Fundo cinza para botões desativados */
-        color: #adb5bd; /* Ícones desativados */
-        cursor: not-allowed;
-      }
-    }
-  
-    .mat-paginator-page {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  
-      button {
-        border: 1px solid #ccc; /* Borda ao redor dos números */
-        border-radius: 4px;
-        width: 35px;
-        height: 35px;
-        margin: 0 5px;
-        background-color: #fff;
-        color: #6c757d;
-        font-size: 14px;
-        font-weight: 600;
-        transition: background-color 0.3s ease, color 0.3s ease;
-  
-        &.mat-paginator-active {
-          background-color: #007bff; /* Fundo azul para a página ativa */
-          color: #fff; /* Texto branco */
-        }
-  
-        &:hover {
-          background-color: #007bff;
-          color: #fff;
-        }
-      }
-    }
-  }
-  
+.table-container table td {
+  font-size: 14px;
+}
+
+table{
+  position: relative;
+}
+
+#mat-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}

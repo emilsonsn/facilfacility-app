@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Client } from '@models/client';
 import { MockClientService } from './mock-client.service';
-import { DialogClientComponent } from '@shared/dialogs/dialog-client/dialog-client.component';
 import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
 import { ToastrService } from 'ngx-toastr';
 
@@ -28,43 +27,24 @@ export class ClientComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.loading = true;
-    const searchTextLower = this.searchText.toLowerCase();
-    this._clientService.getClients().subscribe((clients) => {
-      this.clients = clients.filter(client =>
-        client.name.toLowerCase().includes(searchTextLower) ||
-        client.login.toLowerCase().includes(searchTextLower) ||
-        client.profile.toLowerCase().includes(searchTextLower)
-      );
-      this.loading = false;
-    });
+    // this.loading = true;
+    // const searchTextLower = this.searchText.toLowerCase();
+    // this._clientService.getClients().subscribe((clients) => {
+    //   this.clients = clients.filter(client =>
+    //     client.name.toLowerCase().includes(searchTextLower) ||
+    //     client.login.toLowerCase().includes(searchTextLower) ||
+    //     client.profile.toLowerCase().includes(searchTextLower)
+    //   );
+    //   this.loading = false;
+    // });
   }
   
-
-
   private fetchClients(): void {
     this.loading = true;
     this._clientService.getClients().subscribe((clients) => {
       this.clients = clients;
       this.loading = false;
     });
-  }
-
-  openDialogClient(service?: Client): void {
-    this._dialog
-      .open(DialogClientComponent, {
-        data: { service },
-        width: '80%',
-        maxWidth: '850px',
-        maxHeight: '90%',
-      })
-      .afterClosed()
-      .subscribe((res) => {
-        if (res) {
-          // Exemplo de manipulação
-          console.log(res);
-        }
-      });
   }
 
   onDeleteClient(id: number): void {

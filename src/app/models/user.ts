@@ -21,15 +21,17 @@
 
 export interface User {
   id: number;
-  login: string;
+  email: string;
   name: string;
-  profile: string;
-  active: boolean;
-  photo?: string; // Adicionado para evitar erro
-  company_position?: {
-    position: string;
-  }; // Adicionado para evitar erro
-  email?: string; // Adicionado para evitar erro
+  profile: Profile;
+  is_active: boolean;
+  photo?: string;
+}
+
+export enum Profile{
+  Admin = 'Admin',
+  Client = 'Client',
+  Consultant = 'Consultant',
 }
 
 

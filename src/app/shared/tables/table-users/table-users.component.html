@@ -1,195 +1,82 @@
-<!-- <div class="table-container">
-
-  <div class="overflow-auto">
-    <table class="table table-responsive">
-      <thead>
-        @for (col of columns; track col) {
-          <th
-            [class.hasorder]="col.order"
-            [ngStyle]="{ cursor: 'pointer' }"
-            [class.active-order]="pageControl.orderField === col.slug"
-          >
-          
-            <div
-              class="{{col.align}}"
-              style="color: #a2a1a8"
-            >
-              {{ col.title }}
-              <i class="material-icons" *ngIf="pageControl.orderField === col.slug">
-                {{
-                  pageControl.order === "DESC" ? "arrow_downward" : "arrow_upward"
-                }}
-              </i>
-            </div>
-          </th>
-        }
-      </thead>
-      <tbody>
-      <tr *ngIf="loading">
-        <td [attr.colspan]="columns.length + 1">
-          <div id="mat-loading">
-            <mat-spinner></mat-spinner>
-          </div>
-        </td>
-      </tr>
-        @if (!loading) {
-          <tr *ngIf="!users?.length">
-            <td [attr.colspan]="columns.length + 1" class="text-center">
-              <div>Nenhum resultado encontrado</div>
-            </td>
-          </tr>
-          @for (collaborator of users; track collaborator) {
-            <tr
-              class="table-line-hover"
-              style="outline: none; cursor: pointer"
-            >
-              <td>
-                <div
-                  class="d-flex align-items-center gap-2"
-                  style="white-space: nowrap"
-                >
-                  <app-avatar
-                    [imageUrl]="collaborator?.photo"
-                    [altText]="collaborator?.name"
-                    [color]="'#e7b403'"
-                    [onCircle]="true"
-                  ></app-avatar>
-                  {{ collaborator?.name }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center">
-                  {{ collaborator?.cpf_cnpj | cpfCnpjMask }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center">
-                  {{ collaborator?.birth_date | date: "dd/MM/YYYY" }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center">
-                  {{ collaborator?.company_position?.position }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center">
-                  {{ collaborator?.sector?.sector }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center">
-                  {{ +collaborator?.whatsapp | phoneMask }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center">
-                  {{ collaborator?.email }}
-                </div>
-              </td>
-              <td>
-                <div class="d-flex justify-content-end">
-                  <div matRipple class="buttonTemplate" (click)="onUserClick.emit(collaborator)">
-                    <i class="fa-solid fa-eye"></i>
-                  </div>
-
-                  <div matRipple class="buttonTemplate" (click)="onUserClick.emit(collaborator)">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                  </div>
-
-                  <div matRipple class="buttonTemplate" (click)="onDeleteUserClick.emit(collaborator?.id)">
-                    <i class="fa-solid fa-trash"></i>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          }
-        }
-      </tbody>
-    </table>
-  </div>
-  <mat-paginator
-    [length]="pageControl.itemCount"
-    [pageSize]="pageControl.take"
-    [showFirstLastButtons]="true"
-    [pageSizeOptions]="[10, 25, 50, 100]"
-    [hidePageSize]="false"
-    [pageIndex]="pageControl.page - 1"
-    aria-label="Select page"
-  >
-  </mat-paginator>
-
-</div> -->
-
 <div class="table-container">
+
   <div class="overflow-auto">
-    <table class="table table-responsive">
+    <table class="table table-responsive" style="background-color: #FFF;" >
+      <div *ngIf="loading">
+        <div id="mat-loading">
+          <mat-spinner></mat-spinner>
+        </div>
+      </div>
       <thead>
         <!-- Cabeçalho das colunas -->
         <tr>
-          <th>
-            <div class="text-start" style="color: #a2a1a8;">Login</div>
-          </th>
-          <th>
-            <div class="text-start" style="color: #a2a1a8;">Name</div>
-          </th>
-          <th>
-            <div class="text-center" style="color: #a2a1a8;">Profile</div>
-          </th>
-          <th>
-            <div class="text-center" style="color: #a2a1a8;">Status</div>
+          <th *ngFor="let col of columns; trackBy: trackByColumn">
+            <div class="{{ col.align }}" style="color: #B5B7C0;">
+              {{ col.title }}
+            </div>
           </th>
         </tr>
       </thead>
       <tbody>
-        <!-- Exibe carregando -->
-        <tr *ngIf="loading">
-          <td [attr.colspan]="4">
-            <div id="mat-loading">
-              <mat-spinner></mat-spinner>
-            </div>
-          </td>
-        </tr>
-
-        <!-- Mensagem de nenhum resultado -->
+        <!-- Exibe spinner se estiver carregando -->
+        <!-- Exibe mensagem se não houver useres -->
         <tr *ngIf="!loading && users.length === 0">
-          <td [attr.colspan]="4" class="text-center">
+          <td [attr.colspan]="columns.length" class="text-center">
             Nenhum resultado encontrado
           </td>
         </tr>
 
-        <!-- Exibição dos usuários -->
-        <tr *ngFor="let user of users; trackBy: trackByUser">
+        <!-- Renderiza os useres -->
+        <tr
+          *ngFor="let user of users; trackBy: trackByColumn"
+          class="table-line-hover"
+        >        
           <td>
-            <div class="text-start">{{ user.login }}</div>
+            <div class="text-start">{{ user.email }}</div>
           </td>
           <td>
             <div class="text-start">{{ user.name }}</div>
           </td>
           <td>
-            <div class="text-center">{{ user.profile }}</div>
+            <div class="text-start">{{ user.profile }}</div>
           </td>
           <td>
-            <div class="text-center">
-              <span [ngStyle]="{ color: user.active ? 'green' : 'red' }">
-                {{ user.active ? 'Ativo' : 'Inativo' }}
-              </span>
+            <div class="text-start">
+              <!-- Bolinha verde ou vermelha -->
+              <span
+                class="status-dot"
+                [ngStyle]="{ backgroundColor: user?.is_active ? '#236F19' : '#C53232' }"
+              ></span>
             </div>
           </td>
         </tr>
+        <!-- <tr *ngIf="loading">
+          <td [attr.colspan]="columns.length">
+
+          </td>
+        </tr> -->
       </tbody>
     </table>
   </div>
   <!-- Paginação -->
   <mat-paginator
-  [length]="pageControl.itemCount"
-  [pageSize]="pageControl.take"
-  [showFirstLastButtons]="true"
-  [pageSizeOptions]="[10, 25, 50, 100]"
-  aria-label="Select page"
-  >
+    [length]="pageControl.itemCount"
+    [pageSize]="pageControl.take"
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    aria-label="Select page">
   </mat-paginator>
-
 </div>
 
+<style>
 
+  .status-dot {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+  }
+  .table-container table td {
+  font-size: 14px;
+}
+
+</style>

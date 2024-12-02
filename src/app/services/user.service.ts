@@ -23,22 +23,16 @@ export class UserService {
     pageControl: PageControl,
     filters: any
   ): Observable<{ data: User[]; current_page: number; total: number; last_page: number }> {
-    return this._http.get('/api/users', { params: { ...filters, ...pageControl } }).pipe(
+    return this._http.get(`${environment.api}/user/search`, { params: { ...filters, ...pageControl } }).pipe(
       map((response: any) => ({
         ...response,
         data: response.data.map((user: any) => ({
-          id: user.id,
-          login: user.login,
-          name: user.name,
-          profile: user.profile,
-          active: user.active, // Mapeia o campo active do backend
+          ...user
         })),
       }))
     );
   }
   
-  
-
   public getCards(): Observable<ApiResponse<UserCards>> {
     return this._http.get<ApiResponse<UserCards>>(`${environment.api}/${this.sessionEndpoint}/cards`);
   }

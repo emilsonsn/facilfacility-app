@@ -29,8 +29,7 @@ export class HeaderComponent implements OnInit {
     private readonly _authService: AuthService,
     private readonly _sessionService : SessionService,
     private readonly _sessionQuery : SessionQuery
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.updateActiveLabel();
@@ -39,7 +38,6 @@ export class HeaderComponent implements OnInit {
     });
 
     this._sessionService.getUserFromBack().subscribe();
-
   }
 
   private updateActiveLabel() {
@@ -49,7 +47,6 @@ export class HeaderComponent implements OnInit {
   }
 
   protected readonly console = console;
-
 
   toggleDropdown(event: Event) {
     event.stopPropagation();
@@ -64,7 +61,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  // Utils
   @Input() user!: User;
 
   public get isMobile() {
@@ -74,7 +70,6 @@ export class HeaderComponent implements OnInit {
   public get isSidebarOpen() {
     return this._sidebarService.showSidebar();
   }
-
 
   logout() {
     this._authService.logout();

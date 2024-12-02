@@ -7,7 +7,7 @@ import { Observable, of } from "rxjs";
 import { applyTransaction, resetStores } from "@datorama/akita";
 import { AuthService } from "@services/auth.service";
 import { LocalStorageService } from "@services/local-storage.service";
-import { User } from "@models/user";
+import { Profile, User } from "@models/user";
 import { UserService } from "@services/user.service";
 import { SessionQuery } from "./session.query";
 import { firstValueFrom } from 'rxjs';
@@ -103,15 +103,11 @@ export class SessionService {
   public getUserFromBack(): Observable<User> {
     const mockUser: User = {
       id: 1,
-      login: 'mockuser',
       name: 'Mock User',
-      profile: 'Client',
-      active: true,
+      profile: Profile.Client,
+      is_active: true,
       email: 'mockuser@example.com', // Agora está no modelo
       photo: 'https://example.com/photo.png', // Opcional
-      company_position: {
-        position: 'Admin',
-      }, // Opcional
     };
     
     

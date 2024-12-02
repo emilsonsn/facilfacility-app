@@ -25,12 +25,16 @@
   
   
   .add-button {
-    background: none;
+    background: #f98125;
     border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
     padding: 0;
     margin: 0;
-    width: 71px;
-    height: 71px;
+    width: 80px;
+    height: 55px;
+    border-radius: 25px;
     display: flex;
     align-items: center;
     justify-content: center;

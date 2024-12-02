@@ -91,22 +91,6 @@ export class LayoutPrivateComponent {
     document.getElementById('template').addEventListener('click', () => {
       this._sidebarService.retractSidebar();
     });
-
-    this._sessionQuery.user$.subscribe(user => {
-      if(user) {
-        this.user = user;
-
-        if(user?.company_position.position == 'Requester')
-          this.permitedMenuItem = this.menuItem.filter(item =>
-            item.label == 'Pedidos' ||
-            item.label == 'Solicitações' || 
-            item.label == 'Fornecedores'
-          );
-        else
-          this.permitedMenuItem = this.menuItem;
-      }
-    })
-
   }
 
 

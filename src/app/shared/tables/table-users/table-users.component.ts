@@ -1,57 +1,32 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { Order, PageControl } from '@models/application';
-import { User } from '@models/user';
-import { UserService } from '@services/user.service';
+import { Client } from '@models/client'; // Modelo do cliente
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
+import { UserService } from '@services/user.service';
+import { User } from '@models/user';
 
 @Component({
-  selector: 'app-table-users',
+  selector: 'app-user-table',
   templateUrl: './table-users.component.html',
   styleUrls: ['./table-users.component.scss'],
 })
 export class TableUserComponent {
-  @Input()
-  searchTerm?: string = '';
+  @Input() searchTerm: string = ''; // Filtro de busca
+  @Input() loading: boolean = false; // Define se a tabela está carregando
+  @Input() filters: any; // Filtros recebidos como entrada
+  @Input() users: User[] = [];
 
-  @Input()
-  loading: boolean = false;
+  @Output() onClientClick = new EventEmitter<Client>(); // Evento para clique em cliente
+  @Output() onDeleteClientClick = new EventEmitter<number>(); // Evento para exclusão de cliente
 
-  @Input()
-  filters: any;
-
-  @Output()
-  onUserClick: EventEmitter<User> = new EventEmitter<User>();
-
-  @Output()
-  onDeleteUserClick: EventEmitter<number> = new EventEmitter<number>();
-
-  public users: User[] = [];
 
   public columns = [
-    {
-      slug: 'login',
-      title: 'Login',
-      align: 'start',
-    },
-    {
-      slug: 'name',
-      title: 'Name',
-      align: 'start',
-    },
-    {
-      slug: 'profile',
-      title: 'Profile',
-      align: 'justify-content-center',
-    },
-    {
-      slug: 'active',
-      title: 'Status',
-      align: 'justify-content-center',
-    },
+    { slug: 'email', title: 'Email', align: 'text-start', order: true },
+    { slug: 'name', title: 'Name', align: 'text-start', order: true },
+    { slug: 'profile', title: 'Profile', align: 'text-center', order: false },
+    { slug: 'active', title: 'Status', align: 'text-center', order: false },
   ];
-  
-  
 
   public pageControl: PageControl = {
     take: 10,
@@ -86,7 +61,7 @@ export class TableUserComponent {
     this.loading = !this.loading;
   }
 
-  private _onSearch() {
+  private _onSearch(): void {
     this.pageControl.search_term = this.searchTerm || '';
     this.pageControl.page = 1;
     this.search();
@@ -98,38 +73,41 @@ export class TableUserComponent {
     this._userService
       .getUsers(this.pageControl, this.filters)
       .pipe(finalize(() => this._initOrStopLoading()))
-      .subscribe((res) => {
-        this.users = res.data;
-
-        this.pageControl.page = res.current_page - 1;
-        this.pageControl.itemCount = res.total;
-        this.pageControl.pageCount = res.last_page;
+      .subscribe({
+        next: (res) => {
+          this.users = res.data;
+          console.log(this.users);
+          this.pageControl.page = res.current_page;
+          this.pageControl.itemCount = res.total;
+          this.pageControl.pageCount = res.last_page;
+        },
+        error: (err) => {
+          this._toastr.error(
+            err?.error?.message || 'Ocorreu um erro ao buscar os dados'
+          );
+        },
       });
   }
 
-  onClickOrderBy(slug: string, order: boolean) {
-    if (!order) {
-      return;
-    }
-
-    if (this.pageControl.orderField === slug) {
-      this.pageControl.order =
-        this.pageControl.order === Order.ASC ? Order.DESC : Order.ASC;
-    } else {
-      this.pageControl.order = Order.ASC;
-      this.pageControl.orderField = slug;
-    }
-    this.pageControl.page = 1;
-    this.search();
-  }
-
-  pageEvent($event: any) {
+  pageEvent($event: any): void {
     this.pageControl.page = $event.pageIndex + 1;
     this.pageControl.take = $event.pageSize;
     this.search();
   }
 
-  trackByUser(index: number, user: User): number {
-    return user.id;
+  onClientRowClick(client: Client): void {
+    this.onClientClick.emit(client); // Emite o cliente selecionado
+  }
+
+  onDeleteRowClick(clientId: number): void {
+    this.onDeleteClientClick.emit(clientId); // Emite o ID do cliente para exclusão
+  }
+
+  trackByColumn(index: number, column: any): string {
+    return column.slug;
+  }
+
+  trackByClient(index: number, client: Client): number {
+    return client.id;
   }
 }
