@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatSelectModule } from '@angular/material/select';
 
 // Registra o idioma local (pt-BR)
 registerLocaleData(localePt, 'pt-BR');
@@ -43,8 +44,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent, // Apenas o componente principal
+    AppComponent, 
   ],
+  
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -52,6 +54,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatMomentDateModule,
     HttpClientModule,
     CurrencyMaskModule,
+    MatSelectModule,
     MatIconModule,
     MatInputModule,
     FormsModule,
