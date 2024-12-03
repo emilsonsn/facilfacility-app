@@ -1,0 +1,103 @@
+
+.form-actions{
+    margin: 0 7px;
+    margin-bottom: 20px;
+
+    .buttons{
+        button{
+            margin-right: 20px;
+            padding: 10px;
+            font-weight: 600;
+            border-radius: 15px;
+            min-width: 60px;
+
+            &.add{
+                background: #f98125;
+                color: white;
+                border: none;
+            }
+
+            &.template{
+                color: #93add6;
+                border: 2px solid #93add6;
+
+            }
+        }
+    }
+    .input-container{
+        position: relative;
+        input{
+            padding:  10px 20px;
+        }
+        .find{
+            position: absolute !important;
+            right: 10px;            
+            cursor: pointer;
+            top: 12px;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+.cards{
+    max-height: 600px;
+    overflow-y: auto;
+    
+    
+    &::-webkit-scrollbar {
+        display: none; /* Oculta a barra de rolagem */
+    }
+    .card{
+        
+        border: none;
+        border-bottom: 1px solid rgb(228, 228, 228);
+        border-radius: 5px 5px 0 0;
+        img{
+            width: 200px;
+            height: 100px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 4px 3px rgba(0, 0, 0, 0.06);
+            border-radius: 5px;
+        }
+    
+        .name{
+            color: #274678;
+            font-weight: 500;
+            cursor: pointer;
+        }
+    
+        .copyButton{
+            font-size: 1rem;
+            background-color: #5b84c4;
+            border-radius: 100%;
+            padding: 6px 10px;
+            cursor: pointer;
+            color: white;
+        }
+    
+        .InProgress{
+
+            .select-container{
+                padding: 0 10px;
+                background: #c4e5ff;
+                color: #274678;
+                border-radius: 10px;
+
+                select{
+                    outline: none;
+                    background: #c4e5ff;
+                    color: #274678;
+                    padding: 5px;
+                    border-radius: 10px;
+                    border: none;
+                    option{
+                        span.point{ 
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

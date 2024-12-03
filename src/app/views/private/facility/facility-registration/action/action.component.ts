@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-action',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActionComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _toastr: ToastrService
+  ) { }
 
   actions = [
     {
@@ -43,6 +46,10 @@ export class ActionComponent implements OnInit {
   ];
 
   ngOnInit() {
+  }
+
+  copy(){
+    this._toastr.success('Copiado com sucesso');
   }
 
 }

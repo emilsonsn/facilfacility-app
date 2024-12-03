@@ -24,25 +24,30 @@
             }
         }
     }
-
     .input-container{
         position: relative;
+        input{
+            padding:  10px 20px;
+        }
         .find{
             position: absolute !important;
-            right: 5px;
+            right: 10px;            
             cursor: pointer;
-            top: 10px;
+            top: 12px;
             font-size: 1.1rem;
         }
     }
 }
 
 .cards{
-    max-height: 700px;
+    max-height: 600px;
     overflow-y: auto;
-
+    
+    
+    &::-webkit-scrollbar {
+        display: none; /* Oculta a barra de rolagem */
+    }
     .card{
-        cursor: pointer;
         
         border: none;
         border-bottom: 1px solid rgb(228, 228, 228);
@@ -58,6 +63,7 @@
         .name{
             color: #274678;
             font-weight: 500;
+            cursor: pointer;
         }
     
         .copyButton{
@@ -65,6 +71,7 @@
             background-color: #5b84c4;
             border-radius: 100%;
             padding: 6px 10px;
+            cursor: pointer;
             color: white;
         }
     
@@ -77,6 +84,7 @@
                 border-radius: 10px;
 
                 select{
+                    outline: none;
                     background: #c4e5ff;
                     color: #274678;
                     padding: 5px;
