@@ -1,0 +1,107 @@
+
+.layout-container {
+    row-gap: 0; /* Espaçamento vertical */
+  }
+  
+  .card img {
+    border-radius: 8px;
+  }
+
+.custom-tabs {
+    border-bottom: 0.5px solid #3D3D3D; 
+    background-color: transparent; 
+  }
+  
+  .custom-tab {
+    color: #8E8E93; 
+    font-size: 20px;
+    background-color: transparent; 
+    border: transparent;
+    border-radius: 4px; 
+    margin-right: 5px; 
+    padding: 10px 15px; 
+  }
+  
+  .custom-tab.active {
+    background-color: transparent; 
+    border: transparent;
+    color: #FF9500;
+  }
+  
+  .custom-tab:hover {
+    border: transparent;
+    color: rgb(56, 56, 56);
+  }
+  
+  .custom-tabs .nav-item {
+    margin-bottom: -2px; /* Alinha as abas corretamente */
+  }
+
+  .photo-gallery {
+    display: grid;
+    gap: 1rem; /* Espaçamento entre os elementos */
+  }
+  
+  .photo-preview {
+    border: 1px solid #ddd;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  
+  .photo-preview:hover {
+    transform: scale(1.05);
+    border-color: #ff9500;
+  }
+  
+  .main-photo img,
+  .photo-preview img {
+    border-radius: 4px;
+  }
+  
+  .photo-preview {
+    cursor: pointer;
+  }
+  
+  .small-photos img,
+.extra-photos img {
+  max-width: 80px; /* Largura máxima para as fotos menores */
+  max-height: 80px; /* Altura máxima para as fotos menores */
+  object-fit: cover; /* Ajusta o conteúdo dentro do espaço */
+  border-radius: 4px; /* Bordas arredondadas */
+  border: 1px solid #ddd; /* Borda para destacar */
+  transition: transform 0.2s ease; /* Animação no hover */
+}
+
+.small-photos img:hover,
+.extra-photos img:hover {
+  transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
+}
+
+  
+  /* Estilo Responsivo */
+  @media (max-width: 800px) {
+    .photo-gallery {
+      display: block; /* Uma coluna */
+    }
+  
+    .small-photos,
+    .extra-photos {
+      display: none; /* Esconde fotos menores */
+    }
+  
+    .main-photo img {
+      width: 100%; /* Apenas uma foto maior */
+    }
+  }
+  
+  
+  
+  @media (max-width: 800px) {
+    .layout-container {
+      flex-direction: column;
+    }
+    .card {
+      margin-bottom: 20px;
+    }
+
+  }
+  

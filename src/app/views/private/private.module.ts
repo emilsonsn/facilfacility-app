@@ -7,6 +7,9 @@ import { FacilityRegistrationComponent } from './facility/facility-registration/
 import { FacilityComponent } from './facility/facility/facility.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { RegistrationComponent } from './facility/facility-registration/registration/registration.component';
+import { ComponentComponent } from './facility/facility-registration/component/component.component';
+import { ActionComponent } from './facility/facility-registration/action/action.component';
 
 
 
@@ -14,6 +17,9 @@ import { MatInputModule } from '@angular/material/input';
     declarations: [
       FacilityComponent,
       FacilityRegistrationComponent,
+      RegistrationComponent,      
+      ComponentComponent,
+      ActionComponent
   ],
 
   imports: [
