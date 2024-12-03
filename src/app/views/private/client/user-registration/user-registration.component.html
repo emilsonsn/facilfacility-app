@@ -1,7 +1,7 @@
 <div class="row align-items-start layout-container">
   <!-- Coluna Esquerda (Upload de Foto) -->
-  <div class="col-md-2 col-12 text-center mb-4 mb-md-0">
-    <div class="card mx-auto" style="width: 100%; max-width: 200px; position: relative;">
+  <div class="col-md-4 col-12 text-center mb-4 mb-md-0">
+    <div class="card mx-auto" style="width: 100%; max-width: 300px; position: relative;">
       <div
         class="card-body d-flex align-items-center justify-content-center"
         style="height: 200px; background-color: #f8f9fa; border-radius: 10px; overflow: hidden;"
@@ -35,113 +35,107 @@
     </div>
   </div>
 
-  <form [formGroup]="form">
-      <div class="col-md-12 col-12">
-        <div class="row">
-          <!-- Username e Password -->
-          <div class="col-md-6">
-            <mat-form-field appearance="outline" class="w-100 mb-3">
-              <mat-label>Username</mat-label>
-              <input matInput type="text" formControlName="name" />
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field appearance="outline" class="w-100 mb-3">
-              <mat-label>Password</mat-label>
-              <input matInput type="password" formControlName="password" />
-            </mat-form-field>
-          </div>
-    
-          <!-- Profile e Phone -->
-          <div class="col-md-6">
-            <mat-form-field appearance="outline" class="w-100 mb-3">
-              <mat-label>Profile</mat-label>
-              <mat-select formControlName="profile">
-                <mat-option *ngFor="let profile of profiles" [value]="profile.value">
-                  {{ profile.label }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field appearance="outline" class="w-100 mb-3">
-              <mat-label>Phone</mat-label>
-              <input matInput type="text" formControlName="phone" />
-            </mat-form-field>
-          </div>
-    
-          <!-- Email -->
-          <div class="col-md-12 col-12 offset-md-0">
-            <mat-form-field appearance="outline" class="w-100 mb-3">
-              <mat-label>Email</mat-label>
-              <input matInput type="email" formControlName="email" />
-            </mat-form-field>
-          </div>
-    
-          <!-- Client Address -->
-          <div class="col-md-12 col-12 offset-md-0">
-            <mat-form-field appearance="outline" class="w-100 mb-3">
-              <mat-label>Client Address</mat-label>
-              <input matInput type="text" formControlName="clientAddress" />
-            </mat-form-field>
-          </div>
-    
-          <!-- City e Region -->
-          <div class="col-md-6">
-            <mat-form-field appearance="outline" class="w-100 mb-3">
-              <mat-label>City</mat-label>
-              <input matInput type="text" formControlName="city" />
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field appearance="outline" class="w-100 mb-3">
-              <mat-label>Region</mat-label>
-              <input matInput type="text" formControlName="region" />
-            </mat-form-field>
-          </div>
-    
-          <!-- Country e Zip Code -->
-          <div class="col-md-12 col-12 offset-md-0">
-            <div class="row">
-              <div class="col-md-6">
-                <mat-form-field appearance="outline" class="w-100 mb-3">
-                  <mat-label>Country</mat-label>
-                  <input matInput type="text" formControlName="country" />
-                </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                <mat-form-field appearance="outline" class="w-100 mb-3">
-                  <mat-label>Zip Code</mat-label>
-                  <input matInput type="text" formControlName="zipCode" />
-                </mat-form-field>
-              </div>
-            </div>
-    
-              <div class="row">
-                <div class="col-md-6" >
-                  <mat-form-field appearance="outline" class="w-100 mb-3">
-                    <mat-label>Active</mat-label>
-                    <mat-select formControlName="profile">
-                      <mat-option *ngFor="let active of actives" [value]="active.value">
-                        {{ active.label }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-          </div>
+  <!-- Formulário -->
+  <div class="col-md-8 col-12">
+    <form [formGroup]="form">
+      <div class="row">
+        <!-- Username e Password -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="name" />
+          </mat-form-field>
         </div>
-    
-        <div class="d-flex align-items-center justify-content-between p-3 mb-4 custom-bar">
-          <!-- Label do lado esquerdo -->
-          <h4 class="m-0 fw-medium">Users facility</h4>
-        
-          <!-- Botão do lado direito -->
-          <button class="btn btn-primary d-flex align-items-center">
-            Add Facility
-            <i class="ms-2 fa fa-plus"></i>
-          </button>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" />
+          </mat-form-field>
+        </div>
+
+        <!-- Profile e Phone -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Profile</mat-label>
+            <mat-select formControlName="profile">
+              <mat-option *ngFor="let profile of profiles" [value]="profile.value">
+                {{ profile.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Phone</mat-label>
+            <input matInput type="text" formControlName="phone" />
+          </mat-form-field>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" />
+          </mat-form-field>
+        </div>
+
+        <!-- Client Address -->
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Client Address</mat-label>
+            <input matInput type="text" formControlName="clientAddress" />
+          </mat-form-field>
+        </div>
+
+        <!-- City e Region -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>City</mat-label>
+            <input matInput type="text" formControlName="city" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Region</mat-label>
+            <input matInput type="text" formControlName="region" />
+          </mat-form-field>
+        </div>
+
+        <!-- Country e Zip Code -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Country</mat-label>
+            <input matInput type="text" formControlName="country" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Zip Code</mat-label>
+            <input matInput type="text" formControlName="zipCode" />
+          </mat-form-field>
+        </div>
+
+        <!-- Active -->
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Active</mat-label>
+            <mat-select formControlName="active">
+              <mat-option *ngFor="let active of actives" [value]="active.value">
+                {{ active.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
-  </form>
+
+      <!-- Botão Adicionar Facility -->
+      <div class="d-flex align-items-center justify-content-between p-3 mb-4 custom-bar">
+        <h4 class="m-0 fw-medium">Users Facility</h4>
+        <button class="btn btn-primary d-flex align-items-center">
+          Add Facility
+          <i class="ms-2 fa fa-plus"></i>
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
