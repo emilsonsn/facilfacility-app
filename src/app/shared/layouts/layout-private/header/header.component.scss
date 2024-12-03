@@ -33,6 +33,14 @@ header {
       width: 2rem;
       height: 2rem;
       border-radius: 50px;
+      background-color: white;
+      color: #193A6F;
+      cursor: pointer;
+
+
+      &:hover {
+        background-color: #C5E5FF;
+      }
 
       i {
         font-size: 1.2rem;
