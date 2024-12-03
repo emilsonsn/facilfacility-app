@@ -21,7 +21,7 @@ export class LayoutPrivateComponent {
     {
       label: 'Facilities',
       icon: 'icon-facility-menu-item', 
-      route: '/painel/dashboard',
+      route: '/painel/facility',
     },
     {
       label: 'Facilities',

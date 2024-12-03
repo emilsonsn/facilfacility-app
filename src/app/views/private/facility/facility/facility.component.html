@@ -1,1 +1,68 @@
-<p>facility works!</p>
+<div class="col-md-12" style="width: 98%; margin: 0 auto;">
+
+    <div class="input-container">
+        <input type="text" class="form-control" placeholder="Search facility">
+        <div class="find">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+
+    <div class="form-actions mt-3 d-flex justify-content-between">
+
+      <div class="buttons">
+        <button class="add" (click)="goTo()">
+            New Facility        
+        </button>
+        <button class="template">
+          Archived
+        </button>
+      </div>      
+    </div>
+  
+    <div class="cards">
+      <div *ngFor="let facility of facilitys">
+        <div class="card">
+          <div class="row g-0">
+            <div class="col-md-2 p-3">
+              <img src="https://5287aa00874a313e299d-1850966fc307ff23e1e789aeafd2476b.ssl.cf5.rackcdn.com/PostImagem/42240/foto-branca-download-wallpapers-e-onde-usar_o1fcm9aiph1mte1km1f11cs53mng.png" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-10">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                      <h1 class="name">{{ facility?.name }} <span class="c-grey ms-2">9857326</span></h1>
+                      <div class="d-flex">
+                          <span class="card-title">Facility used</span>
+                          <span class="c-grey ms-3">1996</span>
+                    </div>
+                    <p class="card-text">
+                      <small class="text-muted">60kW</small>
+                      <small class="text-muted ms-3"></small>                      
+                    </p>
+                  </div>
+  
+                  <div class="d-flex flex-column align-items-end justify-content-between">
+                    <div class="InProgress">
+                      <div class="select-container">
+                        <i class="fa-solid fa-circle"></i>
+                        <select name="" id="" class="">
+                          <option value="">
+                            In progress
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div matRipple class="copyButton" (click)="copy()">
+                      <i class="fa-solid fa-copy"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  
+  </div>
