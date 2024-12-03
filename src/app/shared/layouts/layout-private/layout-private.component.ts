@@ -22,13 +22,11 @@ export class LayoutPrivateComponent {
       label: 'Facilities',
       icon: 'icon-facility-menu-item', 
       route: '/painel/dashboard',
-      active: true,
     },
     {
-      label: 'Home',
+      label: 'Facilities',
       icon: 'fa-solid fa-house',
       route: '/painel/home',
-      active: true
     },
     {
       label: 'Pedidos',
