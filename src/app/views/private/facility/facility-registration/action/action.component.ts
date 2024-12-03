@@ -9,6 +9,39 @@ export class ActionComponent implements OnInit {
 
   constructor() { }
 
+  actions = [
+    {
+      component: "Teste",
+      name: "Action name",
+      status: "InProgess"
+    },
+    {
+      component: "Teste",
+      name: "Action name",
+      status: "InProgess"
+    },
+    {
+      component: "Teste",
+      name: "Action name",
+      status: "InProgess"
+    },
+    {
+      component: "Teste",
+      name: "Action name",
+      status: "InProgess"
+    },
+    {
+      component: "Teste",
+      name: "Action name",
+      status: "InProgess"
+    },
+    {
+      component: "Teste",
+      name: "Action name",
+      status: "InProgess"
+    },
+  ];
+
   ngOnInit() {
   }
 

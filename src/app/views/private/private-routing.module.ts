@@ -4,6 +4,7 @@ import { LayoutPrivateComponent } from "@shared/layouts/layout-private/layout-pr
 import { FacilityComponent } from "./facility/facility/facility.component"
 import * as facilityRegistrationComponent from './facility/facility-registration/facility-registration.component';
 import { SessionService } from '../../store/session.service';
+import { ActionComponent } from './facility/facility-registration/action/action.component';
 
 const routes: Routes = [
   {
