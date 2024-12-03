@@ -1,0 +1,149 @@
+<div class="row align-items-start layout-container">
+  <!-- Coluna Esquerda (Upload de Foto) -->
+  <div class="col-md-3 col-12 text-center mb-4 mb-md-0">
+    <div class="card mx-auto" style="width: 100%; max-width: 300px; position: relative;">
+      <div
+        class="card-body d-flex align-items-center justify-content-center"
+        style="height: 200px; background-color: #f8f9fa; border-radius: 10px; overflow: hidden;"
+      >
+        <img
+          *ngIf="imagePreview"
+          [src]="imagePreview"
+          alt="Preview"
+          class="img-fluid"
+          style="max-height: 70%; max-width: 70%; object-fit: cover;"
+        />
+        <div *ngIf="!imagePreview" class="text-muted d-flex flex-column align-items-center">
+          <i class="fa-solid fa-image" style="font-size: 2rem;"></i>
+          <span>Select a image</span>
+        </div>
+      </div>
+      <button
+        class="btn btn-primary"
+        style="position: absolute; bottom: 10px; right: 10px; border-radius: 50%; width: 50px; height: 50px;"
+        (click)="fileInput.click()"
+      >
+        <i class="fa-solid fa-download"></i>
+      </button>
+      <input
+        type="file"
+        accept="image/*"
+        style="display: none;"
+        (change)="onFileSelected($event)"
+        #fileInput
+      />
+    </div>
+  </div>
+
+  <!-- Formulário -->
+  <div class="col-md-9 col-12">
+    <form [formGroup]="form">
+      <div class="row">
+        
+       
+        <div class="col-md-12 col-12 offset-md-0">
+          <!-- Facility Owner -->
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Component</mat-label>
+            <mat-select formControlName="facilityOwner">
+              <mat-option
+                *ngFor="let component of components"
+                [value]="component.id"
+              >
+                {{ component.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12 col-12 offset-md-0">
+
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Action name</mat-label>
+            <input matInput type="text" formControlName="actionName" required />
+          </mat-form-field>
+        </div>
+
+
+
+        <div class="col-md-12 col-12 offset-md-0">
+      </div>
+        
+
+        <!-- Profile e Phone -->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Action type</mat-label>
+            <mat-select formControlName="profile">
+              <mat-option *ngFor="let action of actions" [value]="action.value">
+                {{ action.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Action date</mat-label>
+            <input matInput type="text" formControlName="actionDate" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Action category</mat-label>
+            <mat-select formControlName="profile">
+              <mat-option *ngFor="let category of categories" [value]="category.value">
+                {{ category.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12 col-12 offset-md-0">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100 mb-3">
+                <mat-label>Action condition</mat-label>
+                <input matInput type="text" formControlName="actionCondiction" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100 mb-3">
+                <mat-label>Action priority</mat-label>
+                <input matInput type="text" formControlName="actionPriority" />
+              </mat-form-field>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Frequency</mat-label>
+          <input matInput type="text" formControlName="actionDate" />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Action coast</mat-label>
+          <input matInput type="text" formControlName="actionDate" />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Curracy</mat-label>
+          <input matInput type="text" formControlName="actionDate" />
+        </mat-form-field>
+      </div>
+
+
+      <div class="col-md-12 col-12 offset-md-0">
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Description</mat-label>
+          <textarea matInput placeholder="Enter description" rows="3" formControlName="description"></textarea>
+        </mat-form-field>
+      </div>      
+        
+        
+
+  </div>
+</form>
+</div>

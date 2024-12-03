@@ -1,0 +1,17 @@
+@media (max-width: 800px) {
+    .layout-container {
+      flex-direction: column !important;
+    }
+  
+    .col-md-3,
+    .col-md-9 {
+      width: 100% !important;
+      text-align: center;
+    }
+  
+    .col-md-4,
+    .col-md-8 {
+      width: 100% !important;
+    }
+  }
+  

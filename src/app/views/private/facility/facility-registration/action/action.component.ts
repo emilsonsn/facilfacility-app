@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-action',
