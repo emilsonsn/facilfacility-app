@@ -1,7 +1,9 @@
 
 .layout-container {
-    row-gap: 0; /* Espaçamento vertical */
-
+  display: flex;
+  flex-wrap: nowrap;
+    row-gap: 1.5rem; /* Espaçamento vertical */
+    column-gap: 3rem;
   }
   
   .card img {
@@ -96,12 +98,16 @@
   
   
   
-  @media (max-width: 800px) {
+  @media (max-width: 1000px) {
     .layout-container {
       flex-direction: column;
+      row-gap: 2rem;
     }
     .card {
       margin-bottom: 20px;
+    }
+    col-md-9{
+      padding-left: 0;
     }
 
   }

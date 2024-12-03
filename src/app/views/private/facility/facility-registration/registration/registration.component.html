@@ -1,21 +1,21 @@
 <div class="container mt-12">
-    <div class="tab-content mt-4" id="facilityTabsContent">
+    <div class="tab-content mt-3" id="facilityTabsContent">
         <!-- Aba Facility -->
         <div class="tab-pane fade show active" id="facility" role="tabpanel" aria-labelledby="facility-tab">
             <div class="row align-items-start layout-container">
                 <!-- Coluna da Foto -->
                 <div class="col-md-3 col-12 mb-4 mb-md-0 photo-gallery">
-                    <!-- Foto Principal -->
-                    <div class="main-photo">
-                        <div class="card-body d-flex align-items-center justify-content-center"
-                            style="height: 200px; background-color: #f8f9fa; border-radius: 10px; overflow: hidden;">
-                            <img *ngIf="imagePreview" [src]="imagePreview" alt="Preview" class="img-fluid"
-                                style="max-height: 100%; max-width: 100%; object-fit: cover;" />
-                            <div *ngIf="!imagePreview" class="text-muted d-flex flex-column align-items-center">
-                                <i class="fa-solid fa-image" style="font-size: 2rem;"></i>
-                                <span>Select an image</span>
-                            </div>
-                        </div>
+                  <!-- Foto Principal -->
+                  <div class="main-photo">
+                    <div class="card-body d-flex align-items-center justify-content-center"
+                      style="height: 200px; background-color: #f8f9fa; border-radius: 10px; overflow: hidden;">
+                      <img *ngIf="imagePreview" [src]="imagePreview" alt="Preview" class="img-fluid"
+                        style="max-height: 100%; max-width: 100%; object-fit: cover;" />
+                      <div *ngIf="!imagePreview" class="text-muted d-flex flex-column align-items-center">
+                        <i class="fa-solid fa-image" style="font-size: 2rem;"></i>
+                        <span>Select an image</span>
+                      </div>
+                    </div>
                         <button class="btn btn-primary"
                             style="position: relativd; bottom: 10px; right: 10pxpx; border-radius: 50%; width: 50px; height: 50px;"
                             (click)="fileInput.click()">
@@ -65,7 +65,7 @@
                 <div class="col-md-9 col-12">
                     <div class="row">
                         <!-- Facility Name e Facility Owner -->
-                        <form [formGroup]="form" class="row">
+                        <form [formGroup]="form" class="row g-3">
 
                             <div class="col-md-12 col-12 offset-md-0">
                                 <mat-form-field appearance="outline" class="w-100 mb-3">
