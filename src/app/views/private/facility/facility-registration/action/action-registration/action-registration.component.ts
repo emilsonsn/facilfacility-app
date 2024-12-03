@@ -37,22 +37,21 @@ export class ActionRegistrationComponent implements OnInit {
 
   constructor(private fb: FormBuilder) { }
 
-
-      ngOnInit() {
-    this.form = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      address: [''],
-      profile: ['', Validators.required], // Campo para o select
-      password: ['', Validators.required],
-      phone: [''],
-      city: [''],
-      region: [''],
-      country: [''],
-      zipCode: [''],
-      active: [true, Validators.required],
-      clientAddress: [''],
-    });
+    ngOnInit() {
+      this.form = this.fb.group({
+        actionDate: ['', Validators.required],
+        actionName: ['', [Validators.required, Validators.email]],
+        actionCondiction: [''],
+        actionPriority: ['', Validators.required], // Campo para o select
+        profile: ['', Validators.required],
+        description: [''],
+        facilityOwner: [''],
+        region: [''],
+        country: [''],
+        zipCode: [''],
+        active: [true, Validators.required],
+        clientAddress: [''],
+      });
   }
   
 
