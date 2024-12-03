@@ -14,6 +14,7 @@ import { SessionQuery } from '@store/session.query';
   styleUrl: './layout-private.component.scss'
 })
 export class LayoutPrivateComponent {
+  isCollapsed = false;
 
   public permitedMenuItem: IMenuItem[] = [];
 
@@ -101,6 +102,10 @@ export class LayoutPrivateComponent {
     if (this.resizeSubscription) {
       this.resizeSubscription.unsubscribe();
     }
+  }
+
+  onSidebarCollapsedChange(collapsed: boolean): void {
+    this.isCollapsed = collapsed;
   }
 
 }

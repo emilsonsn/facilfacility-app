@@ -2,6 +2,7 @@
 
 // sidebar background
 $sidebar-width: 188px;
+$sidebar-collapsed-width: 78px; // Largura do menu recolhido
 $sidebar-min-width: 62px;
 $sidebar-box-shadow: 0 16px 38px -12px rgba(0, 0, 0, .56), 0 4px 25px 0 rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
 $sidebar-components-box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(244, 140, 54, 0.4);
@@ -20,181 +21,39 @@ $sidebar-icon-color: #FFFFFF;
 $sidebar-icon-active-color: #FFFFFF;
 
 
-// nav {
-// 	transition: all 0.3s;
-//   width: $sidebar-width;
-//   min-width: $sidebar-min-width;
-//   background-color: $sidebar-background;
-//   box-shadow: $sidebar-box-shadow;
-//   border-radius: $sidebar-border-radius;
-
-//   height: 100%;
-//   padding: 0;
-//   position: relative;
-//   display: flex;
-//   flex-direction: column;
-//   gap: .8rem;
-
-//   &.mobile {
-//     position: absolute;
-//     left: -286px;
-//     z-index: 999;
-//   }
-
-//   &.show-sidebar {
-//     left: 0px!important;
-//   }
-
-//   &::before {
-//     content: '';
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     height: 100%;
-//     background-size: cover;
-//     background-repeat: no-repeat;
-//     background-position: center;
-//     opacity: 0.07;
-//     pointer-events: none;
-//   }
-
-//   .logo {
-//     margin-top: 15px;
-//     width: 100%;
-//     height: 59px;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     padding: 0.5rem 0.5rem 0;
-
-//     img {
-//       height: 100%;
-//     }
-
-//     div {
-//       display: flex;
-//       justify-content: center;
-//       align-items: center;
-//       width: 2rem;
-//       height: 2rem;
-//       border-radius: 50px;
-//       position: relative;
-//       top: 0.6rem;
-
-//       i {
-//         font-size: 1.2rem;
-//       }
-//     }
-
-//   }
-
-//   ul.components {
-//     list-style-type: none;
-//     margin: 0;
-//     width: 100%;
-//     display: flex;
-//     flex-direction: column;
-//     gap: 0;
-//     overflow-y: auto;
-//     padding: 0;
-
-//     li {
-//       list-style-type: none;
-//       padding: 1rem;
-//       cursor: pointer;
-//       z-index: 1;
-//       transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-
-//       &:hover {
-//         background: $sidebar-background-hover;
-
-//         a {
-//           color: $sidebar-text-hover-color;
-//         }
-//       }
-
-//       &.active {
-//         position: relative;
-//         background: #C5E5FF;
-
-//         a {
-//           color: $sidebar-text-active-color;
-//           transition: color 0.3s ease;
-//         }
-
-//         &::before {
-//           content: '';
-//           position: absolute;
-//           top: 0;
-//           left: 0;
-//           width: 100%;
-//           height: 100%;
-//           background: rgba(0, 0, 0, 0.2);
-//           z-index: -1;
-//           opacity: 0;
-//           transition: opacity 0.3s ease;
-//         }
-//       }
-
-//       a {
-//         display: flex;
-//         align-items: self-end;
-//         gap: 1rem;
-//         text-decoration: none;
-//         color: $sidebar-text-color;
-//         transition: color 0.3s ease;
-//       }
-
-//     }
-
-//     mat-icon[svgIcon="collapse-menu"] {
-//       fill: #ffffff; /* Cor do ícone */
-//       width: 24px;
-//       height: 24px;
-//     }
-    
-
-//   }
-// }
-
-
 nav {
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   width: $sidebar-width;
-  min-width: $sidebar-min-width;
   background-color: $sidebar-background;
   box-shadow: $sidebar-box-shadow;
-  border-radius: $sidebar-border-radius;
-
   height: 100%;
   padding: 0;
-  position: relative;
+  position: fixed; // Torna o menu fixo ao lado esquerdo
+  top: 0;
+  left: 0;
+  z-index: 1000; // Garante que fique acima do conteúdo principal
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
 
-  &.mobile {
-    position: absolute;
-    left: -286px;
-    z-index: 999;
-  }
-
-  &.show-sidebar {
-    left: 0px !important;
+  &.collapsed {
+    width: $sidebar-collapsed-width; // Define a largura do menu recolhido
   }
 
   .logo {
-    margin-top: 15px;
-    width: 100%;
+    margin: 15px auto;
     height: 59px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 0.5rem 0;
+    padding: 0;
 
     img {
-      height: 100%;
+      height: 40px;
+      transition: all 0.3s ease;
+    }
+
+    &.collapsed img {
+      height: 30px; // Reduz o tamanho da logo no menu recolhido
     }
   }
 
@@ -203,17 +62,17 @@ nav {
     top: 70px;
     right: -22px;
     z-index: 100;
-    color: #1A3B70;
+    color: $sidebar-background;
     font-size: 1.5rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
     background-color: white;
+    box-shadow: $sidebar-box-shadow;
 
     &:hover {
       background-color: darken($sidebar-background-hover, 10%);
@@ -221,6 +80,11 @@ nav {
 
     i {
       font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    &.collapsed {
+      transform: rotate(180deg); // Rotação no menu recolhido
     }
   }
 
@@ -230,7 +94,6 @@ nav {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0;
     overflow-y: auto;
     padding: 0;
 
@@ -239,7 +102,7 @@ nav {
       padding: 1rem;
       cursor: pointer;
       z-index: 1;
-      transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+      transition: background 0.3s ease, color 0.3s ease;
 
       &:hover {
         background: $sidebar-background-hover;
@@ -253,16 +116,35 @@ nav {
         background: $sidebar-background-hover;
 
         a {
-          color: $sidebar-text-active-color;
+          color: $sidebar-text-hover-color;
         }
       }
 
       a {
         display: flex;
-        align-items: self-end;
+        align-items: center;
         gap: 1rem;
         text-decoration: none;
         color: $sidebar-text-color;
+        transition: all 0.3s;
+
+        &.collapsed {
+          justify-content: center;
+          gap: 0; // Remove o espaçamento no estado recolhido
+        }
+      }
+
+      i {
+        font-size: 1.5rem; // Ícones sempre visíveis
+      }
+
+      span {
+        display: block;
+        transition: opacity 0.3s ease;
+
+        &.collapsed {
+          display: none; // Esconde o texto no estado recolhido
+        }
       }
     }
   }

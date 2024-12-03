@@ -1,12 +1,13 @@
-<main>
+<main [ngClass]="{ 'menu-collapsed': isCollapsed }">
   <app-sidebar
-    [menuItem]="permitedMenuItem">
+    [menuItem]="permitedMenuItem"
+    (collapsedChange)="onSidebarCollapsedChange($event)">
   </app-sidebar>
   <section id="template">
     <app-header
       [menuItem]="menuItem"
-      [user]="user"
-    ></app-header>
+      [user]="user">
+    </app-header>
     <div class="content">
       <router-outlet></router-outlet>
     </div>

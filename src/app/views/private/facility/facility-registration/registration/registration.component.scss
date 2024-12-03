@@ -1,6 +1,7 @@
 
 .layout-container {
     row-gap: 0; /* Espaçamento vertical */
+
   }
   
   .card img {
@@ -78,7 +79,7 @@
 
   
   /* Estilo Responsivo */
-  @media (max-width: 800px) {
+  @media (max-width: 1000px) {
     .photo-gallery {
       display: block; /* Uma coluna */
     }

@@ -1,5 +1,31 @@
 @import "variables";
 
+// main {
+//   display: flex;
+//   align-items: stretch;
+//   height: 100dvh;
+//   overflow-y: hidden;
+//   background-color: $gray-300;
+
+//   section {
+//     flex: 1;
+//     height: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     overflow-y: auto;
+//     padding-top: 0;
+//     padding-left: 2rem !important;
+//     padding-right: 2rem !important;
+//     background-color: #F2F2F7;
+
+//     .content {
+//       flex: 1;
+//       padding-top: 1rem;
+//       padding-bottom: 0;
+//     }
+//   }
+// }
+
 main {
   display: flex;
   align-items: stretch;
@@ -7,7 +33,16 @@ main {
   overflow-y: hidden;
   background-color: $gray-300;
 
-  section {
+  // Quando o menu estiver recolhido
+  &.menu-collapsed {
+    section#template {
+      margin-left: 78px; // Ajusta o conteúdo para o lado do menu recolhido
+      width: calc(100% - 78px);
+    }
+  }
+
+  // Quando o menu estiver expandido
+  section#template {
     flex: 1;
     height: 100%;
     display: flex;
@@ -17,6 +52,7 @@ main {
     padding-left: 2rem !important;
     padding-right: 2rem !important;
     background-color: #F2F2F7;
+    margin-left: 188px; // Ajusta o conteúdo para o lado do menu expandido
 
     .content {
       flex: 1;

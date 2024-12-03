@@ -1,11 +1,12 @@
-<nav [ngClass]="{ 'mobile': _sidebarService.mobile(), 'show-sidebar': _sidebarService.showSidebar() }">
-  <!-- Botão do menu hamburguer -->
-  <div class="menu-toggle" *ngIf="_sidebarService.mobile()" (click)="toggleShowSidebar()">
-    <i class="fas fa-angle-left"></i>
+<nav [ngClass]="{ 'mobile': _sidebarService.mobile(), 'show-sidebar': _sidebarService.showSidebar(), 'collapsed': isCollapsed }">
+  <!-- Botão de Toggle -->
+  <!-- <app-sidebar></app-sidebar> -->
+  <div class="menu-toggle" (click)="toggleSidebar()">
+    <i [class]="isCollapsed ? 'fas fa-angle-right' : 'fas fa-angle-left'"></i>
   </div>
 
   <!-- Logo -->
-  <div class="logo">
+  <div class="logo" [ngClass]="{ 'collapsed': isCollapsed }">
     <img src="./assets/images/logo.png" alt="logo">
   </div>
 
@@ -14,14 +15,9 @@
   <!-- Menu -->
   <ul class="components">
     <li *ngFor="let item of menuItem" routerLinkActive="active" [routerLink]="item.route">
-      <a [routerLink]="item.route">
-        <ng-container *ngIf="item.icon.startsWith('fa-'); else svgIcon">
-          <i [class]="item.icon"></i>
-        </ng-container>
-        <ng-template #svgIcon>
-          <mat-icon [svgIcon]="item.icon"></mat-icon>
-        </ng-template>
-        <span>{{ item.label }}</span>
+      <a [routerLink]="item.route" [ngClass]="{ 'collapsed': isCollapsed }">
+        <i [class]="item.icon"></i>
+        <span [ngClass]="{ 'collapsed': isCollapsed }">{{ item.label }}</span>
       </a>
     </li>
   </ul>
