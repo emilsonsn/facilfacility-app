@@ -27,15 +27,15 @@ export class ComponentService {
     return this._http.get<ApiResponsePageable<component>>(`${environment.api}/${this.endpoint}/search`);
   }
 
-  public postAction(component: component): Observable<ApiResponse<component>> {
+  public create(component: component): Observable<ApiResponse<component>> {
     return this._http.post<ApiResponse<component>>(`${environment.api}/${this.endpoint}/${this.endpoint}`, component);
   }
 
-  public patchAction(id: number, component: component): Observable<ApiResponse<component>> {
+  public update(id: number, component: component): Observable<ApiResponse<component>> {
     return this._http.patch<ApiResponse<component>>(`${environment.api}/${this.endpoint}/${id}`, component);
   }
 
-  public deleteAction(id: number): Observable<DeleteApiResponse> {
+  public delete(id: number): Observable<DeleteApiResponse> {
     return this._http.delete<DeleteApiResponse>(`${environment.api}/${this.endpoint}/${id}`);
   }
 

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { FacilityService } from '@services/facility.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -32,27 +35,50 @@ export class RegistrationComponent implements OnInit {
       'assets/photos/extra-photo3.jpg'
     ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,  
+    private _facilityService: FacilityService,
+    private readonly toastrService: ToastrService
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
-      facilityName: [''],
-      facilityOwner: [''],
-      facilityNumber: [''],
-      facilityUsed: [''],
-      unity: [''],
-      lastReportUpdate: [''],
-      region: [''],
-      address: [''],
-      yearIntalled: [''],
-      replacementCoast: [''],
-      description: [''],
+      id: [''],
+      name: [''],
+      user_id: [''],
+      number: [''],
+      used: [''],
       size: [''],
+      unity: [''],
+      report_last_update: [''],
+      consultant_name: [''],
+      address: [''],
       city: [''],
+      region: [''],
       country: [''],
-      zipCode: [''],
+      zip_code: [''],
+      year_installed: [''],
+      replacement_cost: [''],
+      description: [''],
+    });
+
+    this.route.paramMap.subscribe(params => {
+      const id =params.get('id');
+      if(id){
+        this._facilityService.getById(parseInt(id))
+        .subscribe({
+          next: (res) => {
+            this.form.patchValue(res);
+          },
+          error: (error) => {
+            this.toastrService.error(error.error.message)
+          }
+        });
+      }
     });
   }
+
 
   // Função para carregar a foto principal
   onFileSelected(event: Event): void {

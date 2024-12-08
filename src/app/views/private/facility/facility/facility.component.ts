@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FacilityService } from '@services/facility.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -9,53 +10,54 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class FacilityComponent {
-  facilitys = [
-    {
-      component: "Teste",
-      name: "Facility name",
-      status: "InProgess"
-    },
-    {
-      component: "Teste",
-      name: "Facility name",
-      status: "InProgess"
-    },
-    {
-      component: "Teste",
-      name: "Facility name",
-      status: "InProgess"
-    },
-    {
-      component: "Teste",
-      name: "Facility name",
-      status: "InProgess"
-    },
-    {
-      component: "Teste",
-      name: "Facility name",
-      status: "InProgess"
-    },
-    {
-      component: "Teste",
-      name: "Facility name",
-      status: "InProgess"
-    },
-  ];
+  facilitys = [];
 
   constructor(
     private readonly _toastr: ToastrService,
-    private readonly _router: Router
+    private readonly _router: Router,
+    private readonly _facilityService: FacilityService,
   ) {}
 
   ngOnInit() {
+    this.getFacilitys();
   }
 
-  copy(){
-    this._toastr.success('Copiado com sucesso');
+  getFacilitys(){
+    this._facilityService.search()
+    .subscribe({
+      next: (response) => {
+        this.facilitys = response.data;
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      }
+    })
+  }
+
+  copy(facility){
+    facility.id = null;
+    this._facilityService.create({
+      id: null,
+      ...facility
+    })
+    .subscribe({
+      next: (res) => {
+        this.getFacilitys();
+        this._toastr.success('Copiado com sucesso');
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      }
+    })
   }
 
   goTo() {
     this._router.navigate(['/painel/facility/registration']);
+  }
+
+  goToFacility(facility){
+    // alert('f');
+    this._router.navigate([`/painel/facility/registration/${facility.id}`]);
   }
   
 }

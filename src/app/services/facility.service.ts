@@ -16,7 +16,7 @@ export class FacilityService {
     private readonly _http: HttpClient
   ) { }
 
-  public getActions(pageControl?: PageControl, filters?: any): Observable<ApiResponsePageable<facility>> {
+  public search(pageControl?: PageControl, filters?: any): Observable<ApiResponsePageable<facility>> {
     const params: any = { ...pageControl, ...filters };    
     const queryString = new URLSearchParams(params).toString();    
     return this._http.get<ApiResponsePageable<facility>>(`${environment.api}/${this.endpoint}/search${queryString}`);
@@ -24,19 +24,19 @@ export class FacilityService {
 
   public getById(id: number): Observable<ApiResponsePageable<facility>> {
 
-    return this._http.get<ApiResponsePageable<facility>>(`${environment.api}/${this.endpoint}/search`);
+    return this._http.get<ApiResponsePageable<facility>>(`${environment.api}/${this.endpoint}/${id}`);
   }
 
-  public postAction(facility: facility): Observable<ApiResponse<facility>> {
-    return this._http.post<ApiResponse<facility>>(`${environment.api}/${this.endpoint}/${this.endpoint}`, facility);
+  public create(facility: facility): Observable<ApiResponse<facility>> {
+    return this._http.post<ApiResponse<facility>>(`${environment.api}/${this.endpoint}/create`, facility);
   }
 
-  public patchAction(id: number, facility: facility): Observable<ApiResponse<facility>> {
-    return this._http.patch<ApiResponse<facility>>(`${environment.api}/${this.endpoint}/${id}`, facility);
+  public update(id: number, facility: facility): Observable<ApiResponse<facility>> {
+    return this._http.patch<ApiResponse<facility>>(`${environment.api}/${id}`, facility);
   }
 
-  public deleteAction(id: number): Observable<DeleteApiResponse> {
-    return this._http.delete<DeleteApiResponse>(`${environment.api}/${this.endpoint}/${id}`);
+  public delete(id: number): Observable<DeleteApiResponse> {
+    return this._http.delete<DeleteApiResponse>(`${environment.api}/${id}`);
   }
 
 }
