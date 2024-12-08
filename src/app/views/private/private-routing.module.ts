@@ -46,7 +46,7 @@ const routes: Routes = [
             path: 'action',
             component: ActionRegistrationComponent,
             data: { page: 'action-registration' }
-          }
+          },
         ],
         
       },
