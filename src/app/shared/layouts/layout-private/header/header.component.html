@@ -6,8 +6,7 @@
     <div class="dropdown">
       <button class="dropdown-btn" (click)="toggleDropdown($event)">
         <i class="fa-solid fa-user"></i>
-        <!--<span>{{ user?.name }}</span>-->
-        <span>{{user?.name}}</span>
+        <span>{{ user?.name }}</span>        
         @if (show_dropdown) {
           <i class="fa-solid fa-angle-up"></i>
         } @else {
