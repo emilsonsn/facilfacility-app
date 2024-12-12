@@ -40,13 +40,18 @@ const routes: Routes = [
             path: 'registration',
             component: facilityRegistrationComponent.FacilityRegistrationComponent,
             data: { page: 'facility-registration' }
+          },
+          {
+            path: 'registration/:id',
+            component: facilityRegistrationComponent.FacilityRegistrationComponent,
+            data: { page: 'facility-registration' }
           }
           ,
           {
             path: 'action',
             component: ActionRegistrationComponent,
             data: { page: 'action-registration' }
-          }
+          },
         ],
         
       },

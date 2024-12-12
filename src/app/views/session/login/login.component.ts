@@ -55,6 +55,7 @@ export class LoginComponent {
 
       this._sessionQuery.user$.subscribe((user) => {
         this.user = user;
+        this._router.navigate(['/painel/home']);
       });
     }
   }

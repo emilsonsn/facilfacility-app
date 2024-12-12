@@ -17,7 +17,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {PipesModule} from '@shared/pipes/pipes.module';
 import {DialogConfirmComponent} from './dialog-confirm/dialog-confirm.component';
-import {FiltersModule} from './filters/filters.module';
 import {CdkTextareaAutosize, TextFieldModule} from '@angular/cdk/text-field';
 import {MatRippleModule} from '@angular/material/core';
 import {NgxMaskDirective, NgxMaskPipe} from 'ngx-mask';
@@ -33,7 +32,6 @@ import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
   ],
   imports: [
     CommonModule,
-    FiltersModule,
     TablesModule,
     ComponentsModule,
     DirectivesModule,

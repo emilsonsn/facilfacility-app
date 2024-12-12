@@ -30,10 +30,10 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between">
                   <div>
-                      <h1 class="name">{{ facility?.name }} <span class="c-grey ms-2">9857326</span></h1>
+                      <h1 (click)="goToFacility(facility)" class="name">{{ facility?.name }} <span class="c-grey ms-2">{{ facility?.number }}</span></h1>
                       <div class="d-flex">
-                          <span class="card-title">Facility used</span>
-                          <span class="c-grey ms-3">1996</span>
+                          <span class="card-title">{{ facility?.used }}</span>
+                          <span class="c-grey ms-3">{{ facility?.year_installed }}</span>
                     </div>
                     <p class="card-text">
                       <small class="text-muted">60kW</small>
@@ -52,7 +52,7 @@
                         </select>
                       </div>
                     </div>
-                    <div matRipple class="copyButton" (click)="copy()">
+                    <div matRipple class="copyButton" (click)="copy(facility)">
                       <i class="fa-solid fa-copy"></i>
                     </div>
                   </div>
