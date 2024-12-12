@@ -22,7 +22,7 @@ $sidebar-icon-active-color: #FFFFFF;
 
 
 nav {
-  transition: all 0.3s ease;
+  transition: width 0.4s ease, transform 0.4s ease;
   width: $sidebar-width;
   background-color: $sidebar-background;
   box-shadow: $sidebar-box-shadow;
@@ -34,9 +34,11 @@ nav {
   z-index: 1000; // Garante que fique acima do conteúdo principal
   display: flex;
   flex-direction: column;
+  border-radius: 0 8px 8px 0;
 
   &.collapsed {
     width: $sidebar-collapsed-width; // Define a largura do menu recolhido
+    transition: width 0.4s ease, transform 0.4s ease;
   }
 
   .logo {
@@ -49,7 +51,7 @@ nav {
 
     img {
       height: 40px;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
     }
 
     &.collapsed img {

@@ -65,5 +65,11 @@ export class ActionRegistrationComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
+    onCameraFileSelected(event: Event): void {
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (file) {
+        console.log('Photo captured from camera:', file);
+      }
+    }
 }
 

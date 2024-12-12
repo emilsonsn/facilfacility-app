@@ -20,12 +20,12 @@ export class LayoutPrivateComponent {
 
   public menuItem: IMenuItem[] = [
     {
-      label: 'Facilities',
+      label: 'Facility',
       icon: 'icon-facility-menu-item', 
       route: '/painel/facility',
     },
     {
-      label: 'Facilities',
+      label: 'Facility',
       icon: 'fa-solid fa-house',
       route: '/painel/home',
     },
