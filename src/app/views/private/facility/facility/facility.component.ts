@@ -52,11 +52,18 @@ export class FacilityComponent {
   }
 
   goTo() {
-    this._router.navigate(['/painel/facility/registration']);
+    this._facilityService.create({})
+    .subscribe({
+      next: (res) => {
+        this._router.navigate([`/painel/facility/registration/${res.data.id}`]);
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      }
+    })    
   }
 
   goToFacility(facility){
-    // alert('f');
     this._router.navigate([`/painel/facility/registration/${facility.id}`]);
   }
   

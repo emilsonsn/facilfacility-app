@@ -61,6 +61,10 @@
 
                 <div class="col-md-9 col-12">
                     <div class="row">
+                      <div class="col-12 trash d-flex justify-content-end pe-4 fs-5"
+                      style="color: red;">
+                        <i class="fa-solid fa-trash" (click)="deleteFacility()"></i>
+                      </div>
                         <!-- Facility Name e Facility Owner -->
                         <form [formGroup]="form" class="row g-3">
                             <div class="col-md-12">
@@ -71,10 +75,15 @@
                             </div>
                             <div class="col-md-12">
                               <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>User ID</mat-label>
-                                <input matInput type="text" formControlName="user_id" />
+                                <mat-label>Facility Owner</mat-label>
+                                <mat-select formControlName="user_id">
+                                  <mat-option *ngFor="let user of users" [value]="user.id">
+                                    {{ user.name }}
+                                  </mat-option>
+                                </mat-select>
                               </mat-form-field>
                             </div>
+                            
                             <div class="col-md-6">
                               <mat-form-field appearance="outline" class="w-100 mb-3">
                                 <mat-label>Number</mat-label>
