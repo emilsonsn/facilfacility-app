@@ -21,7 +21,7 @@ export class UserService {
 
   getUsers(
     pageControl: PageControl,
-    filters: any
+    filters?: any
   ): Observable<{ data: User[]; current_page: number; total: number; last_page: number }> {
     return this._http.get(`${environment.api}/user/search`, { params: { ...filters, ...pageControl } }).pipe(
       map((response: any) => ({

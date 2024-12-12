@@ -32,11 +32,11 @@ export class FacilityService {
   }
 
   public update(id: number, facility: facility): Observable<ApiResponse<facility>> {
-    return this._http.patch<ApiResponse<facility>>(`${environment.api}/${id}`, facility);
+    return this._http.patch<ApiResponse<facility>>(`${environment.api}/${this.endpoint}/${id}`, facility);
   }
 
   public delete(id: number): Observable<DeleteApiResponse> {
-    return this._http.delete<DeleteApiResponse>(`${environment.api}/${id}`);
+    return this._http.delete<DeleteApiResponse>(`${environment.api}/${this.endpoint}/${id}`);
   }
 
 }
