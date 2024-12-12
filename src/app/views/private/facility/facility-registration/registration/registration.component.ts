@@ -123,6 +123,10 @@ export class RegistrationComponent implements OnInit {
     })
   }
 
+  backFacilities(): void {
+    this._router.navigate(['/painel/facility']);
+  }
+
 
   // Função para carregar a foto principal
   onFileSelected(event: Event): void {
@@ -136,6 +140,8 @@ export class RegistrationComponent implements OnInit {
     }
 
   }
+
+  
 
 
   getUsers(){
