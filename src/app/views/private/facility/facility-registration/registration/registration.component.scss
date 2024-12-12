@@ -14,7 +14,8 @@
     border-bottom: 0.5px solid #3D3D3D; 
     background-color: transparent; 
   }
-  
+
+
   .custom-tab {
     color: #8E8E93; 
     font-size: 20px;
@@ -99,11 +100,21 @@
   .trash{
     i{
       cursor: pointer;
-      border-radius: 100%;
       padding: 10px;
-      box-shadow: 1px 2px 4px 2px rgb(228, 228, 228);
     }
   }
+
+/* Ajusta o espaço entre o reply e o share na mesma row */
+.row.d-flex > .col-12.col-md-auto:first-child {
+  margin-right: -20px;  /* Ajuste o valor conforme necessário */
+}
+
+.row.d-flex > .col-12.col-md-auto:nth-child(2) {
+  margin-left: 0px;  /* Ajuste se necessário, pode remover o valor do "gap" */
+  border-right: #AEAEB2 2px solid;
+}
+
+
   
   @media (max-width: 1000px) {
     .layout-container {
