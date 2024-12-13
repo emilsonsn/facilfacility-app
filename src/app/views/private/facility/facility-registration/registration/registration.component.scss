@@ -1,132 +1,90 @@
+/* Garante que a rolagem horizontal seja evitada globalmente */
+body, html {
+  overflow-x: hidden;  /* Remove rolagem horizontal globalmente */
+  width: 100%;
+}
 
+/* Aplica a largura correta para o container */
+.container {
+  width: 100%;
+  overflow-x: hidden;  /* Impede a rolagem horizontal no container */
+}
+
+/* Ajusta o comportamento de rolagem no conteúdo das abas */
+#facilityTabsContent {
+  position: -webkit-sticky; /* Para compatibilidade com Safari */
+  position: sticky;
+  top: 0;  /* Fixa o conteúdo no topo da tela */
+  z-index: 10;
+  padding-top: 15px;
+  width: 100%;  /* Garante que ocupe toda a largura */
+  max-width: 100%; /* Impede que ultrapasse a largura do contêiner */
+  height: auto; /* Corrige a altura para o sticky funcionar corretamente */
+  padding-left: 0; /* Ajusta o padding à esquerda */
+  overflow-x: hidden; /* Evita rolagem horizontal no conteúdo das abas */
+  overflow-y: auto;  /* Garante a rolagem no conteúdo caso necessário */
+}
+
+/* Corrige o layout das colunas para garantir que não causem rolagem horizontal */
 .layout-container {
   display: flex;
   flex-wrap: nowrap;
-    row-gap: 1.5rem; /* Espaçamento vertical */
-    column-gap: 3rem;
-  }
-  
-  .card img {
-    border-radius: 8px;
+  row-gap: 1rem; /* Diminuir o espaçamento vertical entre as colunas */
+  column-gap: 1rem; /* Diminuir o espaçamento horizontal entre as colunas */
+  width: 100%;  /* Impede que as colunas ultrapassem a tela */
+}
+
+/* Evita que o carrossel de fotos ultrapasse a largura */
+.carousel-photos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 320px;
+  overflow-y: scroll;  /* Permite rolagem vertical apenas */
+  overflow-x: hidden;  /* Remove rolagem horizontal do carrossel */
+}
+
+/* Ajusta a imagem do carrossel para não ultrapassar a largura do container */
+.carousel-photo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Responsividade para garantir que a largura seja mantida */
+@media (max-width: 1000px) {
+  .carousel-photos {
+    max-height: 250px;
   }
 
-.custom-tabs {
-    border-bottom: 0.5px solid #3D3D3D; 
-    background-color: transparent; 
+  .carousel-photo {
+    height: 80px;
   }
+}
 
-
-  .custom-tab {
-    color: #8E8E93; 
-    font-size: 20px;
-    background-color: transparent; 
-    border: transparent;
-    border-radius: 4px; 
-    margin-right: 5px; 
-    padding: 10px 15px; 
-  }
-  
-  .custom-tab.active {
-    background-color: transparent; 
-    border: transparent;
-    color: #FF9500;
-  }
-  
-  .custom-tab:hover {
-    border: transparent;
-    color: rgb(56, 56, 56);
-  }
-  
-  .custom-tabs .nav-item {
-    margin-bottom: -2px; /* Alinha as abas corretamente */
-  }
-
-  .photo-gallery {
-    display: grid;
-    gap: 1rem; /* Espaçamento entre os elementos */
-  }
-  
-  .photo-preview {
-    border: 1px solid #ddd;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-  }
-  
-  .photo-preview:hover {
-    transform: scale(1.05);
-    border-color: #ff9500;
-  }
-  
-  .main-photo img,
-  .photo-preview img {
-    border-radius: 4px;
-  }
-  
-  .photo-preview {
+/* Corrige o layout de trash para evitar rolagem excessiva */
+.trash {
+  i {
     cursor: pointer;
+    padding: 10px;
   }
-  
-  .small-photos img,
-.extra-photos img {
-  max-width: 80px; /* Largura máxima para as fotos menores */
-  max-height: 80px; /* Altura máxima para as fotos menores */
-  object-fit: cover; /* Ajusta o conteúdo dentro do espaço */
-  border-radius: 4px; /* Bordas arredondadas */
-  border: 1px solid #ddd; /* Borda para destacar */
-  transition: transform 0.2s ease; /* Animação no hover */
 }
 
-.small-photos img:hover,
-.extra-photos img:hover {
-  transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
-}
-
-  
-  /* Estilo Responsivo */
-  @media (max-width: 1000px) {
-    .photo-gallery {
-      display: block; /* Uma coluna */
-    }
-  
-    .small-photos,
-    .extra-photos {
-      display: none; /* Esconde fotos menores */
-    }
-  
-    .main-photo img {
-      width: 100%; /* Apenas uma foto maior */
-    }
-  }
-  
-  .trash{
-    i{
-      cursor: pointer;
-      padding: 10px;
-    }
-  }
-
-/* Ajusta o espaço entre o reply e o share na mesma row */
+/* Ajusta o espaço entre os ícones de reply e share */
 .row.d-flex > .col-12.col-md-auto:first-child {
-  margin-right: -20px;  /* Ajuste o valor conforme necessário */
+  margin-right: -20px;
 }
 
 .row.d-flex > .col-12.col-md-auto:nth-child(2) {
-  margin-left: 0px;  /* Ajuste se necessário, pode remover o valor do "gap" */
+  margin-left: 0;
   border-right: #AEAEB2 2px solid;
 }
 
+/* Ajusta o padding para garantir que o sticky funcione bem */
+#facilityTabsContent {
+  padding-left: 0;
+  padding-right: 0;
+  max-height: 100vh; /* Certifique-se de que a altura é suficiente para o sticky */
+}
 
-  
-  @media (max-width: 1000px) {
-    .layout-container {
-      flex-direction: column;
-      row-gap: 2rem;
-    }
-    .card {
-      margin-bottom: 20px;
-    }
-    col-md-9{
-      padding-left: 0;
-    }
-
-  }
-  

@@ -1,75 +1,76 @@
 <div class="container mt-12">
-    <div class="tab-content mt-3" id="facilityTabsContent">
-        <!-- Aba Facility -->
-        <div class="tab-pane fade show active" id="facility" role="tabpanel" aria-labelledby="facility-tab">
-            <div class="row align-items-start layout-container">
-                <!-- Coluna da Foto -->
-                <div class="col-md-3 col-12 mb-4 mb-md-0 photo-gallery">
-                  <!-- Foto Principal -->
-                  <div class="main-photo">
-                    <div class="card-body d-flex align-items-center justify-content-center"
-                      style="height: 200px; background-color: #f8f9fa; border-radius: 10px; overflow: hidden;">
-                      <img *ngIf="imagePreview" [src]="imagePreview" alt="Preview" class="img-fluid"
-                        style="max-height: 100%; max-width: 100%; object-fit: cover;" />
-                      <div *ngIf="!imagePreview" class="text-muted d-flex flex-column align-items-center">
-                        <i class="fa-solid fa-image" style="font-size: 2rem;"></i>
-                        <span>Select an image</span>
-                      </div>
-                    </div>
-                        <button class="btn btn-primary"
-                            style="position: relativd; bottom: 10px; right: 10pxpx; border-radius: 50%; width: 50px; height: 50px;"
-                            (click)="fileInput.click()">
-                            <i class="fa-solid fa-download"></i>
-                        </button>
-                        <input type="file" accept="image/*" style="display: none;" (change)="onFileSelected($event)"
-                            #fileInput />
-                    </div>
-
-                    <!-- Duas Fotos Menores -->
-                    <div class="small-photos d-flex mt-3">
-                        <div *ngFor="let photo of smallPhotos; let i = index" class="small-photo"
-                            style="margin-right: 10px; position: relative;">
-                            <div class="photo-preview d-flex align-items-center justify-content-center"
-                                style="width: 80px; height: 80px; background-color: #f8f9fa; border-radius: 4px; overflow: hidden; cursor: pointer;"
-                                (click)="onSmallPhotoSelected(i)">
-                                <img *ngIf="imagePreview" [src]="imagePreview" alt="Small Photo Preview"
-                                    class="img-fluid" style="max-width: 100%; max-height: 100%; object-fit: cover;" />
-                                <div *ngIf="!photo" class="text-muted d-flex flex-column align-items-center">
-                                    <i class="fa-solid fa-image" style="font-size: 1.5rem;"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Três Fotos Menores -->
-                    <div class="extra-photos d-flex mt-3">
-                        <div *ngFor="let photo of extraPhotos; let i = index" class="extra-photo"
-                            style="margin-right: 10px; position: relative;">
-                            <div class="photo-preview d-flex align-items-center justify-content-center"
-                                style="width: 60px; height: 60px; background-color: #f8f9fa; border-radius: 4px; overflow: hidden; cursor: pointer;"
-                                (click)="onExtraPhotoSelected(i)">
-                                <img *ngIf="imagePreview" [src]="imagePreview" alt="Small Photo Preview"
-                                    alt="Extra Photo Preview" class="img-fluid"
-                                    style="max-width: 100%; max-height: 100%; object-fit: cover;" />
-                                <div *ngIf="!photo" class="text-muted d-flex flex-column align-items-center">
-                                    <i class="fa-solid fa-image" style="font-size: 1.2rem;"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <div class="tab-content mt-3" id="facilityTabsContent">
+    <!-- Aba Facility -->
+    <div class="tab-pane fade show active" id="facility" role="tabpanel" aria-labelledby="facility-tab">
+      <div class="row align-items-start layout-container">
+        <!-- Coluna da Foto -->
+        <div class="col-md-3 col-12 mb-4 mb-md-0 photo-gallery">
+          <!-- Carousel Vertical de Fotos -->
+          <div class="carousel-photos mt-3" style="max-height: 400px; overflow-y: auto;">
+            <!-- Foto principal como a primeira imagem -->
+            <div class="carousel-photo" style="margin-bottom: 10px; position: relative;">
+              <div class="photo-preview d-flex align-items-center justify-content-center"
+                style="width: 100%; height: 100px; background-color: #f8f9fa; border-radius: 4px; overflow: hidden; cursor: pointer;"
+                (click)="onExtraPhotoSelected(0)">
+                <img *ngIf="imagePreview" [src]="imagePreview" alt="Photo Preview"
+                  class="img-fluid" style="max-width: 100%; max-height: 100%; object-fit: cover;" />
+                <div *ngIf="!imagePreview" class="text-muted d-flex flex-column align-items-center">
+                  <i class="fa-solid fa-image" style="font-size: 1.5rem;"></i>
                 </div>
+              </div>
+            </div>
+            <!-- Fotos extras do carousel -->
+            <div *ngFor="let photo of extraPhotos; let i = index" class="carousel-photo"
+              style="margin-bottom: 10px; position: relative;">
+              <div class="photo-preview d-flex align-items-center justify-content-center"
+                style="width: 100%; height: 100px; background-color: #f8f9fa; border-radius: 4px; overflow: hidden; cursor: pointer;"
+                (click)="onExtraPhotoSelected(i + 1)">
+                <img *ngIf="photo" [src]="photo" alt="Photo Preview"
+                  class="img-fluid" style="max-width: 100%; max-height: 100%; object-fit: cover;" />
+                <div *ngIf="!photo" class="text-muted d-flex flex-column align-items-center">
+                  <i class="fa-solid fa-image" style="font-size: 1.5rem;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Botão para upload de imagens -->
+          <div class="button-container"
+            style="position: relative; bottom: -8px; right: -25px; display: flex; flex-direction: row; align-items: center; gap: 25px;">
+            <!-- Botão de Upload -->
+            <button class="btn btn-primary"
+              style="border-radius: 50%; width: 40px; height: 40px; background-color: #5B84C4; color: #FFF; border: #5B84C4;"
+              (click)="fileInput.click()">
+              <i class="fa-solid fa-download"></i>
+            </button>
+            <input type="file" accept="image/*" style="display: none;" (change)="onFileSelected($event)" #fileInput />
+            <!-- Botão de Câmera -->
+            <button class="btn btn-primary"
+              style="border-radius: 50%; width: 40px; height: 40px; background-color: #5B84C4; color: #FFF; border: #5B84C4;">
+              <i class="fa-solid fa-camera"></i>
+            </button>
+            <input id="cameraInput" type="file" accept="image/*" capture="environment" style="display: none;" (change)="onFileSelected($event)"
+              #fileInput />
+          </div>
+        </div>
+        <div class="col-md-9 col-12">
+          <div class="row d-flex justify-content-end">
+            <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5" style="color: #AEAEB2;">
+              <i class="fa-solid fa-reply" (click)="backFacilities()"></i>
+            </div>
+            <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5 spacing-trash" style="color: #AEAEB2;">
+              <i class="fa-solid fa-share"></i>
+            </div>
+            <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5" style="color: #C53232;">
+              <i class="fa-solid fa-trash-can" (click)="deleteFacility()"></i>
+            </div>
+            <form [formGroup]="form" class="row g-3">
+              <div class="col-md-12">
+                <mat-form-field appearance="outline" class="w-100 mb-3">
+                  <mat-label>Name</mat-label>
+                  <input matInput type="text" formControlName="name" required />
+                </mat-form-field>
+              </div>
 
-                <div class="col-md-9 col-12">
-                  <div class="row d-flex justify-content-end">
-                    <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5" style="color: #AEAEB2;">
-                      <i class="fa-solid fa-reply" (click)="backFacilities()"></i>
-                    </div>
-                    <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5 spacing-trash" style="color: #AEAEB2;">
-                      <i class="fa-solid fa-share"></i>
-                    </div>
-                    <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5" style="color: #C53232;">
-                      <i class="fa-solid fa-trash-can" (click)="deleteFacility()"></i>
-                    </div>
                         <!-- Facility Name e Facility Owner -->
                         <form [formGroup]="form" class="row g-3">
                             <div class="col-md-12">
@@ -174,9 +175,8 @@
                               </mat-form-field>
                             </div>
                           </form>                          
-                    </div>
+                      </form>
                 </div>
-            </div>
         </div>
 
         <!-- Aba Components -->
