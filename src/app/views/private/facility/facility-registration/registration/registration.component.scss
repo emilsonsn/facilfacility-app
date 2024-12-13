@@ -30,7 +30,7 @@ body, html {
   display: flex;
   flex-wrap: nowrap;
   row-gap: 1rem; /* Diminuir o espaçamento vertical entre as colunas */
-  column-gap: 1rem; /* Diminuir o espaçamento horizontal entre as colunas */
+  column-gap: 0.2rem; /* Diminuir o espaçamento horizontal entre as colunas */
   width: 100%;  /* Impede que as colunas ultrapassem a tela */
 }
 
@@ -87,4 +87,56 @@ body, html {
   padding-right: 0;
   max-height: 100vh; /* Certifique-se de que a altura é suficiente para o sticky */
 }
+
+/* Ajuste da altura dos inputs do formulário */
+
+
+/* Ajusta o espaçamento entre os inputs */
+/* Ajusta o espaçamento entre os inputs */
+.mat-mdc-form-field {
+  --mat-mdc-form-field-floating-label-scale: 0.75;
+  gap: -8px; /* Reduz o espaço entre os campos de entrada */
+  display: inline-flex;
+  min-width: 0;
+  text-align: left;
+  font-family: var(--mat-form-field-container-text-font);
+  line-height: var(--mat-form-field-container-text-line-height);
+  font-size: var(--mat-form-field-container-text-size);
+  letter-spacing: var(--mat-form-field-container-text-tracking);
+  font-weight: var(--mat-form-field-container-text-weight);
+
+  /* Remove margens e paddings para reduzir altura e espaçamento */
+  .mat-form-field-infix {
+    padding: 0 !important; /* Remove o padding */
+    margin: 0 !important; /* Remove qualquer margem */
+  }
+
+  /* Ajusta o input */
+  .mat-input-element {
+    height: 26px !important;  /* Ajusta a altura do input */
+    font-size: 0.875rem !important; /* Ajusta o tamanho da fonte */
+    line-height: 1.2 !important;  /* Ajusta a altura da linha do texto */
+    padding: 0 !important;  /* Remove padding interno */
+  }
+
+  /* Ajuste para o label */
+  .mat-form-field-label {
+    font-size: 0.75rem !important; /* Diminui o tamanho da fonte do label */
+    margin-bottom: 4px !important; /* Reduz o espaço abaixo do label */
+  }
+
+  /* Ajuste na linha de foco */
+  .mat-form-field-underline {
+    display: none !important;  /* Remove a linha de foco, se desejado */
+  }
+}
+
+/* Ajuste de altura do campo de texto (textarea) */
+.mat-form-field textarea {
+  font-size: 0.875rem !important;
+  line-height: 1.2 !important;
+  padding: 8px !important; /* Ajusta o padding do textarea */
+}
+
+
 
