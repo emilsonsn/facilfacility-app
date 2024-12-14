@@ -25,9 +25,9 @@ export class LayoutPrivateComponent {
       route: '/painel/facility',
     },
     {
-      label: 'Facility',
+      label: 'Facility Registration',
       icon: 'fa-solid fa-house',
-      route: '/painel/home',
+      route: '/painel/facility/registration',
     },
     {
       label: 'Pedidos',
