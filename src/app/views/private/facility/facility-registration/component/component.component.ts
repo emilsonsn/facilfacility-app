@@ -10,32 +10,32 @@ export class ComponentComponent {
   components = [
     {
       component: "Teste",
-      name: "Action name",
+      name: "Component name",
       status: "InProgess"
     },
     {
       component: "Teste",
-      name: "Action name",
+      name: "Component name",
       status: "InProgess"
     },
     {
       component: "Teste",
-      name: "Action name",
+      name: "Component name",
       status: "InProgess"
     },
     {
       component: "Teste",
-      name: "Action name",
+      name: "Component name",
       status: "InProgess"
     },
     {
       component: "Teste",
-      name: "Action name",
+      name: "Component name",
       status: "InProgess"
     },
     {
       component: "Teste",
-      name: "Action name",
+      name: "Component name",
       status: "InProgess"
     },
   ];

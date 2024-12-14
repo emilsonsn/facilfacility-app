@@ -2,6 +2,7 @@
 body, html {
   overflow-x: hidden;  /* Remove rolagem horizontal globalmente */
   width: 100%;
+  overflow: visible;
 }
 
 /* Aplica a largura correta para o container */
@@ -136,6 +137,97 @@ body, html {
   font-size: 0.875rem !important;
   line-height: 1.2 !important;
   padding: 8px !important; /* Ajusta o padding do textarea */
+}
+
+/* MODAL */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Fundo escuro com opacidade */
+  display: flex; /* Alinha o modal no centro */
+  align-items: center;
+  justify-content: center;
+  z-index: 1050; /* Garante que o modal fique acima dos outros elementos */
+  overflow: hidden; /* Evita qualquer rolagem */
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  width: 400px;
+  max-width: 90%;
+  max-height: 28vh;
+  z-index: 1051; /* Garantir que esteja acima do overlay */
+  display: block; /* Garante que o modal esteja visível */
+  margin: auto; /* Centraliza o modal */
+  position: relative; /* Garante que não dependa de outros estilos */
+}
+
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0; /* Linha separadora */
+  padding-bottom: 10px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.modal-body {
+  margin: 20px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Espaçamento entre botões */
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: #e0e0e0;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-secondary:hover {
+  background: #d6d6d6;
+}
+
+.btn-danger {
+  background: #dc3545;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-danger:hover {
+  background: #c82333;
 }
 
 

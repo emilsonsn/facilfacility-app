@@ -184,3 +184,39 @@
         </div>
     </div>
 </div>
+
+<!-- Modal de Confirmação -->
+<div *ngIf="isDeleteModalOpen" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Are you sure you want to delete?</h3>
+      <button class="close-button" (click)="closeDeleteModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <p>You will permanently delete this information.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeDeleteModal()">Cancel</button>
+      <button class="btn btn-danger" (click)="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal de Confirmação Fixo
+<div class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Are you sure you want to delete?</h3>
+      <button class="close-button">×</button>
+    </div>
+    <div class="modal-body">
+      <p>You will permanently delete this information.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary">Cancel</button>
+      <button class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+</div> -->
+
