@@ -152,7 +152,9 @@ form {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
   width: 400px;
   max-width: 90%;
-  max-height: 28vh;
+  max-height: 30vh;
+  overflow-y: hidden;  
+  overflow-x: hidden;  /* Remove rolagem horizontal */
   z-index: 1051; /* Garantir que esteja acima do overlay */
   display: block; /* Garante que o modal esteja visível */
   margin: auto; /* Centraliza o modal */
