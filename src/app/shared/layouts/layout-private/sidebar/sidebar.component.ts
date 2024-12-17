@@ -21,11 +21,10 @@ export class SidebarComponent implements OnInit {
     this.menuItem = [
       { label: 'Facilities', route: '/painel/facility', icon: 'fa-solid fa-tools' },
       { label: 'Users', route: '/painel/users', icon: 'fa-solid fa-users' },
-      { label: 'Client area', route: '/painel/settings', icon: 'fa-solid fa-bookmark' },
-      { label: 'Profile', route: '/painel/profile', icon: 'fa-solid fa-user-tie' }
+      { label: 'Client area', route: '/painel/settings', icon: 'fa-solid fa-layer-group' },
+      { label: 'Profile', route: '/painel/profile', icon: 'fa-solid fa-user' }
     ];
-  }
-
+  }  
   toggleSidebar(): void {
     this.isCollapsed = !this.isCollapsed;
     this.collapsedChange.emit(this.isCollapsed); // Emite o estado do menu para o layout
