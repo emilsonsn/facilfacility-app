@@ -22,13 +22,16 @@ export class FacilityService {
     return this._http.get<ApiResponsePageable<facility>>(`${environment.api}/${this.endpoint}/search${queryString}`);
   }
 
-  public getById(id: number): Observable<ApiResponsePageable<facility>> {
-
-    return this._http.get<ApiResponsePageable<facility>>(`${environment.api}/${this.endpoint}/${id}`);
+  public getById(id: number): Observable<any> {
+    return this._http.get<any>(`${environment.api}/${this.endpoint}/${id}`);
   }
 
   public create(facility: facility): Observable<ApiResponse<facility>> {
     return this._http.post<ApiResponse<facility>>(`${environment.api}/${this.endpoint}/create`, facility);
+  }
+
+  public uploadFile(id: number, facility: FormData): Observable<any> {
+    return this._http.post<any>(`${environment.api}/${this.endpoint}/upload-image/${id}`, facility);
   }
 
   public update(id: number, facility: facility): Observable<ApiResponse<facility>> {

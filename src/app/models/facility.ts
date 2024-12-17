@@ -16,6 +16,13 @@ export interface facility {
     year_installed?: string;
     replacement_cost?: string;
     description?: string;
+    images?: Image[];
+}
+
+export interface Image {
+    filename: string[];
+    path: string;
+    facility_id: number;
 }
   
   

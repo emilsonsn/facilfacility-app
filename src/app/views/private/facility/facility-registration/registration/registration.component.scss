@@ -9,12 +9,13 @@ body, html {
 
 form {
   margin-top: 5px;
+  overflow-y: scroll;
 }
 
-/* Aplica a largura correta para o container */
 .container {
   width: 100%;
-  overflow-x: hidden;  /* Impede a rolagem horizontal no container */
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 /* Ajusta o comportamento de rolagem no conteúdo das abas */
@@ -29,7 +30,7 @@ form {
   height: auto;
   padding-left: 0; 
   overflow-x: hidden; 
-  overflow-y: auto;  
+  overflow-y: hidden;  
 }
 
 /* Corrige o layout das colunas para garantir que não causem rolagem horizontal */

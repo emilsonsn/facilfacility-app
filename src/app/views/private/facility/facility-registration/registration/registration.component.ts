@@ -35,9 +35,6 @@ export class RegistrationComponent implements OnInit {
 
   // Fotos para a linha extra
   extraPhotos: string[] = [
-    'assets/photos/extra-photo1.jpg',
-    'assets/photos/extra-photo2.jpg',
-    'assets/photos/extra-photo3.jpg'
   ];
 
   constructor(
@@ -80,6 +77,8 @@ export class RegistrationComponent implements OnInit {
           .subscribe({
             next: (res) => {
               this.form.patchValue(res);
+              const images = res.images.map( image => image.path);
+              this.extraPhotos = images;
             },
             error: (error) => {
               this.toastrService.error(error.error.message);
@@ -143,13 +142,12 @@ export class RegistrationComponent implements OnInit {
   onFileSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = reader.result as string;
-      };
-      reader.readAsDataURL(file);
+      const formData = new FormData();
+      formData.append('image', file);
+      this.uploadFile(formData);      
     }
   }
+  
 
   getUsers() {
     this._userService.getUsers({})
@@ -159,6 +157,19 @@ export class RegistrationComponent implements OnInit {
         },
         error: () => {}
       });
+  }
+
+  public uploadFile(image){
+    const id = this.form.get('id').value;
+    this._facilityService.uploadFile(id, image)
+    .subscribe({
+      next: (res) => {
+        this.extraPhotos.push(res.data.path);
+      },
+      error: (error) => {
+        this.toastrService.error(error.error.message);
+      }
+    })
   }
 
   onSmallPhotoSelected(index: number): void {
