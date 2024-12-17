@@ -12,6 +12,7 @@ import { ActionComponent } from './facility/facility-registration/action/action.
 import { ComponentComponent } from './facility/facility-registration/component/component.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ActionRegistrationComponent } from './facility/facility-registration/action/action-registration/action-registration.component';
+import { ComponentRegistrationComponent } from './facility/facility-registration/component/component-registration/component-registration.component';
 
 
 
@@ -22,7 +23,8 @@ import { ActionRegistrationComponent } from './facility/facility-registration/ac
       RegistrationComponent,      
       ComponentComponent,
       ActionComponent,
-      ActionRegistrationComponent
+      ActionRegistrationComponent,
+      ComponentRegistrationComponent
   ],
 
   imports: [

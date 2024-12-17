@@ -6,6 +6,8 @@ import * as facilityRegistrationComponent from './facility/facility-registration
 import { SessionService } from '../../store/session.service';
 import { ActionComponent } from './facility/facility-registration/action/action.component';
 import { ActionRegistrationComponent } from './facility/facility-registration/action/action-registration/action-registration.component';
+import { ComponentComponent } from './facility/facility-registration/component/component.component';
+import { ComponentRegistrationComponent } from './facility/facility-registration/component/component-registration/component-registration.component';
 
 const routes: Routes = [
   {
@@ -47,6 +49,11 @@ const routes: Routes = [
             data: { page: 'facility-registration' }
           }
           ,
+          {
+            path: 'component/registration',
+            component: ComponentRegistrationComponent,
+            data: { page: 'component-registration' }
+          },
           {
             path: 'action',
             component: ActionRegistrationComponent,
