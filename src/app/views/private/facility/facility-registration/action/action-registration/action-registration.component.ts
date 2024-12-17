@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./action-registration.component.scss']
 })
 export class ActionRegistrationComponent implements OnInit {
+    
+  extraPhotos: string[] = ['assets/photos/photo1.jpg'];
 
   form: FormGroup;
   imagePreview: string | ArrayBuffer | null = null;
@@ -65,11 +67,8 @@ export class ActionRegistrationComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-    onCameraFileSelected(event: Event): void {
-      const file = (event.target as HTMLInputElement).files?.[0];
-      if (file) {
-        console.log('Photo captured from camera:', file);
-      }
+    onExtraPhotoSelected(index: number): void {
+      this.imagePreview = this.extraPhotos[index];
     }
-}
+  }
 
