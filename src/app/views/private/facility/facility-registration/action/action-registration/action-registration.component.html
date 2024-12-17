@@ -6,7 +6,7 @@
           <!-- Fotos extras do carousel -->
           <div *ngFor="let photo of extraPhotos; let i = index" class="carousel-photo d-flex justify-content-center"              >
             <div class="photo-preview d-flex align-items-center justify-content-center"
-              style="max-width: 160px;"
+              
               (click)="onExtraPhotoSelected(i + 1)">
               <img *ngIf="photo" [src]="photo" alt="Photo Preview"
                 class="img-fluid" style="max-width: 100%; max-height: 100%; object-fit: cover;" />
@@ -80,29 +80,39 @@
         </div>
         <div class="col-md-4">
           <mat-form-field appearance="outline" class="w-100 mb-3">
-            <mat-label>Action category</mat-label>
-            <mat-select formControlName="profile">
-              <mat-option *ngFor="let category of categories" [value]="category.value">
+            <mat-label>Action Category</mat-label>
+            <mat-select formControlName="actionCategory">
+              <mat-option *ngFor="let category of actionCategories" [value]="category.value">
                 {{ category.label }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
+        
 
         <div class="col-md-12 col-12 offset-md-0">
           <div class="row">
             <div class="col-md-6">
               <mat-form-field appearance="outline" class="w-100 mb-3">
                 <mat-label>Action condition</mat-label>
-                <input matInput type="text" formControlName="actionCondiction" />
+                <mat-select formControlName="actionCondiction">
+                  <mat-option *ngFor="let condition of condictions" [value]="condition.value">
+                    {{ condition.label }}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
-            </div>
+            </div>            
             <div class="col-md-6">
               <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Action priority</mat-label>
-                <input matInput type="text" formControlName="actionPriority" />
+                <mat-label>Action Priority</mat-label>
+                <mat-select formControlName="actionPriority">
+                  <mat-option *ngFor="let priority of actionPriorities" [value]="priority.value">
+                    {{ priority.label }}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
+            
           </div>
       </div>
 

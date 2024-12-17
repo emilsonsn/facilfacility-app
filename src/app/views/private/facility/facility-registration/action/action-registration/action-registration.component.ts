@@ -20,15 +20,51 @@ export class ActionRegistrationComponent implements OnInit {
   ];
 
   actions = [
-    { value: 'action1', label: 'Action 1' },
-    { value: 'action2', label: 'Action 2' },
-    { value: 'action3', label: 'Action 3' },
+    { value: 'no', label: 'NO' },
+    { value: 'repair', label: 'Repair' },
+    { value: 'replace', label: 'Replace' },
+    { value: 'study', label: 'Study' },
+    { value: 'unknown', label: 'Unknown' },
   ];
+
   categories = [
     { value: 'category1', label: 'Category 1' },
     { value: 'category2', label: 'Category 2' },
     { value: 'category3', label: 'Category 3' },
   ];
+
+  condictions = [
+    { value: 'unknown', label: 'Unknown' },
+    { value: 'failed', label: 'Failed' },
+    { value: 'poor', label: 'Poor' },
+    { value: 'fair', label: 'Fair' },
+    { value: 'good', label: 'Good' },
+    { value: 'excellent', label: 'Excellent' },
+  ];
+
+  actionPriorities = [
+    { value: '1-2', label: '1 to 2 Years' },
+    { value: '3-4', label: '3 to 4 Years' },
+    { value: '5', label: '5 Years' },
+    { value: '6-10', label: '6 to 10 Years' },
+    { value: '11-15', label: '11 to 15 Years' },
+    { value: '16-20', label: '16 to 20 Years' },
+    { value: '21-25', label: '21 to 25 Years' },
+    { value: '26-30', label: '26 to 30 Years' },
+    { value: '31+', label: 'Over 31 Years' },
+  ];
+  
+  actionCategories = [
+    { value: 'functionality', label: 'Functionality' },
+    { value: 'maintenance', label: 'Regular Maintenance' },
+    { value: 'grandfather', label: 'Grandfather Code' },
+    { value: 'life-safety', label: 'Life Safety' },
+    { value: 'beyond-life', label: 'Beyond Useful Life' },
+    { value: 'fire-safety', label: 'Fire Safety' },
+    { value: 'hazmat', label: 'HazMat' },
+    { value: 'energy', label: 'Energy' },
+  ];
+  
 
     actives = [
     { value: 'true', label: 'Active' },

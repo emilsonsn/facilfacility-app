@@ -1,4 +1,3 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 // Importa o núcleo do Angular Material
@@ -39,7 +38,6 @@ td, th {
   padding: 20px 20px; 
 }
 
-
 // Estilo das bordas dos inputs (apenas para appearance="outline")
 mat-form-field.mat-form-field-appearance-outline {
   .mat-form-field-outline {
@@ -71,11 +69,26 @@ mat-form-field.mat-form-field-appearance-outline {
       border-color: red !important; /* Define a cor em caso de erro */
     }
   }
-
 }
 
+.row{
+  gap: 0;
+}
 
+// Diminuir o espaço entre os campos do formulário
+mat-form-field {
+  margin-bottom: 2px; // Diminui o espaçamento entre os inputs
+  .mat-form-field-infix {
+    padding-top: 4px; // Ajusta o espaçamento vertical dentro do campo
+    padding-bottom: 4px; // Ajusta o espaçamento vertical dentro do campo
+  }
 
+  .mat-label {
+    font-size: 14px; // Ajusta o tamanho da fonte do label
+    margin-bottom: 4px; // Diminui o espaço entre o label e o campo
+  }
 
-
-
+  .mat-input-element {
+    padding: 5px; // Ajusta o preenchimento interno do campo
+  }
+}
