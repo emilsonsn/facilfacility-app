@@ -71,7 +71,7 @@ export class ActionRegistrationComponent implements OnInit {
     { value: 'false', label: 'Inactive' },
   ];
 
-  components = [{ id: 1, name: 'Owner 1' }, { id: 2, name: 'Owner 2' }];
+  components = [{ id: 1, name: 'Component 1' }, { id: 2, name: 'Component 2' }];
 
   constructor(private fb: FormBuilder) { }
 
