@@ -31,12 +31,12 @@
                   <div>
                       <h1 class="name">{{ component?.name }}</h1>
                       <div class="d-flex">
-                          <span class="card-title">Building Enclosure</span>
-                          <span class="card-title ms-3">Domestic Water Distribution</span>
+                          <span class="card-title">{{ component?.group}}</span>
+                          <span class="card-title ms-3">{{ component?.uniformat}}</span>
                     </div>
                     <p class="card-text">
-                      <small class="text-muted">1996</small>
-                      <small class="text-muted ms-3">60kw</small>                      
+                      <small class="text-muted">{{ component?.year_installed }}</small>
+                      <small class="text-muted ms-3">{{ component?.unity }}</small>
                     </p>
                   </div>
   

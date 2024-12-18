@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
 import { action } from '@models/action';
@@ -16,6 +16,9 @@ export class ActionComponent implements OnInit {
 
   @Output()
   setAction: EventEmitter<action|any> = new EventEmitter();
+
+  @Input()
+  facility_id: number;
 
   actions = [
     {

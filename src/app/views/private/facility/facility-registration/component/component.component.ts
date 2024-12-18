@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { action } from '@models/action';
 import { component } from '@models/component';
+import { ComponentService } from '@services/component.service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-component',
@@ -13,11 +14,28 @@ export class ComponentComponent {
   @Output()
   setComponent: EventEmitter<component|any> = new EventEmitter();
 
+  @Input()
+  facility_id: number;
+
   constructor(
     private readonly _toastr: ToastrService,
+    private readonly _componentService: ComponentService,
   ) {}
 
   ngOnInit() {
+    this.getComponents();    
+  }
+
+  getComponents(){
+    this._componentService.search({}, {facility_id: this.facility_id})
+    .subscribe({
+      next: (response) => {
+        this.components = response.data;
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      }
+    })
   }
 
   copy(){

@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { component } from '@models/component';
+import { ComponentService } from '@services/component.service';
+import { ToastrService } from 'ngx-toastr';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-component-registration',
@@ -43,10 +46,18 @@ export class ComponentRegistrationComponent implements OnInit {
   @Input()
   component: component;
 
-  constructor(private fb: FormBuilder) {}
+  @Input()
+  facility_id: number;
+
+  constructor(
+    private fb: FormBuilder,
+    private readonly _componentService: ComponentService,
+    private readonly _toastrService: ToastrService,
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
+      id: [null],
       name: [''],                // Facility Name
       type: [''],                // Group
       category: [],            // Uniformat
@@ -57,14 +68,58 @@ export class ComponentRegistrationComponent implements OnInit {
       lastUpdated: [''],         // Quantity
       size: [''],                // Unity
       units: [''],               // Lifespan
+      location: [''],
       unitCost: [''],            // Unit cost
       currency: [''],            // Currency
       timeLeftLifespan: [''],    // Time left by lifespan
       coast: [''],               // Coast
       unity: [''],
       condition: [''],           // Condition
-      description: ['']          // Description
+      description: [''],
+      facility_id: [this.facility_id]
     });
+
+    if(this.component){
+      this.form.patchValue(this.component);      
+    }else{
+      this.create(this.form.getRawValue());
+    }
+
+    this.form.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe({
+        next: (value) => {
+          this.update(value);
+        },
+        error: (error) => {
+          this._toastrService.error(error.error.message);
+        }
+      });
+    
+  }
+
+  create(component){
+    this._componentService.create(component)
+    .subscribe({
+      next: (res) => {
+        this.form.patchValue(res.data);
+      },
+      error: (error) => {
+        this._toastrService.error(error.error.message);
+      }
+    })
+  }
+
+  update(component){
+    this._componentService.update(component.id, component)
+    .subscribe({
+      next: (res) => {
+        this.form.patchValue(res.data);
+      },
+      error: (error) => {
+        this._toastrService.error(error.error.message);
+      }
+    })
   }
 
   onSubmit(): void {

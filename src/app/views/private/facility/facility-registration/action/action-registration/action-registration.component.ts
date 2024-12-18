@@ -11,7 +11,10 @@ export class ActionRegistrationComponent implements OnInit {
 
   @Input()
   action: action;
-    
+  
+  @Input()
+  facility_id: number;
+  
   extraPhotos: string[] = ['assets/photos/photo1.jpg'];
 
   form: FormGroup;
@@ -81,6 +84,7 @@ export class ActionRegistrationComponent implements OnInit {
 
     ngOnInit() {
       this.form = this.fb.group({
+        id: [null],
         actionDate: ['', Validators.required],
         actionName: ['', [Validators.required, Validators.email]],
         actionCondiction: [''],
@@ -88,11 +92,13 @@ export class ActionRegistrationComponent implements OnInit {
         profile: ['', Validators.required],
         description: [''],
         facilityOwner: [''],
+        actionCategory: [''],
         region: [''],
         country: [''],
         zipCode: [''],
         active: [true, Validators.required],
         clientAddress: [''],
+        facility_id: [this.facility_id]
       });
   }
   

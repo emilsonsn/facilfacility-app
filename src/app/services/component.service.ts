@@ -19,16 +19,15 @@ export class ComponentService {
   public search(pageControl?: PageControl, filters?: any): Observable<ApiResponsePageable<component>> {
     const params: any = { ...pageControl, ...filters };    
     const queryString = new URLSearchParams(params).toString();    
-    return this._http.get<ApiResponsePageable<component>>(`${environment.api}/${this.endpoint}/search${queryString}`);
+    return this._http.get<ApiResponsePageable<component>>(`${environment.api}/${this.endpoint}/search?${queryString}`);
   }
 
   public getById(id: number): Observable<ApiResponsePageable<component>> {
-
-    return this._http.get<ApiResponsePageable<component>>(`${environment.api}/${this.endpoint}/search`);
+    return this._http.get<ApiResponsePageable<component>>(`${environment.api}/${this.endpoint}/${id}`);
   }
 
   public create(component: component): Observable<ApiResponse<component>> {
-    return this._http.post<ApiResponse<component>>(`${environment.api}/${this.endpoint}/${this.endpoint}`, component);
+    return this._http.post<ApiResponse<component>>(`${environment.api}/${this.endpoint}/create`, component);
   }
 
   public update(id: number, component: component): Observable<ApiResponse<component>> {

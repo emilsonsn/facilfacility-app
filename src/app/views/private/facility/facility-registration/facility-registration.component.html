@@ -53,19 +53,19 @@
     }
 
     @if(menuActive == 'components'){
-       <app-component (setComponent)="setComponent($event)"></app-component>
+       <app-component [facility_id]="facility_id" (setComponent)="setComponent($event)"></app-component>
     }
 
     @if(menuActive == 'component-registration'){
-        <app-component-registration [component]="component"></app-component-registration>
+        <app-component-registration [facility_id]="facility_id" [component]="component"></app-component-registration>
      }
 
      
     @if(menuActive == 'actions'){
-         <app-action (setAction)="setAction($event)"></app-action>
+         <app-action [facility_id]="facility_id" (setAction)="setAction($event)"></app-action>
     }
 
     @if(menuActive == 'actions-registration'){
-        <app-action-registration [action]="component" (setAction)="setAction($event)"></app-action-registration>
+        <app-action-registration [facility_id]="facility_id" [action]="component" (setAction)="setAction($event)"></app-action-registration>
     }
 </div>
