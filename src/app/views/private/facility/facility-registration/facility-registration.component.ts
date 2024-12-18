@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { action } from '@models/action';
+import { component } from '@models/component';
 
 
 @Component({
@@ -14,6 +16,9 @@ export class FacilityRegistrationComponent implements OnInit {
 
   public menuActive = 'registration';
 
+  public component: component;
+  public action: action;
+
   ngOnInit() {
   
   }
@@ -22,7 +27,14 @@ export class FacilityRegistrationComponent implements OnInit {
     this.menuActive = menu;
   }
 
-  // Função para carregar a foto principal
-
+  setComponent(component?){
+    this.component = component;
+    this.menuActive = 'component-registration';
   }
+
+  setAction(action?){
+    this.action = action;
+    this.menuActive = 'actions-registration';
+  }
+}
 

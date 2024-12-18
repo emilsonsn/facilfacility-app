@@ -53,14 +53,19 @@
     }
 
     @if(menuActive == 'components'){
-       <app-component></app-component>
+       <app-component (setComponent)="setComponent($event)"></app-component>
     }
 
     @if(menuActive == 'component-registration'){
-        <app-component></app-component>
+        <app-component-registration [component]="component"></app-component-registration>
      }
 
+     
     @if(menuActive == 'actions'){
-        <app-action></app-action>
+         <app-action (setAction)="setAction($event)"></app-action>
+    }
+
+    @if(menuActive == 'actions-registration'){
+        <app-action-registration [action]="component" (setAction)="setAction($event)"></app-action-registration>
     }
 </div>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { component } from '@models/component';
 
 @Component({
   selector: 'app-component-registration',
@@ -38,6 +39,9 @@ export class ComponentRegistrationComponent implements OnInit {
   unityOptions: string[] = [
     'SM', 'SF', 'LM', 'LF', 'Each', 'KW', 'Ton', 'BTU’s'
   ];
+
+  @Input()
+  component: component;
 
   constructor(private fb: FormBuilder) {}
 

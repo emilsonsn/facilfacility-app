@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
+import { action } from '@models/action';
 
 @Component({
   selector: 'app-action',
@@ -12,6 +13,9 @@ export class ActionComponent implements OnInit {
   constructor(
     private _toastr: ToastrService
   ) { }
+
+  @Output()
+  setAction: EventEmitter<action|any> = new EventEmitter();
 
   actions = [
     {
@@ -45,6 +49,9 @@ export class ActionComponent implements OnInit {
       status: "InProgess"
     },
   ];
+
+    @Output()
+    setComponent: EventEmitter<action> = new EventEmitter();
 
   ngOnInit() {
   }

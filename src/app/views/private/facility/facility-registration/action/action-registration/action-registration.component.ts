@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { action } from '@models/action';
 
 @Component({
   selector: 'app-action-registration',
@@ -7,6 +8,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./action-registration.component.scss']
 })
 export class ActionRegistrationComponent implements OnInit {
+
+  @Input()
+  action: action;
     
   extraPhotos: string[] = ['assets/photos/photo1.jpg'];
 

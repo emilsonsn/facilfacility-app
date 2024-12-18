@@ -1,44 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { action } from '@models/action';
+import { component } from '@models/component';
 import { ToastrService } from 'ngx-toastr';
-
 @Component({
   selector: 'app-component',
   templateUrl: './component.component.html',
   styleUrl: './component.component.scss'
 })
 export class ComponentComponent {
-  components = [
-    {
-      component: "Teste",
-      name: "Component name",
-      status: "InProgess"
-    },
-    {
-      component: "Teste",
-      name: "Component name",
-      status: "InProgess"
-    },
-    {
-      component: "Teste",
-      name: "Component name",
-      status: "InProgess"
-    },
-    {
-      component: "Teste",
-      name: "Component name",
-      status: "InProgess"
-    },
-    {
-      component: "Teste",
-      name: "Component name",
-      status: "InProgess"
-    },
-    {
-      component: "Teste",
-      name: "Component name",
-      status: "InProgess"
-    },
-  ];
+  components: component[] = [];
+
+  @Output()
+  setComponent: EventEmitter<component|any> = new EventEmitter();
 
   constructor(
     private readonly _toastr: ToastrService,

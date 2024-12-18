@@ -2,7 +2,7 @@
 
   <div class="form-actions mt-3 d-flex justify-content-between">
     <div class="buttons">
-      <button class="add">
+      <button class="add" (click)="setAction.emit()">
         <i class="fa-solid fa-plus"></i>
       </button>
       <button class="template">
@@ -30,7 +30,7 @@
               <div class="d-flex justify-content-between">
                 <div>
                   <h4 class="card-title">Component</h4>
-                  <h1 class="name">{{ action?.name }}</h1>
+                  <h1 class="name" (click)="setAction.emit(action)">{{ action?.name }}</h1>
                   <p class="card-text">
                     <small class="text-muted">Action Type</small>
                     <small class="text-muted ms-3">Action category</small>
