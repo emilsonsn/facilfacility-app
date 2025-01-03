@@ -24,7 +24,10 @@
         <div class="card">
           <div class="row g-0">
             <div class="col-md-2 p-3">
-              <img src="https://5287aa00874a313e299d-1850966fc307ff23e1e789aeafd2476b.ssl.cf5.rackcdn.com/PostImagem/42240/foto-branca-download-wallpapers-e-onde-usar_o1fcm9aiph1mte1km1f11cs53mng.png" class="img-fluid rounded-start" alt="...">
+              <img [src]="
+                facility?.images[0]?.path ??
+                'https://5287aa00874a313e299d-1850966fc307ff23e1e789aeafd2476b.ssl.cf5.rackcdn.com/PostImagem/42240/foto-branca-download-wallpapers-e-onde-usar_o1fcm9aiph1mte1km1f11cs53mng.png'"
+                class="img-fluid rounded-start" alt="...">
             </div>
             <div class="col-md-10">
               <div class="card-body">
