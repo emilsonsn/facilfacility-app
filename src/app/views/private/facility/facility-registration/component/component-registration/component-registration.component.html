@@ -1,182 +1,174 @@
 <div class="container mt-12">
-  <div class="tab-content mt-3" id="componentTabsContent">
-    <!-- Aba Component -->
-    <div class="tab-pane fade show active" id="component" role="tabpanel" aria-labelledby="component-tab">
-      <div class="row align-items-start layout-container">
-        <!-- Seção para Imagens -->
-        <div class="col-md-3 col-12 mb-4 mb-md-0 photo-gallery">
-          <div class="carousel-photos mt-3" style="max-height: 400px; overflow-y: auto;">
-            <!-- Imagem Principal -->
-            <div class="carousel-photo mb-3" style="position: relative;">
-              <div class="photo-preview d-flex align-items-center justify-content-center"
-                   style="width: 100%; height: 170px; background-color: #f8f9fa; border-radius: 4px; overflow: hidden; cursor: pointer;"
-                   (click)="onExtraPhotoSelected(0)">
-                <img *ngIf="imagePreview" [src]="imagePreview" alt="Photo Preview"
-                     class="img-fluid" style="max-width: 100%; max-height: 100%; object-fit: cover;" />
-                <div *ngIf="!imagePreview" class="text-muted d-flex flex-column align-items-center">
-                  <i class="fa-solid fa-image" style="font-size: 1.5rem;"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-                    <!-- Botão para upload de imagens -->
+    <div class="tab-content mt-3" id="componentTabsContent">
+        <div class="tab-pane fade show active" id="component" role="tabpanel" aria-labelledby="component-tab">
+            <div class="row align-items-start layout-container">
+                <div class="col-md-3 col-12 mb-4 mb-md-0 photo-gallery">
+                    <div class="carousel-photos mt-3" style="max-height: 400px; overflow-y: auto;">
+                        <div class="carousel-photo mb-3" style="position: relative;">
+                            <div class="photo-preview d-flex align-items-center justify-content-center"
+                                style="width: 100%; height: 170px; background-color: #f8f9fa; border-radius: 4px; overflow: hidden; cursor: pointer;">
+                                <img *ngIf="imagePreview || this.component?.image"
+                                [src]="imagePreview ?? this.component?.image" alt="Photo Preview" class="img-fluid"
+                                    style="max-width: 100%; max-height: 100%; object-fit: cover;" />
+                                <div *ngIf="!imagePreview && !this.component?.image" class="text-muted d-flex flex-column align-items-center">
+                                    <i class="fa-solid fa-image" style="font-size: 1.5rem;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="button-container"
-                    style="position: relative; bottom: -8px; right: -35px; display: flex; flex-direction: row; align-items: center; gap: 25px;">
-                    <!-- Botão de Upload -->
-                    <button class="btn btn-primary"
-                      style="border-radius: 50%; width: 40px; height: 40px; background-color: #5B84C4; color: #FFF; border: #5B84C4;"
-                      (click)="fileInput.click()">
-                      <i class="fa-solid fa-download"></i>
-                    </button>
-                    <input type="file" accept="image/*" style="display: none;" (change)="onFileSelected($event)" #fileInput />
-                    <!-- Botão de Câmera -->
-                    <button class="btn btn-primary"
-                      style="border-radius: 50%; width: 40px; height: 40px; background-color: #5B84C4; color: #FFF; border: #5B84C4;">
-                      <i class="fa-solid fa-camera"></i>
-                    </button>
-                    <input id="cameraInput" type="file" accept="image/*" capture="environment" style="display: none;" (change)="onFileSelected($event)"
-                      #fileInput />
-                  </div>
-        </div>
+                        style="position: relative; bottom: -8px; right: -35px; display: flex; flex-direction: row; align-items: center; gap: 25px;">
+                        <button class="btn btn-primary"
+                            style="border-radius: 50%; width: 40px; height: 40px; background-color: #5B84C4; color: #FFF; border: #5B84C4;"
+                            (click)="fileInput.click()">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                        <input type="file" accept="image/*" style="display: none;" (change)="onFileSelected($event)"
+                            #fileInput />
+                        <button class="btn btn-primary"
+                            style="border-radius: 50%; width: 40px; height: 40px; background-color: #5B84C4; color: #FFF; border: #5B84C4;">
+                            <i class="fa-solid fa-camera"></i>
+                        </button>
+                        <input id="cameraInput" type="file" accept="image/*" capture="environment"
+                            style="display: none;" (change)="onFileSelected($event)" #fileInput />
+                    </div>
+                </div>
 
-        <!-- Formulário -->
-        <div class="col-md-9 col-12">
-          <form [formGroup]="form" class="row g-3">
-            <!-- Três colunas -->
-            <div class="col-md-12">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Facility Name</mat-label>
-                <input matInput type="text" formControlName="name" required />
-              </mat-form-field>
-            </div>
-            <div class="col-md-6">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Group</mat-label>
-                <mat-select formControlName="type">
-                  <mat-option *ngFor="let type of componentTypes" [value]="type">{{ type }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-6">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Uniformat</mat-label>
-                <mat-select formControlName="category">
-                  <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+                <!-- Formulário -->
+                <div class="col-md-9 col-12">
+                    <form [formGroup]="form" class="row g-3">
+                        <!-- Três colunas -->
+                        <div class="col-md-12">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Facility Name</mat-label>
+                                <input matInput type="text" formControlName="name" required />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Group</mat-label>
+                                <mat-select formControlName="group">
+                                    <mat-option *ngFor="let type of componentTypes"
+                                        [value]="type">{{ type }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Uniformat</mat-label>
+                                <mat-select formControlName="uniformat">
+                                    <mat-option *ngFor="let category of categories"
+                                        [value]="category">{{ category }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
 
-            <!-- Duas colunas -->
-            <div class="col-md-12">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Component Name</mat-label>
-                <input matInput type="text" formControlName="lastUpdated" />
-              </mat-form-field>
-            </div>
-            <div class="col-md-6">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Time left by condition</mat-label>
-                <input matInput type="text" formControlName="version" />
-              </mat-form-field>
-            </div>
-            <div class="col-md-6">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Component condition</mat-label>
-                <mat-select formControlName="condition">
-                  <mat-option *ngFor="let condition of componentConditions" [value]="condition">
-                    {{ condition }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          
-            <!-- Três colunas -->
-            <div class="col-md-4">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Year Installed</mat-label>
-                <input matInput type="date" formControlName="creationDate" />
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Quantity</mat-label>
-                <input matInput type="text" formControlName="lastUpdated" />
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Unity</mat-label>
-                <mat-select formControlName="unity">
-                  <mat-option *ngFor="let unity of unityOptions" [value]="unity">
-                    {{ unity }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            
-            <!-- Duas colunas -->
-            <div class="col-md-4">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Lifespan</mat-label>
-                <input matInput type="number" formControlName="units" />
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Unit Cost</mat-label>
-                <input matInput type="text" formControlName="location" />
-              </mat-form-field>
-            </div>
+                        <!-- Duas colunas -->
+                        <div class="col-md-12">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Component Name</mat-label>
+                                <input matInput type="text" formControlName="name" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Time left by condition</mat-label>
+                                <input matInput type="text" formControlName="time_left_by_condition" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Component condition</mat-label>
+                                <mat-select formControlName="condition">
+                                    <mat-option *ngFor="let condition of componentConditions" [value]="condition">
+                                        {{ condition }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
 
-            <div class="col-md-4">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label> $ / Unity</mat-label>
-                <mat-select formControlName="status">
-                  <mat-option value="active">1</mat-option>
-                  <mat-option value="inactive">2</mat-option>
-                  <mat-option value="inactive">3</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+                        <!-- Três colunas -->
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Year Installed</mat-label>
+                                <input matInput type="date" formControlName="year_installed" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Quantity</mat-label>
+                                <input matInput type="text" formControlName="quantity" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Unity</mat-label>
+                                <mat-select formControlName="unity">
+                                    <mat-option *ngFor="let unity of unityOptions" [value]="unity">
+                                        {{ unity }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
 
+                        <!-- Duas colunas -->
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Lifespan</mat-label>
+                                <input matInput type="string" formControlName="time_left_by_lifespan" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Unit Cost</mat-label>
+                                <input matInput type="text" formControlName="unit_cost" />
+                            </mat-form-field>
+                        </div>
 
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label> $ / Unity</mat-label>
+                                <mat-select formControlName="unit_currency">
+                                    <mat-option value="active">1</mat-option>
+                                    <mat-option value="inactive">2</mat-option>
+                                    <mat-option value="inactive">3</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
 
-            <!-- Três colunas -->
-            <div class="col-md-4">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Coast</mat-label>
-                <input matInput type="number" formControlName="coast" />
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Time Left by Lifespan</mat-label>
-                <input matInput type="text" formControlName="timeLeftLifespan" />
-              </mat-form-field>
-            </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Coast</mat-label>
+                                <input matInput type="string" formControlName="coast" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Time Left by Lifespan</mat-label>
+                                <input matInput type="text" formControlName="time_left_by_lifespan" />
+                            </mat-form-field>
+                        </div>
                         <!-- Uma coluna -->
-            <div class="col-md-4">
-              <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Currency</mat-label>
-                <mat-select formControlName="status">
-                  <mat-option value="active">1</mat-option>
-                  <mat-option value="inactive">2</mat-option>
-                  <mat-option value="inactive">3</mat-option>
-                </mat-select>
-              </mat-form-field>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Currency</mat-label>
+                                <mat-select formControlName="currency">
+                                    <mat-option value="active">1</mat-option>
+                                    <mat-option value="inactive">2</mat-option>
+                                    <mat-option value="inactive">3</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-12">
+                            <mat-form-field appearance="outline" class="w-100 mb-3">
+                                <mat-label>Description</mat-label>
+                                <textarea matInput placeholder="Enter description" rows="3" formControlName="description"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </form>
+                </div>
             </div>
-
-
-              <!-- Descrição (Uma coluna completa) -->
-              <div class="col-md-12">
-                <mat-form-field appearance="outline" class="w-100 mb-3">
-                  <mat-label>Description</mat-label>
-                  <textarea matInput placeholder="Enter description" rows="3" formControlName="description"></textarea>
-                </mat-form-field>
-              </div>
-          </form>
         </div>
-      </div>
     </div>
-  </div>
 </div>

@@ -58,25 +58,22 @@ export class ComponentRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       id: [null],
-      name: [''],                // Facility Name
-      type: [''],                // Group
-      category: [],            // Uniformat
-      owner: [''],               // Component Name
-      version: [''],             // Time left by condition
-      status: [''],              // Component condition
-      creationDate: [''],        // Year installed
-      lastUpdated: [''],         // Quantity
-      size: [''],                // Unity
-      units: [''],               // Lifespan
-      location: [''],
-      unitCost: [''],            // Unit cost
-      currency: [''],            // Currency
-      timeLeftLifespan: [''],    // Time left by lifespan
-      coast: [''],               // Coast
+      name: [''],
+      facility_id: [this.facility_id],
+      group: [''],
+      uniformat: [],
+      time_left_by_condition: [''],
+      condition: [''],
+      year_installed: [''],
+      quantity: [''],
       unity: [''],
-      condition: [''],           // Condition
+      unit_cost: [''],
+      time_left_by_lifespan: [''],
+      coast: [''],
+      currency: [''],
+      unit_currency: [''],
       description: [''],
-      facility_id: [this.facility_id]
+      image: [''],
     });
 
     if(this.component){
@@ -89,7 +86,7 @@ export class ComponentRegistrationComponent implements OnInit {
       .pipe(debounceTime(500))
       .subscribe({
         next: (value) => {
-          this.update(value);
+          this.update(value.id, value);
         },
         error: (error) => {
           this._toastrService.error(error.error.message);
@@ -110,11 +107,11 @@ export class ComponentRegistrationComponent implements OnInit {
     })
   }
 
-  update(component){
-    this._componentService.update(component.id, component)
+  update(id, component){
+    this._componentService.update(id, component)
     .subscribe({
       next: (res) => {
-        this.form.patchValue(res.data);
+        // this.form.patchValue(res.data);
       },
       error: (error) => {
         this._toastrService.error(error.error.message);
@@ -138,6 +135,11 @@ export class ComponentRegistrationComponent implements OnInit {
         this.imagePreview = reader.result as string;
       };
       reader.readAsDataURL(file);
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      this.update(this.form.get('id').value, formData);
     }
   }
 }

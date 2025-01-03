@@ -26,12 +26,12 @@ export class ComponentService {
     return this._http.get<ApiResponsePageable<component>>(`${environment.api}/${this.endpoint}/${id}`);
   }
 
-  public create(component: component): Observable<ApiResponse<component>> {
+  public create(component: component|FormData): Observable<ApiResponse<component>> {
     return this._http.post<ApiResponse<component>>(`${environment.api}/${this.endpoint}/create`, component);
   }
 
-  public update(id: number, component: component): Observable<ApiResponse<component>> {
-    return this._http.patch<ApiResponse<component>>(`${environment.api}/${this.endpoint}/${id}`, component);
+  public update(id: number, component: component|FormData): Observable<ApiResponse<component>> {
+    return this._http.post<ApiResponse<component>>(`${environment.api}/${this.endpoint}/${id}?_method=PATCH`, component);
   }
 
   public delete(id: number): Observable<DeleteApiResponse> {
