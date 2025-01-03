@@ -1,190 +1,195 @@
 <div class="container mt-12">
-  <div class="tab-content mt-3" id="facilityTabsContent">
-    <div class="tab-pane fade show active" id="facility" role="tabpanel" aria-labelledby="facility-tab">
-      <div class="row align-items-start layout-container">
-        <div class="col-md-3 col-12 mb-4 mb-md-0 photo-gallery">
-          <div class="carousel-photos mt-3" style="max-height: 400px; overflow-y: auto;">
-            
-            <!-- Fotos extras do carousel -->
-            <div *ngFor="let photo of extraPhotos; let i = index" class="carousel-photo d-flex justify-content-center"              >
-              <div class="photo-preview d-flex align-items-center justify-content-center"
-                style="max-width: 160px;"
-                (click)="onExtraPhotoSelected(i + 1)">
-                <img *ngIf="photo" [src]="photo" alt="Photo Preview"
-                  class="img-fluid" style="max-width: 100%; max-height: 100%; object-fit: cover;" />
-              </div>
-            </div>
-          </div>
-          <!-- Botão para upload de imagens -->
-          <div class="button-container d-flex justify-content-center mt-3">
-            <!-- Botão de Upload -->
-            <button class="btn btn-primary"
-              style="border-radius: 50%; width: 40px; height: 40px; background-color: #5B84C4; color: #FFF; border: #5B84C4;"
-              (click)="fileInput.click()">
-              <i class="fa-solid fa-download"></i>
-            </button>
-            <input type="file" accept="image/*" style="display: none;" (change)="onFileSelected($event)" #fileInput />
-            <!-- Botão de Câmera -->
-            <!-- <button (click)="fileInput.click()" class="btn btn-primary"
+    <div class="tab-content mt-3" id="facilityTabsContent">
+        <div class="tab-pane fade show active" id="facility" role="tabpanel" aria-labelledby="facility-tab">
+            <div class="row align-items-start layout-container">
+                <div class="col-md-3 col-12 mb-4 mb-md-0 photo-gallery">
+                    <div class="carousel-photos mt-3" style="max-height: 400px; overflow-y: auto;">
+
+                        <!-- Fotos extras do carousel -->
+                        <div *ngFor="let photo of extraPhotos; let i = index"
+                            class="carousel-photo d-flex justify-content-center">
+                            <div class="photo-preview d-flex align-items-center justify-content-center"
+                                style="max-width: 160px;" (click)="onExtraPhotoSelected(i + 1)">
+                                <img *ngIf="photo" [src]="photo" alt="Photo Preview" class="img-fluid"
+                                    style="max-width: 100%; max-height: 100%; object-fit: cover;" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Botão para upload de imagens -->
+                    <div class="button-container d-flex justify-content-center mt-3">
+                        <!-- Botão de Upload -->
+                        <button class="btn btn-primary"
+                            style="border-radius: 50%; width: 40px; height: 40px; background-color: #5B84C4; color: #FFF; border: #5B84C4;"
+                            (click)="fileInput.click()">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                        <input type="file" accept="image/*" style="display: none;" (change)="onFileSelected($event)"
+                            #fileInput />
+                        <!-- Botão de Câmera -->
+                        <!-- <button (click)="fileInput.click()" class="btn btn-primary"
               style="border-radius: 50%; width: 40px; height: 40px; background-color: #5B84C4; color: #FFF; border: #5B84C4;">
               <i class="fa-solid fa-camera"></i>
             </button> -->
-            <input id="cameraInput" type="file" accept="image/*" capture="environment" style="display: none;" (change)="onFileSelected($event)"
-              #fileInput />
-          </div>
-        </div>
-        <div class="col-md-9 col-12">
-          <div class="row d-flex justify-content-end">
-            <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5" style="color: #AEAEB2;">
-              <i class="fa-solid fa-reply" (click)="backFacilities()"></i>
-            </div>
-            <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5 spacing-trash" style="color: #AEAEB2;">
-              <i class="fa-solid fa-share"></i>
-            </div>
-            <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5" style="color: #C53232;">
-              <i class="fa-solid fa-trash-can" (click)="deleteFacility()"></i>
-            </div>
-            <form [formGroup]="form" class="row g-3">
+                        <input id="cameraInput" type="file" accept="image/*" capture="environment"
+                            style="display: none;" (change)="onFileSelected($event)" #fileInput />
+                    </div>
+                </div>
+                <div class="col-md-9 col-12">
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5"
+                            style="color: #AEAEB2;">
+                            <i class="fa-solid fa-reply" (click)="backFacilities()"></i>
+                        </div>
+                        <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5 spacing-trash"
+                            style="color: #AEAEB2;">
+                            <i class="fa-solid fa-share"></i>
+                        </div>
+                        <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5"
+                            style="color: #C53232;">
+                            <i class="fa-solid fa-trash-can" (click)="deleteFacility()"></i>
+                        </div>
+                    </div>
+                    <form [formGroup]="form" class="row g-3">
 
                         <!-- Facility Name e Facility Owner -->
                         <form [formGroup]="form" class="row g-3">
                             <div class="col-md-12">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Name</mat-label>
-                                <input matInput type="text" formControlName="name" required />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Name</mat-label>
+                                    <input matInput type="text" formControlName="name" required />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-12">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Facility Owner</mat-label>
-                                <mat-select formControlName="user_id">
-                                  <mat-option *ngFor="let user of users" [value]="user.id">
-                                    {{ user.name }}
-                                  </mat-option>
-                                </mat-select>
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Facility Owner</mat-label>
+                                    <mat-select formControlName="user_id">
+                                        <mat-option *ngFor="let user of users" [value]="user.id">
+                                            {{ user . name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                             </div>
-                            
+
                             <div class="col-md-6">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Number</mat-label>
-                                <input matInput type="text" formControlName="number" />
-                              </mat-form-field>
-                            </div>
-                            <div class="col-md-6">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Used</mat-label>
-                                <input matInput type="text" formControlName="used" />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Number</mat-label>
+                                    <input matInput type="text" formControlName="number" />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Size</mat-label>
-                                <input matInput type="text" formControlName="size" />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Used</mat-label>
+                                    <input matInput type="text" formControlName="used" />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Unity</mat-label>
-                                <input matInput type="text" formControlName="unity" />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Size</mat-label>
+                                    <input matInput type="text" formControlName="size" />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Report Last Update</mat-label>
-                                <input matInput type="text" formControlName="report_last_update" />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Unity</mat-label>
+                                    <input matInput type="text" formControlName="unity" />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Consultant Name</mat-label>
-                                <input matInput type="text" formControlName="consultant_name" />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Report Last Update</mat-label>
+                                    <input matInput type="text" formControlName="report_last_update" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Consultant Name</mat-label>
+                                    <input matInput type="text" formControlName="consultant_name" />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-12">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Address</mat-label>
-                                <input matInput type="text" formControlName="address" />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Address</mat-label>
+                                    <input matInput type="text" formControlName="address" />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>City</mat-label>
-                                <input matInput type="text" formControlName="city" />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>City</mat-label>
+                                    <input matInput type="text" formControlName="city" />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Region</mat-label>
-                                <input matInput type="text" formControlName="region" />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Region</mat-label>
+                                    <input matInput type="text" formControlName="region" />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Country</mat-label>
-                                <input matInput type="text" formControlName="country" />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Country</mat-label>
+                                    <input matInput type="text" formControlName="country" />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Zip Code</mat-label>
-                                <input matInput type="text" formControlName="zip_code" />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Zip Code</mat-label>
+                                    <input matInput type="text" formControlName="zip_code" />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Year Installed</mat-label>
-                                <input matInput type="text" formControlName="year_installed" />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Year Installed</mat-label>
+                                    <input matInput type="text" formControlName="year_installed" />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Replacement Cost</mat-label>
-                                <input matInput type="text" formControlName="replacement_cost" />
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Replacement Cost</mat-label>
+                                    <input matInput type="text" formControlName="replacement_cost" />
+                                </mat-form-field>
                             </div>
                             <div class="col-md-12">
-                              <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Description</mat-label>
-                                <textarea matInput rows="3" formControlName="description"></textarea>
-                              </mat-form-field>
+                                <mat-form-field appearance="outline" class="w-100 mb-3">
+                                    <mat-label>Description</mat-label>
+                                    <textarea matInput rows="3" formControlName="description"></textarea>
+                                </mat-form-field>
                             </div>
-                          </form>                          
-                      </form>
+                        </form>
+                    </form>
                 </div>
+            </div>
+
+            <!-- Aba Components -->
+            <div class="tab-pane fade" id="components" role="tabpanel" aria-labelledby="components-tab">
+                <h5>Components Section</h5>
+            </div>
+
+            <!-- Aba Actions -->
+            <div class="tab-pane fade" id="actions" role="tabpanel" aria-labelledby="actions-tab">
+                <h5>Actions Section</h5>
+            </div>
         </div>
+    </div>
 
-        <!-- Aba Components -->
-        <div class="tab-pane fade" id="components" role="tabpanel" aria-labelledby="components-tab">
-            <h5>Components Section</h5>
+    <!-- Modal de Confirmação -->
+    <div *ngIf="isDeleteModalOpen" class="modal-overlay">
+        <div class="modal" style="min-height: 250px;">
+            <div class="modal-header">
+                <h3>Are you sure you want to delete?</h3>
+                <button class="close-button" (click)="closeDeleteModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <p>You will permanently delete this information.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" (click)="closeDeleteModal()">Cancel</button>
+                <button class="btn btn-danger" (click)="confirmDelete()">Delete</button>
+            </div>
         </div>
-
-        <!-- Aba Actions -->
-        <div class="tab-pane fade" id="actions" role="tabpanel" aria-labelledby="actions-tab">
-            <h5>Actions Section</h5>
-        </div>
     </div>
-</div>
-
-<!-- Modal de Confirmação -->
-<div *ngIf="isDeleteModalOpen" class="modal-overlay">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>Are you sure you want to delete?</h3>
-      <button class="close-button" (click)="closeDeleteModal()">×</button>
-    </div>
-    <div class="modal-body">
-      <p>You will permanently delete this information.</p>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" (click)="closeDeleteModal()">Cancel</button>
-      <button class="btn btn-danger" (click)="confirmDelete()">Delete</button>
-    </div>
-  </div>
-</div>
 
 
-<!-- Modal de Confirmação Fixo
+    <!-- Modal de Confirmação Fixo
 <div class="modal-overlay">
   <div class="modal">
     <div class="modal-header">
@@ -200,4 +205,3 @@
     </div>
   </div>
 </div> -->
-

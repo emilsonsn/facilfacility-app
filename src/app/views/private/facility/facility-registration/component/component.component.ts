@@ -19,7 +19,7 @@ export class ComponentComponent {
 
   constructor(
     private readonly _toastr: ToastrService,
-    private readonly _componentService: ComponentService,
+    private readonly _componentService: ComponentService,    
   ) {}
 
   ngOnInit() {
@@ -38,7 +38,24 @@ export class ComponentComponent {
     })
   }
 
-  copy(){
-    this._toastr.success('Copiado com sucesso');
+  copy(component){
+    this.create({
+      ...component,
+      id: '',
+      image: '',
+    });
+  }
+
+  create(component){  
+    this._componentService.create(component)
+    .subscribe({
+      next: (res) => {
+        this._toastr.success('Component copied successfully');
+        this.getComponents();
+      },
+      error: (error) => {
+        this._toastr.error(error.error.message);
+      }
+    })
   }
 }

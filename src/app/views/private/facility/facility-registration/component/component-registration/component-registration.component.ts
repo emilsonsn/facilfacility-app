@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { component } from '@models/component';
 import { ComponentService } from '@services/component.service';
 import { ToastrService } from 'ngx-toastr';
@@ -53,6 +54,7 @@ export class ComponentRegistrationComponent implements OnInit {
     private fb: FormBuilder,
     private readonly _componentService: ComponentService,
     private readonly _toastrService: ToastrService,
+    private readonly _router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -98,8 +100,7 @@ export class ComponentRegistrationComponent implements OnInit {
   create(component){
     this._componentService.create(component)
     .subscribe({
-      next: (res) => {
-        this.form.patchValue(res.data);
+      next: (res) => {        
       },
       error: (error) => {
         this._toastrService.error(error.error.message);
@@ -141,5 +142,22 @@ export class ComponentRegistrationComponent implements OnInit {
 
       this.update(this.form.get('id').value, formData);
     }
+  }
+
+  backFacilities(){
+    window.location.href = '/painel/facility/registration/' + this.facility_id;
+  }
+
+  deleteComponent(){
+    this._componentService.delete(this.component.id)
+    .subscribe({
+      next: () => {
+        this._toastrService.success('Componente excluído com sucesso!');
+        window.location.href = '/painel/facility/registration/' + this.facility_id;
+      },
+      error: (error) => {
+        this._toastrService.error(error.error.message);
+      }
+    })
   }
 }
