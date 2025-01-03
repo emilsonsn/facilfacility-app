@@ -23,18 +23,21 @@
       <div class="card">
         <div class="row g-0">
           <div class="col-md-2 p-3">
-            <img src="https://5287aa00874a313e299d-1850966fc307ff23e1e789aeafd2476b.ssl.cf5.rackcdn.com/PostImagem/42240/foto-branca-download-wallpapers-e-onde-usar_o1fcm9aiph1mte1km1f11cs53mng.png" class="img-fluid rounded-start" alt="...">
+            <img [src]="
+              action?.image ?? 
+              'https://5287aa00874a313e299d-1850966fc307ff23e1e789aeafd2476b.ssl.cf5.rackcdn.com/PostImagem/42240/foto-branca-download-wallpapers-e-onde-usar_o1fcm9aiph1mte1km1f11cs53mng.png'"
+              class="img-fluid rounded-start" alt="...">
           </div>
           <div class="col-md-10">
             <div class="card-body">
               <div class="d-flex justify-content-between">
                 <div>
                   <h4 class="card-title">Component</h4>
-                  <h1 class="name" (click)="setAction.emit(action)">{{ action?.name }}</h1>
+                  <h1 class="name" (click)="setAction.emit(action)">{{ action?.name ?? 'No title' }}</h1>
                   <p class="card-text">
-                    <small class="text-muted">Action Type</small>
-                    <small class="text-muted ms-3">Action category</small>
-                    <small class="text-muted ms-3">Action prioritary</small>
+                    <small class="text-muted">{{ action.type }}</small>
+                    <small class="text-muted ms-3">{{ action.category }}</small>
+                    <small class="text-muted ms-3">{{ action.prioritary }}</small>
                   </p>
                 </div>
 

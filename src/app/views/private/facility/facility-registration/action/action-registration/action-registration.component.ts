@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { action } from '@models/action';
+import { ActionService } from '@services/action.service';
+import { ComponentService } from '@services/component.service';
+import { ToastrService } from 'ngx-toastr';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-action-registration',
@@ -15,7 +19,7 @@ export class ActionRegistrationComponent implements OnInit {
   @Input()
   facility_id: number;
   
-  extraPhotos: string[] = ['assets/photos/photo1.jpg'];
+  extraPhotos: string[] = [];
 
   form: FormGroup;
   imagePreview: string | ArrayBuffer | null = null;
@@ -72,36 +76,83 @@ export class ActionRegistrationComponent implements OnInit {
     { value: 'energy', label: 'Energy' },
   ];
   
-
-    actives = [
+  actives = [
     { value: 'true', label: 'Active' },
     { value: 'false', label: 'Inactive' },
   ];
 
-  components = [{ id: 1, name: 'Component 1' }, { id: 2, name: 'Component 2' }];
+  components: any[];
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private readonly _componentService: ComponentService,
+    private readonly _actionService: ActionService,
+    private readonly _toastrService: ToastrService,
+  ) { }
 
     ngOnInit() {
       this.form = this.fb.group({
         id: [null],
-        actionDate: ['', Validators.required],
-        actionName: ['', [Validators.required, Validators.email]],
-        actionCondiction: [''],
-        actionPriority: ['', Validators.required], // Campo para o select
-        profile: ['', Validators.required],
-        description: [''],
-        facilityOwner: [''],
-        actionCategory: [''],
-        region: [''],
-        country: [''],
-        zipCode: [''],
-        active: [true, Validators.required],
-        clientAddress: [''],
-        facility_id: [this.facility_id]
+        component_id: [null],
+        name: [null],
+        type: [null],
+        date: [null],
+        category: [null],
+        condition: [null],
+        priority: [null],
+        frequency: [null],
+        coast: [null],
+        curracy: [null],
+        description: [null],
       });
+
+      if(this.action){
+        this.form.patchValue(this.action);
+      }else{
+        this.create(this.form.getRawValue());
+      }
+
+      this.form.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe(action => {
+        this.update(action.id, action);
+      });
+
+      this.getComponents();
+  }
+
+  create(action){
+    this._actionService.postAction(action)
+    .subscribe({
+      next: (res) => {
+        this.form.get('id').patchValue(res.data.id);
+      },
+      error: (error) => {
+        this._toastrService.error(error.error.message);
+      }
+    })
+  }
+
+  update(id, action){
+    this._actionService.patchAction(id, action)
+    .subscribe({      
+      error: (error) => {
+        this._toastrService.error(error.error.message);
+      }
+    })
   }
   
+  getComponents(){
+    this._componentService.search()
+    .subscribe({
+      next: (res) => {
+        this.components = res.data;
+      },
+      error: (error) => {
+
+      }
+    });
+  }
 
   onFileSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
@@ -111,10 +162,32 @@ export class ActionRegistrationComponent implements OnInit {
         this.imagePreview = reader.result;
       };
       reader.readAsDataURL(file);
+
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      this.update(this.form.get('id').value, formData);
     }
   }
     onExtraPhotoSelected(index: number): void {
       this.imagePreview = this.extraPhotos[index];
+    }
+
+
+    backFacilities(){}
+
+    deleteAction(){
+      this._actionService.deleteAction(this.action.id)
+      .subscribe({
+        next: (res) => {
+          this._toastrService.success(res.message);
+          window.location.href = '/painel/facility/registration/' + this.facility_id;
+        },
+        error: (error) => {
+          this._toastrService.error(error.error.message);
+        }
+      })
     }
   }
 

@@ -75,7 +75,6 @@ export class ComponentRegistrationComponent implements OnInit {
       currency: [''],
       unit_currency: [''],
       description: [''],
-      image: [''],
     });
 
     if(this.component){

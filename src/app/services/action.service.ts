@@ -28,11 +28,11 @@ export class ActionService {
   }
 
   public postAction(action: action): Observable<ApiResponse<action>> {
-    return this._http.post<ApiResponse<action>>(`${environment.api}/${this.endpoint}/${this.endpoint}`, action);
+    return this._http.post<ApiResponse<action>>(`${environment.api}/${this.endpoint}/create`, action);
   }
 
-  public patchAction(id: number, action: action): Observable<ApiResponse<action>> {
-    return this._http.patch<ApiResponse<action>>(`${environment.api}/${this.endpoint}/${id}`, action);
+  public patchAction(id: number, action: action|FormData): Observable<ApiResponse<action>> {
+    return this._http.post<ApiResponse<action>>(`${environment.api}/${this.endpoint}/${id}?_method=PATCH`, action);
   }
 
   public deleteAction(id: number): Observable<DeleteApiResponse> {
