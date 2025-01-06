@@ -88,35 +88,16 @@ export class SessionService {
       );
   }
 
-  // public getUserFromBack(): Observable<User> {
-  //     return this._userService.getUser()
-  //         .pipe(
-  //             map(user => user.data),
-  //             tap(user => {
-  //               this._sessionStore.update({ user });
-  //             }),
-  //             shareReplay()
-  //         )
-  // }
-
-  // Mock de dados no método getUserFromBack
   public getUserFromBack(): Observable<User> {
-    const mockUser: User = {
-      id: 1,
-      name: 'Mock User',
-      profile: Profile.Client,
-      is_active: true,
-      email: 'mockuser@example.com', // Agora está no modelo
-      photo: 'https://example.com/photo.png', // Opcional
-    };
-    
-    
-    
-    // Atualiza o estado com os dados mockados
-    this._sessionStore.update({ user: mockUser });
-
-    return of(mockUser).pipe(shareReplay());
-  }
+      return this._userService.getUser()
+          .pipe(
+              map(user => user.data),
+              tap(user => {
+                this._sessionStore.update({ user });
+              }),
+              shareReplay()
+          )
+  } 
 
   public updateIsAuthenticated(isAuthenticated: boolean) {
     applyTransaction(() => {
