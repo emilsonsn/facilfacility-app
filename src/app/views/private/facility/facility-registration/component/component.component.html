@@ -30,7 +30,7 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between">
                   <div (click)="setComponent.emit(component)">
-                      <h1 class="name">{{ component?.name }}</h1>
+                      <h1 class="name">{{ component?.name ?? 'No name'}}</h1>
                       <div class="d-flex">
                           <span class="card-title">{{ component?.group}}</span>
                           <span class="card-title ms-3">{{ component?.uniformat}}</span>

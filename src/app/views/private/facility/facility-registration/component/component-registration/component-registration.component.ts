@@ -99,7 +99,8 @@ export class ComponentRegistrationComponent implements OnInit {
   create(component){
     this._componentService.create(component)
     .subscribe({
-      next: (res) => {        
+      next: (res) => {
+        this.form.patchValue(res.data);
       },
       error: (error) => {
         this._toastrService.error(error.error.message);
