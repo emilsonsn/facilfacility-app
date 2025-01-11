@@ -20,7 +20,7 @@ export class LayoutPrivateComponent {
 
   public menuItem: IMenuItem[] = [
     {
-      label: 'Facility',
+      label: 'Facilities Area',
       icon: 'icon-facility-menu-item', 
       route: '/painel/facility',
     },
