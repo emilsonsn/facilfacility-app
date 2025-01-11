@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     // Simulando os itens do menu diretamente no frontend
     this.menuItem = [
-      { label: 'Facilities', route: '/painel/facility', icon: 'fa-solid fa-tools' },
+      { label: 'Facilities Area', route: '/painel/facility', icon: 'fa-solid fa-tools' },
       { label: 'Users', route: '/painel/users', icon: 'fa-solid fa-users' },
       { label: 'Client area', route: '/painel/settings', icon: 'fa-solid fa-layer-group' },
       { label: 'Profile', route: '/painel/profile', icon: 'fa-solid fa-user' }
