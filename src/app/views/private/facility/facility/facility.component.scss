@@ -2,7 +2,7 @@
 .form-actions{
     margin: 0 7px;
     margin-bottom: 20px;
-
+    margin-top: -10px;
     .buttons{
         button{
             margin-right: 20px;
@@ -28,6 +28,8 @@
 
 .input-container{
     position: relative;
+    margin: 0 7px;
+    margin-bottom: 20px;
     input{
         padding:  10px 20px;
     }

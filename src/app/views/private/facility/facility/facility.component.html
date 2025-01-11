@@ -1,23 +1,23 @@
 <div class="col-md-12" style="width: 98%; margin: 0 auto;">
 
-    <div class="input-container">
+    <div class="form-container d-flex justify-content-between align-items-center mt-3">
+      <!-- Form Actions -->
+      <div class="form-actions d-flex">
+        <div class="buttons">
+          <button class="add" (click)="goTo()">New Facility</button>
+          <button class="template">Archived</button>
+        </div>
+      </div>
+    
+      <!-- Input Container -->
+      <div class="input-container d-flex align-items-center">
         <input type="text" class="form-control" placeholder="Search facility">
         <div class="find">
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
+      </div>
     </div>
-
-    <div class="form-actions mt-3 d-flex justify-content-between">
-
-      <div class="buttons">
-        <button class="add" (click)="goTo()">
-            New Facility        
-        </button>
-        <button class="template">
-          Archived
-        </button>
-      </div>      
-    </div>
+  
   
     <div class="cards">
       <div *ngFor="let facility of facilitys">

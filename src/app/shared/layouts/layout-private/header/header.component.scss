@@ -1,6 +1,6 @@
 @import "variables";
 
-$header-height: 80px;
+$header-height: 70px;
 $header-background: '';
 $header-button-box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(244, 140, 54, 0.4);
 
@@ -13,6 +13,7 @@ header {
   height: $header-height;
   width: 100%;
   background-color: $header-background;
+  
 
   .title {
     display: flex;
