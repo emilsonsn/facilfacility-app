@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { component } from '@models/component';
 import { ComponentService } from '@services/component.service';
+import { FacilityService } from '@services/facility.service';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime } from 'rxjs';
 
@@ -55,11 +56,13 @@ export class ComponentRegistrationComponent implements OnInit {
     private readonly _componentService: ComponentService,
     private readonly _toastrService: ToastrService,
     private readonly _router: Router,
+    private readonly _facilityService: FacilityService
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       id: [null],
+      facility_name: [null],
       name: [''],
       facility_id: [this.facility_id],
       group: [''],
@@ -94,6 +97,15 @@ export class ComponentRegistrationComponent implements OnInit {
         }
       });
     
+      this.getFacility();
+    
+  }
+
+  getFacility(){    
+    this._facilityService.getById(this.facility_id)
+    .subscribe(res => {
+      this.form.get('facility_name').patchValue(res.name);
+    })
   }
 
   create(component){
