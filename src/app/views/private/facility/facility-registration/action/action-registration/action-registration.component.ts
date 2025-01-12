@@ -190,7 +190,9 @@ export class ActionRegistrationComponent implements OnInit {
     }
 
 
-    backFacilities(){}
+    backFacilities(){
+      this.returnToActions.emit()
+    }
 
     openDeleteActionModal(): void {
       this.isDeleteActionModalOpen = true;
