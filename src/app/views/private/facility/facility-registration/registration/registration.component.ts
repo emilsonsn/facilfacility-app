@@ -34,8 +34,8 @@ export class RegistrationComponent implements OnInit {
   ];
 
   // Fotos para a linha extra
-  extraPhotos: string[] = [
-  ];
+  extraPhotos: string[] = [];  // Fotos carregadas
+  selectedPhoto: string | null = null; // Foto selecionada para preview
 
   constructor(
     private fb: FormBuilder,
@@ -97,6 +97,16 @@ export class RegistrationComponent implements OnInit {
           this.toastrService.error(error.error.message);
         }
       });
+
+      this.getFacilityPhotos();
+  }
+
+  openPreview(photo: string): void {
+    this.selectedPhoto = photo;
+  }
+
+  closePreview(): void {
+    this.selectedPhoto = null;
   }
 
   updateFacility(value) {
@@ -107,6 +117,10 @@ export class RegistrationComponent implements OnInit {
           this.toastrService.error(error.error.message);
         }
       });
+  }
+
+  getFacilityPhotos(): void {
+    this.extraPhotos = []
   }
 
   goToActions(): void {

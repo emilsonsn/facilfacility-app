@@ -222,5 +222,78 @@ form {
   background: #c82333;
 }
 
+// MODAL PREVIEW PHOTOS
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 90%; /* Ajuste para telas menores */
+  max-height: 90%; /* Evita que ultrapasse a altura da tela */
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  flex: 1; /* Permite que o corpo do modal ocupe o máximo de espaço disponível */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.modal-body img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+
+.carousel-photo {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.photo-preview img {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+}
+
+.modal-body {
+  display: flex; /* Habilita flexbox */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  min-height: 300px; /* Define uma altura mínima */
+  max-height: 80vh; /* Limita a altura do modal em relação à tela */
+  overflow: hidden; /* Garante que o conteúdo não exceda os limites */
+}
+
+.modal-body img {
+  max-width: 100%; /* Limita a largura para caber no modal */
+  max-height: 100%; /* Limita a altura para caber no modal */
+  height: auto; /* Mantém as proporções da imagem */
+  width: auto; /* Mantém as proporções da imagem */
+  object-fit: contain; /* Garante que a imagem seja ajustada ao modal sem cortar */
+}
 
 
