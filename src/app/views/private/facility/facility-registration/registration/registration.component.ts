@@ -109,6 +109,31 @@ export class RegistrationComponent implements OnInit {
       });
   }
 
+  goToActions(): void {
+    // Navega para a aba "Actions"
+    this._router.navigate([`/painel/facility/registration/${this.facility_id}`]).then(() => {
+      // Atualiza a URL para a aba de "Actions"
+      setTimeout(() => {
+        const actionsTab = document.getElementById('actions-tab');
+        if (actionsTab) {
+          actionsTab.click(); // Simula o clique para ativar a aba
+        }
+      }, 0);
+    });
+  }
+  
+  goToComponents(): void {
+    this._router.navigate([`/painel/facility/registration/${this.facility_id}`]).then(() => {
+      setTimeout(() => {
+        const componentsTab = document.getElementById('components-tab');
+        if (componentsTab) {
+          componentsTab.click(); // Simula o clique para ativar a aba
+        }
+      }, 0);
+    });
+  }
+  
+
   deleteFacility() {
     this.isDeleteFacilityModalOpen = true; // Abre o modal
   }
