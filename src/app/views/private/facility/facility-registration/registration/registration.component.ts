@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@models/user';
 import { FacilityService } from '@services/facility.service';
 import { UserService } from '@services/user.service';
+import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime } from 'rxjs';
 
@@ -36,14 +38,16 @@ export class RegistrationComponent implements OnInit {
   // Fotos para a linha extra
   extraPhotos: string[] = [];  // Fotos carregadas
   selectedPhoto: string | null = null; // Foto selecionada para preview
+  photoIds: number[] = [];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,  
     private _facilityService: FacilityService,
-    private readonly toastrService: ToastrService,
+    private readonly _toastrService: ToastrService,
     private readonly _userService: UserService,
     private readonly _router: Router,
+    private readonly _dialog: MatDialog,    
   ) {}
 
   ngOnInit() {
@@ -79,9 +83,10 @@ export class RegistrationComponent implements OnInit {
               this.form.patchValue(res);
               const images = res.images.map( image => image.path);
               this.extraPhotos = images;
+              this.photoIds = res.images.map( image => image.id);
             },
             error: (error) => {
-              this.toastrService.error(error.error.message);
+              this._toastrService.error(error.error.message);
             }
           });
       }
@@ -94,7 +99,7 @@ export class RegistrationComponent implements OnInit {
           this.updateFacility(value);
         },
         error: (error) => {
-          this.toastrService.error(error.error.message);
+          this._toastrService.error(error.error.message);
         }
       });
 
@@ -114,7 +119,7 @@ export class RegistrationComponent implements OnInit {
       .subscribe({
         next: () => {},
         error: (error) => {
-          this.toastrService.error(error.error.message);
+          this._toastrService.error(error.error.message);
         }
       });
   }
@@ -149,7 +154,7 @@ export class RegistrationComponent implements OnInit {
   
 
   deleteFacility() {
-    this.isDeleteFacilityModalOpen = true; // Abre o modal
+    this.isDeleteFacilityModalOpen = true;
   }
 
   closeDeleteFacilityModal() {
@@ -160,12 +165,12 @@ export class RegistrationComponent implements OnInit {
     this._facilityService.delete(this.facility_id)
       .subscribe({
         next: () => {
-          this.isDeleteFacilityModalOpen = false; // Fecha o modal
-          this._router.navigate(['/painel/facility']); // Redireciona após a exclusão
+          this.isDeleteFacilityModalOpen = false;
+          this._router.navigate(['/painel/facility']);
         },
         error: (error) => {
-          this.toastrService.error(error.error.message);
-          this.isDeleteFacilityModalOpen = false; // Fecha o modal em caso de erro
+          this._toastrService.error(error.error.message);
+          this.isDeleteFacilityModalOpen = false;
         }
       });
   }
@@ -204,9 +209,10 @@ export class RegistrationComponent implements OnInit {
     .subscribe({
       next: (res) => {
         this.extraPhotos.push(res.data.path);
+        this.photoIds.push(res.data.id);
       },
       error: (error) => {
-        this.toastrService.error(error.error.message);
+        this._toastrService.error(error.error.message);
       }
     })
   }
@@ -217,5 +223,33 @@ export class RegistrationComponent implements OnInit {
 
   onExtraPhotoSelected(index: number): void {
     this.imagePreview = this.extraPhotos[index];
+  }
+
+  onDeleteImage(photo: string): void {
+    this.selectedPhoto = null;
+    const index = this.extraPhotos.indexOf(photo);
+    const id = this.photoIds[index];
+    const text = 'Tem certeza? Essa ação não pode ser revertida!';
+    this._dialog
+      .open(DialogConfirmComponent, { data: { text } })
+      .afterClosed()
+      .subscribe((res: boolean) => {
+        if (res) {
+          this.deleteImage(id, index);
+        }
+      });
+  }
+
+  private deleteImage(id, index){
+    this._facilityService.deleteImage(id)
+     .subscribe({
+        next: (res) => {
+          this._toastrService.success(res.message);
+          this.extraPhotos.splice(index, 1);
+        },
+        error: (error) => {
+          this._toastrService.error(error.error.message);
+        }
+      })
   }
 }
