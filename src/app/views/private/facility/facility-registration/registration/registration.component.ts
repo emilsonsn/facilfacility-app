@@ -18,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   imagePreview: string | ArrayBuffer | null = null;
   facility_id: number;
   users: User[];
-  isDeleteModalOpen: boolean = false; // Controla a exibição do modal
+  isDeleteFacilityModalOpen: boolean = false; // Controla a exibição do modal
 
   owners = [{ id: 1, name: 'Owner 1' }, { id: 2, name: 'Owner 2' }];
   unities = [{ id: 1, name: '1' }, { id: 2, name: '2' }, { id: 3, name: '3' }, { id: 4, name: '4' }, { id: 5, name: '5' }];
@@ -110,23 +110,23 @@ export class RegistrationComponent implements OnInit {
   }
 
   deleteFacility() {
-    this.isDeleteModalOpen = true; // Abre o modal
+    this.isDeleteFacilityModalOpen = true; // Abre o modal
   }
 
-  closeDeleteModal() {
-    this.isDeleteModalOpen = false; // Fecha o modal
+  closeDeleteFacilityModal() {
+    this.isDeleteFacilityModalOpen = false; // Fecha o modal
   }
 
-  confirmDelete() {
+  confirmDeleteFacility() {
     this._facilityService.delete(this.facility_id)
       .subscribe({
         next: () => {
-          this.isDeleteModalOpen = false; // Fecha o modal
+          this.isDeleteFacilityModalOpen = false; // Fecha o modal
           this._router.navigate(['/painel/facility']); // Redireciona após a exclusão
         },
         error: (error) => {
           this.toastrService.error(error.error.message);
-          this.isDeleteModalOpen = false; // Fecha o modal em caso de erro
+          this.isDeleteFacilityModalOpen = false; // Fecha o modal em caso de erro
         }
       });
   }
