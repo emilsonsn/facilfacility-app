@@ -40,12 +40,13 @@
                     <div class="row d-flex justify-content-end pt-4 pb-4">
                         <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5"
                             style="color: #AEAEB2; cursor: pointer;">
-                            <i class="fa-solid fa-reply" (click)="backFacilities()"></i>
+                            <i class="fa-solid fa-reply" (click)="backToComponents()"></i>
                         </div>
-                        <div (click)="deleteComponent()" class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5"
+                        <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5"
                             style="color: #C53232; cursor: pointer;">
-                            <i class="fa-solid fa-trash-can" ></i>
+                            <i class="fa-solid fa-trash-can" (click)="openDeleteComponentModal()"></i>
                         </div>
+
                     </div>
 
                     <form [formGroup]="form" class="row g-3">
@@ -185,3 +186,21 @@
         </div>
     </div>
 </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div *ngIf="isDeleteComponentModalOpen" class="modal-overlay confirm-modal">
+        <div class="modal confirm-modal-content">
+        <div class="modal-header">
+            <h3>Are you sure you want to delete?</h3>
+            <button class="close-button" (click)="closeDeleteComponentModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <p>You will permanently delete this information.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" (click)="closeDeleteComponentModal()">Cancel</button>
+            <button class="btn btn-danger" (click)="confirmDeleteComponent()">Delete</button>
+        </div>
+        </div>
+    </div>
+

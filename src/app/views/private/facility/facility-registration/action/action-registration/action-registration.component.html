@@ -44,7 +44,7 @@
             </div>
             <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5"
                 style="color: #C53232; cursor: pointer;">
-                <i class="fa-solid fa-trash-can" (click)="deleteAction()"></i>
+                <i class="fa-solid fa-trash-can" (click)="openDeleteActionModal()"></i>
             </div>
         </div>
 
@@ -159,4 +159,21 @@
 
             </div>
         </form>
+    </div>
+
+          <!-- Modal de Confirmação de Exclusão -->
+    <div *ngIf="isDeleteActionModalOpen" class="modal-overlay confirm-modal">
+        <div class="modal confirm-modal-content">
+        <div class="modal-header">
+            <h3>Are you sure you want to delete?</h3>
+            <button class="close-button" (click)="closeDeleteActionModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <p>You will permanently delete this information.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" (click)="closeDeleteActionModal()">Cancel</button>
+            <button class="btn btn-danger" (click)="comfirmDeleteAction()">Delete</button>
+        </div>
+        </div>
     </div>

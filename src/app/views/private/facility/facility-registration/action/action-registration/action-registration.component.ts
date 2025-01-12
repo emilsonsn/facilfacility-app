@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { action } from '@models/action';
 import { ActionService } from '@services/action.service';
 import { ComponentService } from '@services/component.service';
@@ -13,6 +14,13 @@ import { debounceTime } from 'rxjs';
 })
 export class ActionRegistrationComponent implements OnInit {
 
+  private extractFacilityIdFromUrl(): string | null {
+    const urlSegments = this._router.url.split('/');
+    const facilityIndex = urlSegments.indexOf('registration');
+    return facilityIndex !== -1 ? urlSegments[facilityIndex + 1] : null;
+  }
+  
+
   @Input()
   action: action;
   
@@ -22,6 +30,11 @@ export class ActionRegistrationComponent implements OnInit {
   extraPhotos: string[] = [];
 
   form: FormGroup;
+
+  @Output() returnToActions = new EventEmitter<void>();
+
+  isDeleteActionModalOpen: boolean = false;
+
   imagePreview: string | ArrayBuffer | null = null;
 
     profiles = [
@@ -81,6 +94,7 @@ export class ActionRegistrationComponent implements OnInit {
     { value: 'false', label: 'Inactive' },
   ];
 
+
   components: any[];
 
   constructor(
@@ -88,6 +102,7 @@ export class ActionRegistrationComponent implements OnInit {
     private readonly _componentService: ComponentService,
     private readonly _actionService: ActionService,
     private readonly _toastrService: ToastrService,
+    private readonly _router: Router,
   ) { }
 
     ngOnInit() {
@@ -175,19 +190,39 @@ export class ActionRegistrationComponent implements OnInit {
     }
 
 
-    backFacilities(){}
+    backFacilities(){
+      this.returnToActions.emit()
+    }
 
-    deleteAction(){
-      this._actionService.deleteAction(this.action.id)
-      .subscribe({
-        next: (res) => {
-          this._toastrService.success(res.message);
-          window.location.href = '/painel/facility/registration/' + this.facility_id;
+    openDeleteActionModal(): void {
+      this.isDeleteActionModalOpen = true;
+    }
+
+    // Fechar modal
+    closeDeleteActionModal(): void {
+      this.isDeleteActionModalOpen = false;
+    }
+
+    
+    comfirmDeleteAction(): void {
+      this._actionService.deleteAction(this.action.id).subscribe({
+        next: () => {
+          this.isDeleteActionModalOpen = false;
+  
+          // Exibe mensagem de confirmação
+          this._toastrService.success('Action deleted successfully!');
+  
+          // Notificar o componente pai para mudar a aba
+          this.returnToActions.emit();
         },
         error: (error) => {
           this._toastrService.error(error.error.message);
-        }
-      })
+          this.isDeleteActionModalOpen = false; // Fecha o modal
+        },
+      });
     }
+    
+    
+    
   }
 

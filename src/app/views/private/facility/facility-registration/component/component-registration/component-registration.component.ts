@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { component } from '@models/component';
@@ -45,11 +45,18 @@ export class ComponentRegistrationComponent implements OnInit {
     'SM', 'SF', 'LM', 'LF', 'Each', 'KW', 'Ton', 'BTU’s'
   ];
 
-  @Input()
-  component: component;
+  // @Input() component: component;
+  @Input() component: any;
 
-  @Input()
-  facility_id: number;
+  @Input() facility_id: number;
+
+  @Output() returnToComponents = new EventEmitter<void>();
+
+  isDeleteComponentModalOpen: boolean = false;
+
+  backToComponents(): void {
+    this.returnToComponents.emit();
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -160,16 +167,27 @@ export class ComponentRegistrationComponent implements OnInit {
     window.location.href = '/painel/facility/registration/' + this.facility_id;
   }
 
-  deleteComponent(){
-    this._componentService.delete(this.component.id)
-    .subscribe({
-      next: () => {
-        this._toastrService.success('Componente excluído com sucesso!');
-        window.location.href = '/painel/facility/registration/' + this.facility_id;
-      },
-      error: (error) => {
-        this._toastrService.error(error.error.message);
-      }
-    })
-  }
+    // Abrir o modal de confirmação
+    openDeleteComponentModal(): void {
+      this.isDeleteComponentModalOpen = true;
+    }
+  
+    // Fechar o modal de confirmação
+    closeDeleteComponentModal(): void {
+      this.isDeleteComponentModalOpen = false;
+    }
+
+    confirmDeleteComponent(): void {
+      this._componentService.deleteComponent(this.component.id).subscribe({
+        next: () => {
+          this.isDeleteComponentModalOpen = false;
+          this._toastrService.success('Component deleted successfully!');
+          this.returnToComponents.emit(); // Notifica o componente pai para voltar à listagem
+        },
+        error: (error) => {
+          this._toastrService.error('Error deleting component.');
+          this.isDeleteComponentModalOpen = false;
+        }
+      });
+    }
 }

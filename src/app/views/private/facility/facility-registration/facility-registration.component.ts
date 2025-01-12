@@ -37,7 +37,7 @@ export class FacilityRegistrationComponent implements OnInit {
     });
   }
 
-  changeMenuActive(menu){
+  changeMenuActive(menu: string): void{
     this.menuActive = menu;
   }
 

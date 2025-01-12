@@ -31,6 +31,7 @@
                 Components
             </button>
         </li>
+        
         <li class="nav-item" role="presentation">
             <button
                 class="nav-link {{ menuActive == 'actions' ? 'active' : '' }} custom-tab"
@@ -57,7 +58,7 @@
     }
 
     @if(menuActive == 'component-registration'){
-        <app-component-registration [facility_id]="facility_id" [component]="component"></app-component-registration>
+        <app-component-registration [facility_id]="facility_id" [component]="component" (returnToComponents)="changeMenuActive('components')"></app-component-registration>
      }
 
      
@@ -66,6 +67,7 @@
     }
 
     @if(menuActive == 'actions-registration'){
-        <app-action-registration [facility_id]="facility_id" [action]="action" (setAction)="setAction($event)"></app-action-registration>
+        <app-action-registration [facility_id]="facility_id" [action]="action" (setAction)="setAction($event)" (returnToActions)="changeMenuActive('actions')"></app-action-registration>
+
     }
 </div>

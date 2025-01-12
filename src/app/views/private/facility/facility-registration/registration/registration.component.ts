@@ -18,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   imagePreview: string | ArrayBuffer | null = null;
   facility_id: number;
   users: User[];
-  isDeleteModalOpen: boolean = false; // Controla a exibição do modal
+  isDeleteFacilityModalOpen: boolean = false; // Controla a exibição do modal
 
   owners = [{ id: 1, name: 'Owner 1' }, { id: 2, name: 'Owner 2' }];
   unities = [{ id: 1, name: '1' }, { id: 2, name: '2' }, { id: 3, name: '3' }, { id: 4, name: '4' }, { id: 5, name: '5' }];
@@ -34,8 +34,8 @@ export class RegistrationComponent implements OnInit {
   ];
 
   // Fotos para a linha extra
-  extraPhotos: string[] = [
-  ];
+  extraPhotos: string[] = [];  // Fotos carregadas
+  selectedPhoto: string | null = null; // Foto selecionada para preview
 
   constructor(
     private fb: FormBuilder,
@@ -97,6 +97,16 @@ export class RegistrationComponent implements OnInit {
           this.toastrService.error(error.error.message);
         }
       });
+
+      this.getFacilityPhotos();
+  }
+
+  openPreview(photo: string): void {
+    this.selectedPhoto = photo;
+  }
+
+  closePreview(): void {
+    this.selectedPhoto = null;
   }
 
   updateFacility(value) {
@@ -109,24 +119,53 @@ export class RegistrationComponent implements OnInit {
       });
   }
 
+  getFacilityPhotos(): void {
+    this.extraPhotos = []
+  }
+
+  goToActions(): void {
+    // Navega para a aba "Actions"
+    this._router.navigate([`/painel/facility/registration/${this.facility_id}`]).then(() => {
+      // Atualiza a URL para a aba de "Actions"
+      setTimeout(() => {
+        const actionsTab = document.getElementById('actions-tab');
+        if (actionsTab) {
+          actionsTab.click(); // Simula o clique para ativar a aba
+        }
+      }, 0);
+    });
+  }
+  
+  goToComponents(): void {
+    this._router.navigate([`/painel/facility/registration/${this.facility_id}`]).then(() => {
+      setTimeout(() => {
+        const componentsTab = document.getElementById('components-tab');
+        if (componentsTab) {
+          componentsTab.click(); // Simula o clique para ativar a aba
+        }
+      }, 0);
+    });
+  }
+  
+
   deleteFacility() {
-    this.isDeleteModalOpen = true; // Abre o modal
+    this.isDeleteFacilityModalOpen = true; // Abre o modal
   }
 
-  closeDeleteModal() {
-    this.isDeleteModalOpen = false; // Fecha o modal
+  closeDeleteFacilityModal() {
+    this.isDeleteFacilityModalOpen = false; // Fecha o modal
   }
 
-  confirmDelete() {
+  confirmDeleteFacility() {
     this._facilityService.delete(this.facility_id)
       .subscribe({
         next: () => {
-          this.isDeleteModalOpen = false; // Fecha o modal
+          this.isDeleteFacilityModalOpen = false; // Fecha o modal
           this._router.navigate(['/painel/facility']); // Redireciona após a exclusão
         },
         error: (error) => {
           this.toastrService.error(error.error.message);
-          this.isDeleteModalOpen = false; // Fecha o modal em caso de erro
+          this.isDeleteFacilityModalOpen = false; // Fecha o modal em caso de erro
         }
       });
   }

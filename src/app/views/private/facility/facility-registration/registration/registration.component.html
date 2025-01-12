@@ -5,16 +5,26 @@
                 <div class="col-md-3 col-12 mb-4 mb-md-0 photo-gallery">
                     <div class="carousel-photos mt-3" style="max-height: 400px; overflow-y: auto;">
 
-                        <!-- Fotos extras do carousel -->
-                        <div *ngFor="let photo of extraPhotos; let i = index"
+                        <!-- <div *ngFor="let photo of extraPhotos; let i = index"
                             class="carousel-photo d-flex justify-content-center">
                             <div class="photo-preview d-flex align-items-center justify-content-center"
                                 style="max-width: 160px;" (click)="onExtraPhotoSelected(i + 1)">
                                 <img *ngIf="photo" [src]="photo" alt="Photo Preview" class="img-fluid"
                                     style="max-width: 100%; max-height: 100%; object-fit: cover;" />
                             </div>
+                        </div> -->
+                          <!-- Fotos extras do carousel -->
+                        <div *ngFor="let photo of extraPhotos; let i = index" class="carousel-photo d-flex justify-content-center">
+                            <div class="photo-preview d-flex align-items-center justify-content-center"
+                                style="max-width: 160px;" (click)="openPreview(photo)">
+                            <img *ngIf="photo" [src]="photo" alt="Photo Preview" class="img-fluid"
+                                style="max-width: 100%; max-height: 100%; object-fit: cover;" />
+                            </div>
                         </div>
                     </div>
+                    
+                    
+
                     <!-- Botão para upload de imagens -->
                     <div class="button-container d-flex justify-content-center mt-3">
                         <!-- Botão de Upload -->
@@ -42,8 +52,10 @@
                         </div>
                         <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5 spacing-trash"
                             style="color: #AEAEB2;">
-                            <i class="fa-solid fa-share"></i>
+                            <i class="fa-solid fa-share" (click)="goToComponents()"></i>
                         </div>
+
+
                         <div class="col-12 col-md-auto trash d-flex justify-content-end pe-4 fs-5"
                             style="color: #C53232;">
                             <i class="fa-solid fa-trash-can" (click)="deleteFacility()"></i>
@@ -171,23 +183,39 @@
         </div>
     </div>
 
-    <!-- Modal de Confirmação -->
-    <div *ngIf="isDeleteModalOpen" class="modal-overlay">
-        <div class="modal" style="min-height: 250px;">
+    <!-- Modal de Confirmação de Exclusão -->
+        <div *ngIf="isDeleteFacilityModalOpen" class="modal-overlay confirm-modal">
+            <div class="modal confirm-modal-content">
             <div class="modal-header">
                 <h3>Are you sure you want to delete?</h3>
-                <button class="close-button" (click)="closeDeleteModal()">×</button>
+                <button class="close-button" (click)="closeDeleteFacilityModal()">×</button>
             </div>
             <div class="modal-body">
                 <p>You will permanently delete this information.</p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" (click)="closeDeleteModal()">Cancel</button>
-                <button class="btn btn-danger" (click)="confirmDelete()">Delete</button>
+                <button class="btn btn-secondary" (click)="closeDeleteFacilityModal()">Cancel</button>
+                <button class="btn btn-danger" (click)="confirmDeleteFacility()">Delete</button>
+            </div>
             </div>
         </div>
-    </div>
-
+        
+        <!-- Modal para Visualizar Imagem -->
+        <div *ngIf="selectedPhoto" class="modal-overlay preview-modal">
+            <div class="modal preview-modal-content">
+            <div class="modal-header">
+                <h3>Image Preview</h3>
+                <button class="close-button" (click)="closePreview()">×</button>
+            </div>
+            <div class="modal-body">
+                <img [src]="selectedPhoto" class="img-fluid" alt="Selected Photo">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" (click)="closePreview()">Close</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+            </div>
+        </div>
 
     <!-- Modal de Confirmação Fixo
 <div class="modal-overlay">
