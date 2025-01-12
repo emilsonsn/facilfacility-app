@@ -44,69 +44,91 @@
     }
   }
   
-  /* MODAL */
-
+ //* Estilos gerais para modais */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* Fundo escuro com opacidade */
-  display: flex; /* Alinha o modal no centro */
-  align-items: center;
+  background: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+  display: flex;
   justify-content: center;
-  z-index: 1050; /* Garante que o modal fique acima dos outros elementos */
-  overflow: hidden; /* Evita qualquer rolagem */
+  align-items: center;
+  z-index: 1050;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between; /* Espaça os elementos para os lados */
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0; /* Linha separadora */
+  padding-bottom: 10px;
+  position: relative; /* Permite posicionar o "X" de forma absoluta */
 }
 
 .modal {
   background: white;
-  padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  width: 400px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Estilo específico para o modal de preview */
+.preview-modal-content {
+  width: 80%; /* Largura maior para o modal de preview */
+  max-width: 90%;
+  max-height: 90%;
+  overflow: hidden;
+}
+
+.preview-modal .modal-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  min-height: 300px;
+}
+
+.preview-modal .modal-body img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Estilo específico para o modal de confirmação */
+.confirm-modal-content {
+  width: 400px; /* Largura menor para o modal de confirmação */
   max-width: 90%;
   max-height: 30vh;
-  overflow-y: hidden;  
-  overflow-x: hidden;  /* Remove rolagem horizontal */
-  z-index: 1051; /* Garantir que esteja acima do overlay */
-  display: block; /* Garante que o modal esteja visível */
-  margin: auto; /* Centraliza o modal */
-  position: relative; /* Garante que não dependa de outros estilos */
 }
 
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #e0e0e0; /* Linha separadora */
-  padding-bottom: 10px;
-}
-
-.modal-header h3 {
-  margin: 0;
-  font-size: 1.25rem;
-}
-
-.modal-body {
-  margin: 20px 0;
+.confirm-modal .modal-body {
   font-size: 1rem;
   color: #333;
+  text-align: center;
 }
 
-.modal-footer {
+.confirm-modal .modal-footer {
   display: flex;
   justify-content: flex-end;
-  gap: 10px; /* Espaçamento entre botões */
+  gap: 10px;
 }
 
+/* Botões */
 .close-button {
+  position: absolute;
+  top: 10px; /* Ajuste a distância do topo */
+  right: 10px; /* Ajuste a distância da direita */
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+  color: #333;
+  transition: color 0.3s;
 }
 
 .btn-secondary {
@@ -116,7 +138,6 @@
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
 }
 
 .btn-secondary:hover {
@@ -130,7 +151,6 @@
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
 }
 
 .btn-danger:hover {

@@ -187,20 +187,20 @@
     </div>
 </div>
 
-<!-- Modal de Confirmação -->
-<div *ngIf="isDeleteComponentModalOpen" class="modal-overlay">
-    <div class="modal" style="min-height: 250px;">
+    <!-- Modal de Confirmação de Exclusão -->
+    <div *ngIf="isDeleteComponentModalOpen" class="modal-overlay confirm-modal">
+        <div class="modal confirm-modal-content">
         <div class="modal-header">
-            <h3>Are you sure you want to delete this component?</h3>
+            <h3>Are you sure you want to delete?</h3>
             <button class="close-button" (click)="closeDeleteComponentModal()">×</button>
         </div>
         <div class="modal-body">
-            <p>You will permanently delete this component.</p>
+            <p>You will permanently delete this information.</p>
         </div>
         <div class="modal-footer">
             <button class="btn btn-secondary" (click)="closeDeleteComponentModal()">Cancel</button>
             <button class="btn btn-danger" (click)="confirmDeleteComponent()">Delete</button>
         </div>
+        </div>
     </div>
-</div>
 
