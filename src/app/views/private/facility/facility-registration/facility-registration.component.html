@@ -57,7 +57,7 @@
     }
 
     @if(menuActive == 'component-registration'){
-        <app-component-registration [facility_id]="facility_id" [component]="component"></app-component-registration>
+        <app-component-registration [facility_id]="facility_id" [component]="component" (returnToComponents)="changeMenuActive('components')"></app-component-registration>
      }
 
      
