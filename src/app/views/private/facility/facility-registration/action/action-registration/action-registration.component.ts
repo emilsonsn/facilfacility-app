@@ -234,7 +234,7 @@ export class ActionRegistrationComponent implements OnInit {
     
   onDeleteImage(photo: string): void {
       this.closePreview();
-      const text = 'Tem certeza? Essa ação não pode ser revertida!';
+      const text = 'You will permanently delete this information.';
       this._dialog
         .open(DialogConfirmComponent, { data: { text } })
         .afterClosed()

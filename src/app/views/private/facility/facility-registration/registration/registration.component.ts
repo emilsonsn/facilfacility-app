@@ -229,7 +229,7 @@ export class RegistrationComponent implements OnInit {
     this.selectedPhoto = null;
     const index = this.extraPhotos.indexOf(photo);
     const id = this.photoIds[index];
-    const text = 'Tem certeza? Essa ação não pode ser revertida!';
+    const text = 'You will permanently delete this information.';
     this._dialog
       .open(DialogConfirmComponent, { data: { text } })
       .afterClosed()
