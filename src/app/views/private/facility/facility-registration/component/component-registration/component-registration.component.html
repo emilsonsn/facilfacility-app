@@ -5,9 +5,11 @@
                 <div class="col-md-3 col-12 mb-4 mb-md-0 photo-gallery">
                     <div class="carousel-photos mt-3" style="max-height: 400px; overflow-y: auto;">
                         <div class="carousel-photo mb-3" style="position: relative;">
-                            <div class="photo-preview d-flex align-items-center justify-content-center"
+                            <div                            
+                            class="photo-preview d-flex align-items-center justify-content-center"
                                 style="width: 100%; height: 170px; background-color: #f8f9fa; border-radius: 4px; overflow: hidden; cursor: pointer;">
                                 <img *ngIf="imagePreview || this.component?.image"
+                                (click)="openPreview(imagePreview || this.component?.image)"
                                 [src]="imagePreview ?? this.component?.image" alt="Photo Preview" class="img-fluid"
                                     style="max-width: 100%; max-height: 100%; object-fit: cover;" />
                                 <div *ngIf="!imagePreview && !this.component?.image" class="text-muted d-flex flex-column align-items-center">
@@ -186,6 +188,23 @@
         </div>
     </div>
 </div>
+
+        <!-- Modal para Visualizar Imagem -->
+        <div *ngIf="selectedPhoto" class="modal-overlay preview-modal">
+            <div class="modal preview-modal-content">
+            <div class="modal-header">
+                <h3>Image Preview</h3>
+                <button class="close-button" (click)="closePreview()">×</button>
+            </div>
+            <div class="modal-body">
+                <img [src]="selectedPhoto" class="img-fluid" alt="Selected Photo">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" (click)="closePreview()">Close</button>
+                <button class="btn btn-danger" (click)="onDeleteImage(selectedPhoto)">Delete</button>
+            </div>
+            </div>
+        </div>
 
     <!-- Modal de Confirmação de Exclusão -->
     <div *ngIf="isDeleteComponentModalOpen" class="modal-overlay confirm-modal">

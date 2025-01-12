@@ -41,6 +41,9 @@ export class ComponentService {
     return this._http.delete<DeleteApiResponse>(`${environment.api}/${this.endpoint}/${id}`);
   }
 
+  public deleteImage(id: number): Observable<DeleteApiResponse> {
+    return this._http.delete<DeleteApiResponse>(`${environment.api}/${this.endpoint}/image/${id}`);
+  }
 }
 
 

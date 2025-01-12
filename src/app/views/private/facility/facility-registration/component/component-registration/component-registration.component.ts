@@ -1,9 +1,11 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { component } from '@models/component';
 import { ComponentService } from '@services/component.service';
 import { FacilityService } from '@services/facility.service';
+import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime } from 'rxjs';
 
@@ -53,6 +55,7 @@ export class ComponentRegistrationComponent implements OnInit {
   @Output() returnToComponents = new EventEmitter<void>();
 
   isDeleteComponentModalOpen: boolean = false;
+  selectedPhoto: string | null = null; // Foto selecionada para preview
 
   backToComponents(): void {
     this.returnToComponents.emit();
@@ -63,7 +66,8 @@ export class ComponentRegistrationComponent implements OnInit {
     private readonly _componentService: ComponentService,
     private readonly _toastrService: ToastrService,
     private readonly _router: Router,
-    private readonly _facilityService: FacilityService
+    private readonly _facilityService: FacilityService,
+    private readonly _dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -167,6 +171,14 @@ export class ComponentRegistrationComponent implements OnInit {
     window.location.href = '/painel/facility/registration/' + this.facility_id;
   }
 
+  openPreview(photo: string): void {
+    this.selectedPhoto = photo;
+  }
+
+  closePreview(): void {
+    this.selectedPhoto = null;
+  }
+
     // Abrir o modal de confirmação
     openDeleteComponentModal(): void {
       this.isDeleteComponentModalOpen = true;
@@ -190,4 +202,32 @@ export class ComponentRegistrationComponent implements OnInit {
         }
       });
     }
+
+  onDeleteImage(photo: string): void {
+    this.selectedPhoto = null;
+    const text = 'Tem certeza? Essa ação não pode ser revertida!';
+    this._dialog
+      .open(DialogConfirmComponent, { data: { text } })
+      .afterClosed()
+      .subscribe((res: boolean) => {
+        if (res) {
+          this.deleteImage();
+        }
+      });
+  }
+
+  private deleteImage(){
+    const id = this.form.get('id').value;
+    this._componentService.deleteImage(id)
+     .subscribe({
+        next: (res) => {
+          this._toastrService.success(res.message);
+          this.component.image = null;
+          this.imagePreview = null;
+        },
+        error: (error) => {
+          this._toastrService.error(error.error.message);
+        }
+      })
+  }
 }
