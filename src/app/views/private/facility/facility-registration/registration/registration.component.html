@@ -23,21 +23,7 @@
                         </div>
                     </div>
                     
-                    <!-- Modal para Visualizar Imagem -->
-                    <div *ngIf="selectedPhoto" class="modal-overlay">
-                        <div class="modal">
-                        <div class="modal-header">
-                            <h3>Image Preview</h3>
-                            <button class="close-button" (click)="closePreview()">×</button>
-                        </div>
-                        <div class="modal-body">
-                            <img [src]="selectedPhoto" class="img-fluid" alt="Selected Photo">
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" (click)="closePreview()">Close</button>
-                        </div>
-                        </div>
-                    </div>
+                    
 
                     <!-- Botão para upload de imagens -->
                     <div class="button-container d-flex justify-content-center mt-3">
@@ -197,9 +183,9 @@
         </div>
     </div>
 
-    <!-- Modal de Confirmação -->
-    <div *ngIf="isDeleteFacilityModalOpen" class="modal-overlay">
-        <div class="modal" style="min-height: 250px;">
+    <!-- Modal de Confirmação de Exclusão -->
+        <div *ngIf="isDeleteFacilityModalOpen" class="modal-overlay confirm-modal">
+            <div class="modal confirm-modal-content">
             <div class="modal-header">
                 <h3>Are you sure you want to delete?</h3>
                 <button class="close-button" (click)="closeDeleteFacilityModal()">×</button>
@@ -211,9 +197,25 @@
                 <button class="btn btn-secondary" (click)="closeDeleteFacilityModal()">Cancel</button>
                 <button class="btn btn-danger" (click)="confirmDeleteFacility()">Delete</button>
             </div>
+            </div>
         </div>
-    </div>
-
+        
+        <!-- Modal para Visualizar Imagem -->
+        <div *ngIf="selectedPhoto" class="modal-overlay preview-modal">
+            <div class="modal preview-modal-content">
+            <div class="modal-header">
+                <h3>Image Preview</h3>
+                <button class="close-button" (click)="closePreview()">×</button>
+            </div>
+            <div class="modal-body">
+                <img [src]="selectedPhoto" class="img-fluid" alt="Selected Photo">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" (click)="closePreview()">Close</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+            </div>
+        </div>
 
     <!-- Modal de Confirmação Fixo
 <div class="modal-overlay">
