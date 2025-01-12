@@ -9,6 +9,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ComponentService {
+  public deleteComponent(id: number): Observable<DeleteApiResponse> {
+    return this.delete(id); 
+  }  
 
   public endpoint = 'component';
 
