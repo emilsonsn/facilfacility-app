@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { action } from '@models/action';
 import { ActionService } from '@services/action.service';
 import { ComponentService } from '@services/component.service';
+import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime } from 'rxjs';
 
@@ -94,7 +96,7 @@ export class ActionRegistrationComponent implements OnInit {
     { value: 'false', label: 'Inactive' },
   ];
 
-
+  selectedPhoto: string | null = null;
   components: any[];
 
   constructor(
@@ -103,6 +105,7 @@ export class ActionRegistrationComponent implements OnInit {
     private readonly _actionService: ActionService,
     private readonly _toastrService: ToastrService,
     private readonly _router: Router,
+    private readonly _dialog: MatDialog
   ) { }
 
     ngOnInit() {
@@ -189,6 +192,13 @@ export class ActionRegistrationComponent implements OnInit {
       this.imagePreview = this.extraPhotos[index];
     }
 
+    openPreview(photo: string|any): void {
+      this.selectedPhoto = photo;
+    }
+  
+    closePreview(): void {
+      this.selectedPhoto = null;
+    }
 
     backFacilities(){
       this.returnToActions.emit()
@@ -222,7 +232,33 @@ export class ActionRegistrationComponent implements OnInit {
       });
     }
     
-    
+  onDeleteImage(photo: string): void {
+      this.closePreview();
+      const text = 'Tem certeza? Essa ação não pode ser revertida!';
+      this._dialog
+        .open(DialogConfirmComponent, { data: { text } })
+        .afterClosed()
+        .subscribe((res: boolean) => {
+          if (res) {
+            this.deleteImage();
+          }
+        });
+    }
+
+    private deleteImage(){
+      const id = this.action.id;
+      this._actionService.deleteImage(id)
+      .subscribe({
+          next: (res) => {
+            this._toastrService.success(res.message);
+            this.imagePreview = null;
+            this.action.image = null;
+          },
+          error: (error) => {
+            this._toastrService.error(error.error.message);
+          }
+        })
+    }    
     
   }
 
