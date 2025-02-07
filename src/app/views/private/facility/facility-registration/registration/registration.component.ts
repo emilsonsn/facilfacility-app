@@ -71,7 +71,7 @@ export class RegistrationComponent implements OnInit {
       used: [''],
       size: [''],
       unity: [''],
-      report_last_update: [''],
+      report_last_update: [null, Validators.required],
       consultant_name: [''],
       address: [''],
       city: [''],

@@ -5,6 +5,8 @@ import { PrivateRoutingModule } from './private-routing.module';
 import {HomeModule} from "@app/views/private/home/home.module";
 import { FacilityRegistrationComponent } from './facility/facility-registration/facility-registration.component';
 import { FacilityComponent } from './facility/facility/facility.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormField, MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { RegistrationComponent } from './facility/facility-registration/registration/registration.component';
@@ -40,9 +42,13 @@ import { ComponentRegistrationComponent } from './facility/facility-registration
     MatFormField,
     FormsModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     provideNgxMask(),
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   bootstrap:[]
 })
