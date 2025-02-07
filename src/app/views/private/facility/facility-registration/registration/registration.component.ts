@@ -23,7 +23,7 @@ export class RegistrationComponent implements OnInit {
   isDeleteFacilityModalOpen: boolean = false; // Controla a exibição do modal
 
   owners = [{ id: 1, name: 'Owner 1' }, { id: 2, name: 'Owner 2' }];
-  unities = [{ id: 1, name: '1' }, { id: 2, name: '2' }, { id: 3, name: '3' }, { id: 4, name: '4' }, { id: 5, name: '5' }];
+  unities = [{ id: 1, name: 'SM' }, { id: 2, name: 'SF' }];
   usages = [
     { label: 'Residential', value: 'residential' },
     { label: 'Commercial', value: 'commercial' },
@@ -126,33 +126,35 @@ export class RegistrationComponent implements OnInit {
     this.selectedCurrency = currency;
   }
 
+
   applyCurrencyMask(event: any): void {
-    let value = event.target.value;
+    const inputElement = event.target as HTMLInputElement;
+    let value = inputElement.value;
   
-    // Remove todos os caracteres não numéricos
-    value = value.replace(/\D/g, '');
+    // Remove todos os caracteres que não sejam números
+    const rawValue = value.replace(/\D/g, '');
   
-    // Se o valor for vazio, define como '0'
-    if (!value) {
-      value = '0';
+    // Garante que o valor tenha pelo menos dois dígitos (para os centavos)
+    const paddedValue = rawValue.padStart(0, '0');
+  
+    // Formata o valor com vírgula para separar os decimais
+    const formattedValue = `${paddedValue.slice(0, -2)},${paddedValue.slice(-2)}`;
+  
+    // Atualiza o valor no campo de entrada
+    inputElement.value = formattedValue;
+  
+    // Atualiza o FormControl com o valor formatado (string)
+    this.form.get('replacement_cost')?.setValue(formattedValue, { emitEvent: false });
+  
+    // Mantém o cursor na posição correta
+    const cursorPosition = inputElement.selectionStart;
+    if (cursorPosition !== null) {
+      inputElement.setSelectionRange(cursorPosition, cursorPosition);
     }
-  
-    // Adiciona casas decimais e formata o valor
-    const formattedValue = (parseInt(value, 10) / 100).toLocaleString('pt-BR', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  
-    // Atualiza o campo de entrada
-    event.target.value = formattedValue;
-  
-    // Atualiza o valor no FormControl no formato padrão (para cálculos)
-    const numericValue = value ? parseFloat(value) / 100 : 0;
-    this.form.get('replacement_cost')?.setValue(numericValue.toString());
   }
+
   
-  
-  
+
   
 
   openPreview(photo: string): void {
