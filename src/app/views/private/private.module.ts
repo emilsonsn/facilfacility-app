@@ -8,6 +8,7 @@ import { FacilityComponent } from './facility/facility/facility.component';
 import { MatFormField, MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { RegistrationComponent } from './facility/facility-registration/registration/registration.component';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { ActionComponent } from './facility/facility-registration/action/action.component';
 import { ComponentComponent } from './facility/facility-registration/component/component.component';
 import { ToastrModule } from 'ngx-toastr';
@@ -34,9 +35,15 @@ import { ComponentRegistrationComponent } from './facility/facility-registration
     MatSelectModule,
     MatInputModule,
     MatSelectModule,
+    NgxMaskDirective,
     ToastrModule,
     MatFormField,
+    FormsModule,
     ReactiveFormsModule,
-  ]
+  ],
+  providers: [
+    provideNgxMask(),
+  ],
+  bootstrap:[]
 })
 export class PrivateModule { }

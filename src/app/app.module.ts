@@ -8,7 +8,7 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { provideLottieOptions } from "ngx-lottie";
 import player from 'lottie-web';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutsModule } from '@shared/layouts/layouts.module';
@@ -22,11 +22,14 @@ import { BrowserstateInterceptor } from './interceptors/browserstate.interceptor
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { IconService } from './services/icon.service';
 import { ClientComponent } from './views/private/client/client/client.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { RegistrationComponent } from './views/private/facility/facility-registration/registration/registration.component';
+import { PrivateModule } from './views/private/private.module';
 
 // Registra o idioma local (pt-BR)
 registerLocaleData(localePt, 'pt-BR');
@@ -34,12 +37,12 @@ registerLocaleData(localePt, 'pt-BR');
 // Configuração personalizada para o CurrencyMask
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
-  allowNegative: true,
+  allowNegative: false,
   decimal: ",",
   precision: 2,
-  prefix: "R$ ",
+  prefix: "",
   suffix: "",
-  thousands: "."
+  thousands: ".",
 };
 
 @NgModule({
@@ -54,10 +57,12 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatMomentDateModule,
     HttpClientModule,
     CurrencyMaskModule,
+    NgxCurrencyDirective,
     MatSelectModule,
     MatIconModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right'
     }),
@@ -65,6 +70,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     LayoutsModule, // Importa LayoutsModule para usar o SidebarComponent e outros layouts
   ],
   providers: [
+    provideNgxMask(),
     provideLottieOptions({
       player: () => player,
     }),

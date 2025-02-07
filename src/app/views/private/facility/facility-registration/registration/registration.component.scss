@@ -89,6 +89,39 @@ form {
   border-right: #AEAEB2 2px solid;
 }
 
+/* Ajusta a altura do mat-form-field para ambos */
+.mat-form-field {
+  height: 40px; /* Define uma altura consistente */
+  display: flex;
+  align-items: center; /* Alinha o conteúdo verticalmente */
+}
+
+/* Estilo específico para o select */
+.currency-select {
+  margin-right: 0px; /* Espaçamento entre o select e o input */
+  width: 90px; /* Largura máxima para o dropdown */
+  height: 40px; /* Altura consistente com o input */
+}
+
+.currency-select .mat-form-field-wrapper {
+  padding: 0; /* Remove padding extra */
+  height: 30%; /* Garante que o wrapper se ajuste à altura */
+}
+
+/* Estilo específico para o input */
+.replacement-cost-input {
+  flex: 1; /* Permite que o input preencha o espaço disponível */
+  height: 10px; /* Altura consistente com o select */
+}
+
+.replacement-cost-input input {
+  height: 100%; /* Garante que o input interno ajuste sua altura */
+  padding: 0px; /* Ajusta o espaçamento interno */
+  box-sizing: border-box; /* Garante que padding não afete a altura */
+}
+
+
+
 /* Ajusta o padding para garantir que o sticky funcione bem */
 #facilityTabsContent {
   padding-left: 0;
@@ -103,7 +136,7 @@ form {
 /* Ajusta o espaçamento entre os inputs */
 .mat-mdc-form-field {
   --mat-mdc-form-field-floating-label-scale: 0.75;
-  gap: -8px; /* Reduz o espaço entre os campos de entrada */
+  gap: -10px; /* Reduz o espaço entre os campos de entrada */
   display: inline-flex;
   min-width: 0;
   text-align: left;
@@ -241,4 +274,7 @@ form {
   background: #c82333;
 }
 
+.button-container {
+  gap: 20px;
+}
 

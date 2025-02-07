@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@models/user';
@@ -29,6 +29,17 @@ export class RegistrationComponent implements OnInit {
     { label: 'Commercial', value: 'commercial' },
   ];
 
+  // Máscaras para Replacement Coast
+  currencies = [
+    { code: 'BRL', symbol: 'R$', label: '' },
+    { code: 'CAD', symbol: 'C$', label: '' },
+    { code: 'USD', symbol: 'US$', label: '' },    
+  ]
+  selectedCurrency = this.currencies[1];
+  mask: string;
+  thousandSeparator: string;
+  prefix: string;
+
   // Fotos para miniaturas menores
   smallPhotos: string[] = [
     'assets/photos/small-photo1.jpg',
@@ -50,7 +61,8 @@ export class RegistrationComponent implements OnInit {
     private readonly _dialog: MatDialog,    
   ) {}
 
-  ngOnInit() {
+
+  ngOnInit(): void {
     this.form = this.fb.group({
       id: [''],
       name: [''],
@@ -67,11 +79,15 @@ export class RegistrationComponent implements OnInit {
       country: [''],
       zip_code: [''],
       year_installed: [''],
-      replacement_cost: [''],
+      replacement_cost: [
+        '', [
+          Validators.pattern(/^\d+(\.\d{1,2})?$/),
+        ]],
       description: [''],
     });
 
     this.getUsers();
+
 
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
@@ -105,6 +121,39 @@ export class RegistrationComponent implements OnInit {
 
       this.getFacilityPhotos();
   }
+
+  onCurrencyChange(currency: any): void {
+    this.selectedCurrency = currency;
+  }
+
+  applyCurrencyMask(event: any): void {
+    let value = event.target.value;
+  
+    // Remove todos os caracteres não numéricos
+    value = value.replace(/\D/g, '');
+  
+    // Se o valor for vazio, define como '0'
+    if (!value) {
+      value = '0';
+    }
+  
+    // Adiciona casas decimais e formata o valor
+    const formattedValue = (parseInt(value, 10) / 100).toLocaleString('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  
+    // Atualiza o campo de entrada
+    event.target.value = formattedValue;
+  
+    // Atualiza o valor no FormControl no formato padrão (para cálculos)
+    const numericValue = value ? parseFloat(value) / 100 : 0;
+    this.form.get('replacement_cost')?.setValue(numericValue.toString());
+  }
+  
+  
+  
+  
 
   openPreview(photo: string): void {
     this.selectedPhoto = photo;

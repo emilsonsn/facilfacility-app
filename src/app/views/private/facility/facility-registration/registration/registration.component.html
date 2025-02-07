@@ -35,13 +35,14 @@
                         </button>
                         <input type="file" accept="image/*" style="display: none;" (change)="onFileSelected($event)"
                             #fileInput />
+                    
                         <!-- Botão de Câmera -->
-                        <!-- <button (click)="fileInput.click()" class="btn btn-primary"
-              style="border-radius: 50%; width: 40px; height: 40px; background-color: #5B84C4; color: #FFF; border: #5B84C4;">
-              <i class="fa-solid fa-camera"></i>
-            </button> -->
+                        <button (click)="cameraInput.click()" class="btn btn-primary"
+                            style="border-radius: 50%; width: 40px; height: 40px; background-color: #5B84C4; color: #FFF; border: #5B84C4;">
+                            <i class="fa-solid fa-camera"></i>
+                        </button>
                         <input id="cameraInput" type="file" accept="image/*" capture="environment"
-                            style="display: none;" (change)="onFileSelected($event)" #fileInput />
+                            style="display: none;" (change)="onFileSelected($event)" #cameraInput />
                     </div>
                 </div>
                 <div class="col-md-9 col-12">
@@ -149,18 +150,47 @@
                                     <input matInput type="text" formControlName="zip_code" />
                                 </mat-form-field>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <mat-form-field appearance="outline" class="w-100 mb-3">
                                     <mat-label>Year Installed</mat-label>
                                     <input matInput type="text" formControlName="year_installed" />
                                 </mat-form-field>
                             </div>
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <mat-form-field appearance="outline" class="w-100 mb-3">
                                     <mat-label>Replacement Cost</mat-label>
                                     <input matInput type="text" formControlName="replacement_cost" />
                                 </mat-form-field>
-                            </div>
+                            </div> -->
+
+                            <div class="col-md-8 d-flex align-items-top">
+                                <!-- Dropdown alinhado à esquerda -->
+                                <mat-form-field appearance="outline" class="currency-select">
+                                  <mat-select
+                                    [(value)]="selectedCurrency"
+                                    (selectionChange)="onCurrencyChange($event.value)"
+                                  >
+                                    <mat-option *ngFor="let currency of currencies" [value]="currency">
+                                      {{ currency.label }} ({{ currency.symbol }})
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              
+                                <!-- Campo de entrada alinhado à direita -->
+                                <mat-form-field appearance="outline" class="replacement-cost-input">
+                                  <mat-label>Replacement Cost</mat-label>
+                                  <input
+                                    matInput
+                                    type="text"
+                                    formControlName="replacement_cost"
+                                    (input)="applyCurrencyMask($event)"
+                                    placeholder="0,00"
+                                  />
+                                </mat-form-field>
+                              </div>
+                              
+                                 
+
                             <div class="col-md-12">
                                 <mat-form-field appearance="outline" class="w-100 mb-3">
                                     <mat-label>Description</mat-label>
