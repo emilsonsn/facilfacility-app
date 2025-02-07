@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { COMMA, ENTER } from '@angular/cdk/keycodes'
+import { MatChipInputEvent, MatChip, MatChipInput } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@models/user';
 import { FacilityService } from '@services/facility.service';
@@ -32,6 +35,24 @@ export class RegistrationComponent implements OnInit {
     { label: 'Residential', value: 'residential' },
     { label: 'Commercial', value: 'commercial' },
   ];
+
+  usedOptions: string[] = [
+    'Residential',
+    'Commercial',
+    'Mix use',
+    'Institutional',
+    'Hospital',
+    'Daycare',
+    'Gymnasium',
+    'Utility Plan',
+    'Garage',
+    'Storage',
+    'Service building',
+    'Others',
+  ]
+  filteredOptions: string[] = [...this.usedOptions];
+  separatorKeysCodes: number[] = [13, 188]; // Enter e vírgula
+  usedControl = new FormControl();
   
   // Máscaras para Replacement Coast
   currencies = [
@@ -49,6 +70,7 @@ export class RegistrationComponent implements OnInit {
     'assets/photos/small-photo1.jpg',
     'assets/photos/small-photo2.jpg'
   ];
+
 
   // Fotos para a linha extra
   extraPhotos: string[] = [];  // Fotos carregadas
@@ -169,6 +191,31 @@ export class RegistrationComponent implements OnInit {
     return true;
   }
 
+  addOption(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+    if (value && !this.usedOptions.includes(value)) {
+      this.usedOptions.push(value);
+    }
+    if (event.chipInput) {
+      event.chipInput.clear();
+    }
+  }
+
+  removeOption(option: string): void {
+    const index = this.usedOptions.indexOf(option);
+    if (index >= 0) {
+      this.usedOptions.splice(index, 1);
+    }
+  }
+
+  selectOption(event: any): void {
+    const value = event.option.viewValue;
+    if (!this.usedOptions.includes(value)) {
+      this.usedOptions.push(value);
+    }
+  }
+
+
 
   openPreview(photo: string): void {
     this.selectedPhoto = photo;
@@ -194,6 +241,8 @@ export class RegistrationComponent implements OnInit {
           this._toastrService.error(error.error.message);
         }
       });
+
+  
   }
   
 

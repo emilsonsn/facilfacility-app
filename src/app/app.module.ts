@@ -30,6 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { RegistrationComponent } from './views/private/facility/facility-registration/registration/registration.component';
 import { PrivateModule } from './views/private/private.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 // Registra o idioma local (pt-BR)
 registerLocaleData(localePt, 'pt-BR');
@@ -95,7 +96,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     provideAnimations(),
     provideNativeDateAdapter(),
     provideNgxMask(),
-    IconService, // Serviço para gerenciar ícones SVG
+    IconService,
+    provideAnimationsAsync(), // Serviço para gerenciar ícones SVG
   ],
   bootstrap: [AppComponent]
 })

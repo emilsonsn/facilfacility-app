@@ -47,7 +47,11 @@
     &::-webkit-scrollbar {
         display: none; /* Oculta a barra de rolagem */
     }
+    .card-title{
+        font-size: 16px;
+    }
     .card{
+        
         
         border: none;
         border-bottom: 1px solid rgb(228, 228, 228);
@@ -64,6 +68,7 @@
             color: #274678;
             font-weight: 500;
             cursor: pointer;
+            font-size: 24px;
         }
     
         .copyButton{
