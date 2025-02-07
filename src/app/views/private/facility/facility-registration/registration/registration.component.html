@@ -86,9 +86,10 @@
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" class="w-100 mb-3">
                                     <mat-label>Number</mat-label>
-                                    <input matInput type="text" formControlName="number" />
+                                    <input matInput type="text" formControlName="number" (keypress)="onlyNumbers($event)" />
                                 </mat-form-field>
                             </div>
+                            
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" class="w-100 mb-3">
                                     <mat-label>Used</mat-label>
@@ -98,7 +99,7 @@
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" class="w-100 mb-3">
                                     <mat-label>Size</mat-label>
-                                    <input matInput type="text" formControlName="size" />
+                                    <input matInput type="text" formControlName="size" (keypress)="onlyNumbers($event)" />
                                 </mat-form-field>
                             </div>
                             <!-- <div class="col-md-6">

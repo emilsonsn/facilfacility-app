@@ -158,6 +158,17 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
+  onlyNumbers(event: KeyboardEvent): boolean {
+    const charCode = event.which ? event.which : event.keyCode;
+    
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault(); // Impede a inserção de letras e caracteres especiais
+      return false;
+    }
+  
+    return true;
+  }
+
 
   openPreview(photo: string): void {
     this.selectedPhoto = photo;
