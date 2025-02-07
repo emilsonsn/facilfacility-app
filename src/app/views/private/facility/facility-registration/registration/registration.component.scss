@@ -2,44 +2,53 @@
 body, html {
   overflow-x: hidden;  /* Remove rolagem horizontal globalmente */
   width: 100%;
-  overflow: visible;
+  overflow: hidden;
 }
-
-
 
 form {
-  margin-top: 5px;
-  overflow-y: scroll;
-}
-
-.container {
-  width: 100%;
-  max-height: 500px;
+  position: relative;
+  display: flex;
+  height: 100%;
   overflow-y: auto;
 }
 
+form .mat-form-field {
+  width: 100%;
+  
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden; /* Impede rolagem extra */
+}
 /* Ajusta o comportamento de rolagem no conteúdo das abas */
 #facilityTabsContent {
-  position: -webkit-sticky;
+  // position: -webkit-sticky;
   position: sticky;
   top: 0; 
   z-index: 10;
-  padding-top: 15px;
-  width: 100%;  
-  max-width: 100%; 
+  padding: 15px;
   height: auto;
   padding-left: 0; 
-  overflow-x: hidden; 
-  overflow-y: hidden;  
+  pointer-events: auto;
+}
+
+.main-content {
+  flex-grow: 1;
+  overflow-y: none;
+  padding: 15px;
+  height: calc(100vh - 60px); /* Ajusta altura para não sobrepor os tabs */
+  margin-top: 60px; /* Compensa a altura dos tabs */
+  scroll-behavior: smooth;
 }
 
 /* Corrige o layout das colunas para garantir que não causem rolagem horizontal */
+/* Evita que os elementos internos causem rolagem extra */
 .layout-container {
-  display: flex;
-  flex-wrap: nowrap;
-  row-gap: 1rem; /* Diminuir o espaçamento vertical entre as colunas */
-  column-gap: 0.2rem; /* Diminuir o espaçamento horizontal entre as colunas */
-  width: 100%;  /* Impede que as colunas ultrapassem a tela */
+  flex-wrap: nowrap; /* Garante que os elementos fiquem alinhados */
+  overflow: hidden; /* Impede que elementos internos causem rolagem indesejada */
 }
 
 /* Evita que o carrossel de fotos ultrapasse a largura */
@@ -73,6 +82,7 @@ form {
 
 /* Corrige o layout de trash para evitar rolagem excessiva */
 .trash {
+  position: sticky;
   i {
     cursor: pointer;
     padding: 10px;
@@ -123,11 +133,11 @@ form {
 
 
 /* Ajusta o padding para garantir que o sticky funcione bem */
-#facilityTabsContent {
-  padding-left: 0;
-  padding-right: 0;
-  max-height: 100vh; /* Certifique-se de que a altura é suficiente para o sticky */
-}
+// #facilityTabsContent {
+//   padding-left: 0;
+//   padding-right: 0;
+//   max-height: 100vh; /* Certifique-se de que a altura é suficiente para o sticky */
+// }
 
 /* Ajuste da altura dos inputs do formulário */
 
