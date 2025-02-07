@@ -173,16 +173,22 @@
                             </div>
                             <div class="col-md-4">
                                 <mat-form-field appearance="outline" class="w-100 mb-3">
-                                    <mat-label>Year Installed</mat-label>
-                                    <input matInput type="text" formControlName="year_installed" />
+                                  <mat-label>Year Installed</mat-label>
+                                  <input
+                                    matInput
+                                    id="yearInstalled"
+                                    type="number"
+                                    min="1900"
+                                    max="2099"
+                                    step="1"
+                                    placeholder="YYYY"
+                                    formControlName="year_installed"
+                                  />
                                 </mat-form-field>
-                            </div>
-                            <!-- <div class="col-md-6">
-                                <mat-form-field appearance="outline" class="w-100 mb-3">
-                                    <mat-label>Replacement Cost</mat-label>
-                                    <input matInput type="text" formControlName="replacement_cost" />
-                                </mat-form-field>
-                            </div> -->
+                              </div>
+                              
+                                                         
+                                     
 
                             <div class="col-md-8 d-flex align-items-top">
                                 <!-- Dropdown alinhado à esquerda -->

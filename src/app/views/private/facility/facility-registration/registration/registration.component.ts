@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatDatepicker } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@models/user';
@@ -8,6 +9,9 @@ import { UserService } from '@services/user.service';
 import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime } from 'rxjs';
+import * as _moment from 'moment';
+import { Moment } from 'moment';
+
 
 @Component({
   selector: 'app-registration',
@@ -28,7 +32,7 @@ export class RegistrationComponent implements OnInit {
     { label: 'Residential', value: 'residential' },
     { label: 'Commercial', value: 'commercial' },
   ];
-
+  
   // Máscaras para Replacement Coast
   currencies = [
     { code: 'BRL', symbol: 'R$', label: '' },
@@ -126,6 +130,7 @@ export class RegistrationComponent implements OnInit {
     this.selectedCurrency = currency;
   }
 
+  
 
   applyCurrencyMask(event: any): void {
     const inputElement = event.target as HTMLInputElement;
@@ -153,9 +158,6 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  
-
-  
 
   openPreview(photo: string): void {
     this.selectedPhoto = photo;
@@ -166,14 +168,23 @@ export class RegistrationComponent implements OnInit {
   }
 
   updateFacility(value) {
-    this._facilityService.update(this.facility_id, value)
+    const updatedValue = {
+      ...value,
+      year_installed: value.year_installed?.toString() || '', // Converte para string
+    };
+    console.log("Dados enviados:", updatedValue); // Debug para verificar os dados
+    this._facilityService.update(this.facility_id, updatedValue)
       .subscribe({
-        next: () => {},
+        next: () => {
+          console.log("Atualização bem-sucedida!");
+        },
         error: (error) => {
+          console.log("Erro ao salvar:", error);
           this._toastrService.error(error.error.message);
         }
       });
   }
+  
 
   getFacilityPhotos(): void {
     this.extraPhotos = []
