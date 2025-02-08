@@ -50,6 +50,8 @@ export class RegistrationComponent implements OnInit {
     'Service building',
     'Others',
   ]
+  selectedOption: string | null = null;
+  newOption: string = '';
   filteredOptions: string[] = [...this.usedOptions];
   separatorKeysCodes: number[] = [13, 188]; // Enter e vírgula
   usedControl = new FormControl();
@@ -111,6 +113,8 @@ export class RegistrationComponent implements OnInit {
         ]],
       description: [''],
     });
+
+    
 
     this.getUsers();
 
@@ -215,6 +219,33 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
+  onKeydown(event: KeyboardEvent): void {
+    event.stopPropagation(); 
+  }
+
+
+  addNewOption(): void {
+    if (this.newOption.trim() && !this.usedOptions.includes(this.newOption.trim())) {
+      this.usedOptions.push(this.newOption.trim());
+      this.selectedOption = this.newOption.trim(); // Define a nova opção como selecionada
+      this.newOption = ''; // Limpa o campo de entrada
+    }
+  }
+
+  onSelect(option: string): void {
+    this.selectedOption = option;
+  }
+
+  onSelectClosed(): void {
+    setTimeout(() => {
+      const inputElement = document.querySelector('.new-option-input') as HTMLInputElement;
+      if (inputElement) {
+        inputElement.focus();
+      }
+    }, 0);
+  }
+  
+  
 
 
   openPreview(photo: string): void {
@@ -228,6 +259,7 @@ export class RegistrationComponent implements OnInit {
   updateFacility(value) {
     const updatedValue = {
       ...value,
+      unity: value.unity?.toString() || '',
       year_installed: value.year_installed?.toString() || '', // Converte para string
     };
     console.log("Dados enviados:", updatedValue); // Debug para verificar os dados

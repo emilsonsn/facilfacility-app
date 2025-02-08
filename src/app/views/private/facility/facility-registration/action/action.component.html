@@ -1,13 +1,10 @@
 <div class="col-md-12" style="width: 98%; margin: 0 auto;">
-
   <div class="form-actions mt-3 d-flex justify-content-between">
     <div class="buttons">
       <button class="add" (click)="setAction.emit()">
         <i class="fa-solid fa-plus"></i>
       </button>
-      <button class="template">
-        Templates
-      </button>
+      <button class="template">Templates</button>
     </div>
 
     <div class="input-container">
@@ -23,10 +20,7 @@
       <div class="card">
         <div class="row g-0">
           <div class="col-md-2 p-3">
-            <img [src]="
-              action?.image ?? 
-              'https://5287aa00874a313e299d-1850966fc307ff23e1e789aeafd2476b.ssl.cf5.rackcdn.com/PostImagem/42240/foto-branca-download-wallpapers-e-onde-usar_o1fcm9aiph1mte1km1f11cs53mng.png'"
-              class="img-fluid rounded-start" alt="...">
+            <img [src]="action?.image ?? 'https://via.placeholder.com/150'" class="img-fluid rounded-start" alt="...">
           </div>
           <div class="col-md-10">
             <div class="card-body">
@@ -42,28 +36,29 @@
                 </div>
 
                 <div class="d-flex flex-column align-items-end justify-content-between">
-                  <div class="InProgress">
-                    <div class="select-container">
-                      <i class="fa-solid fa-circle"></i>
-                      <select name="" id="" class="">
-                        <option value="">
-                          In progress
-                        </option>
-                      </select>
-                    </div>
+                  <div class="select-container">
+                    <i class="fa-solid fa-circle select-icon" [ngStyle]="{'color':'white'}"></i>
+                    <select class="custom-select"
+                      [ngStyle]="{'background-color': getOptionColor(action.status), 'color': 'white', 'padding-left': '30px'}" 
+                      (change)="updateActionStatus($event, action)">
+                      <option *ngFor="let option of options" 
+                              [value]="option.name" 
+                              [ngStyle]="{'background-color': option.color, 'color': 'white'}">
+                        {{ option.name }}
+                      </option>
+                    </select>
                   </div>
+
                   <div matRipple class="copyButton" (click)="copy()">
                     <i class="fa-solid fa-copy"></i>
                   </div>
                 </div>
-              </div>
-              
+              </div>   
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 
 </div>

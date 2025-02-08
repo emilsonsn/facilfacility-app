@@ -97,28 +97,90 @@
             color: white;
         }
     
-        .InProgress{
+        .select-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .custom-select {
+            width: 100%;
+            border-radius: 4px;
+            padding: 5px 10px 5px 30px; /* Espaço para o ícone */
+            appearance: none; /* Remove a aparência padrão do sistema */
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        /* Ícone posicionado no canto esquerdo */
+        .select-icon {
+            position: absolute;
+            left: 10px; /* Ajusta a posição dentro do select */
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+            pointer-events: none; /* Evita que clique no ícone */
+        }
+        
 
-            .select-container{
-                padding: 0 10px;
-                background: #c4e5ff;
-                color: #274678;
-                border-radius: 10px;
+        /* Remove o outline e estiliza o select */
+        .select-container select {
+            border: none;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            outline: none;
+            cursor: pointer;
+            appearance: none; /* Remove a aparência padrão */
+            text-align: center;
+            min-width: 120px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
 
-                select{
-                    outline: none;
-                    background: #c4e5ff;
-                    color: #274678;
-                    padding: 5px;
-                    border-radius: 10px;
-                    border: none;
-                    option{
-                        span.point{ 
-                            display: none;
-                        }
-                    }
-                }
-            }
+        /* Estiliza as opções dentro do dropdown */
+        .select-container option {
+            padding: 8px;
+            font-weight: bold;
+            color: white;
+            border-radius: 4px;
+        }
+
+        /* Cores específicas para cada status */
+        .select-container select option[value="1"],
+        .select-container select[data-status="1"] {
+            background-color: #f0ad4e !important; /* Laranja */
+            color: white;
+        }
+
+        .select-container select option[value="2"],
+        .select-container select[data-status="2"] {
+            background-color: #5cb85c !important; /* Verde */
+            color: white;
+        }
+
+        .select-container select option[value="3"],
+        .select-container select[data-status="3"] {
+            background-color: #0275d8 !important; /* Azul */
+            color: white;
+        }
+
+        /* Define a cor do select com base no status selecionado */
+        .select-container select[data-status="1"] {
+            background-color: #f0ad4e;
+            color: white;
+        }
+
+        .select-container select[data-status="2"] {
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .select-container select[data-status="3"] {
+            background-color: #0275d8;
+            color: white;
         }
     }
+
 }
