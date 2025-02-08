@@ -99,14 +99,7 @@
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" class="w-100 mb-3">
                                   <mat-label>Used</mat-label>
-                                  <mat-select
-                                    [(ngModel)]="selectedOption"
-                                    (ngModelChange)="onSelect($event)"
-                                    [disableOptionCentering]="true"
-                                    [panelClass]="'custom-select-panel'"
-                                    aria-label="Type to add or select"
-                                  >
-                                    <!-- Exibe as opções existentes -->
+                                  <mat-select formControlName="used" (selectionChange)="onSelect($event.value)">
                                     <mat-option *ngFor="let option of usedOptions" [value]="option">
                                       {{ option }}
                                     </mat-option>

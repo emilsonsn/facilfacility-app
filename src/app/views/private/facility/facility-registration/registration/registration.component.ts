@@ -122,14 +122,14 @@ export class RegistrationComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       this.facility_id = parseInt(id);
+    
       if (id) {
         this._facilityService.getById(parseInt(id))
           .subscribe({
             next: (res) => {
               this.form.patchValue(res);
-              const images = res.images.map( image => image.path);
-              this.extraPhotos = images;
-              this.photoIds = res.images.map( image => image.id);
+              this.selectedOption = res.used; 
+              console.log("📌 Dados carregados:", res);
             },
             error: (error) => {
               this._toastrService.error(error.error.message);
@@ -232,9 +232,11 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  onSelect(option: string): void {
-    this.selectedOption = option;
-  }
+  onSelect(selectedValue: string): void {
+    this.selectedOption = selectedValue; 
+    this.form.get('used')?.setValue(selectedValue); 
+    console.log("🏗️ Opção selecionada:", selectedValue);
+  }  
 
   onSelectClosed(): void {
     setTimeout(() => {
@@ -244,6 +246,8 @@ export class RegistrationComponent implements OnInit {
       }
     }, 0);
   }
+
+  
   
   
 
@@ -259,7 +263,9 @@ export class RegistrationComponent implements OnInit {
   updateFacility(value) {
     const updatedValue = {
       ...value,
+      used: this.form.get('used')?.value,
       unity: value.unity?.toString() || '',
+      
       year_installed: value.year_installed?.toString() || '', // Converte para string
     };
     console.log("Dados enviados:", updatedValue); // Debug para verificar os dados
