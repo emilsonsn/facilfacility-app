@@ -14,12 +14,14 @@ import { MatFormField, MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { RegistrationComponent } from './facility/facility-registration/registration/registration.component';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { CurrencyMaskModule } from "ng2-currency-mask";
 import { ActionComponent } from './facility/facility-registration/action/action.component';
 import { ComponentComponent } from './facility/facility-registration/component/component.component';
 import { ToastrModule } from 'ngx-toastr';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActionRegistrationComponent } from './facility/facility-registration/action/action-registration/action-registration.component';
 import { ComponentRegistrationComponent } from './facility/facility-registration/component/component-registration/component-registration.component';
+import { HeaderService } from '@services/header.service';
 
 
 
@@ -42,6 +44,7 @@ import { ComponentRegistrationComponent } from './facility/facility-registration
     MatInputModule,
     MatSelectModule,
     NgxMaskDirective,
+    CurrencyMaskModule,
     ToastrModule,
     MatFormField,
     MatFormFieldModule,
@@ -58,6 +61,7 @@ import { ComponentRegistrationComponent } from './facility/facility-registration
     provideNgxMask(),
     MatDatepickerModule,
     MatNativeDateModule,
+    HeaderService,
   ],
   bootstrap:[],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

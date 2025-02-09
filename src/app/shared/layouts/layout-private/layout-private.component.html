@@ -6,7 +6,9 @@
   <section id="template">
     <app-header
       [menuItem]="menuItem"
-      [user]="user">
+      [user]="user"
+      [activeLabel]="headerTitle"
+      >
     </app-header>
     <div class="content">
       <router-outlet></router-outlet>

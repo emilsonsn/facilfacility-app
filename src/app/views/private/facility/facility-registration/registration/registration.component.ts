@@ -8,6 +8,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@models/user';
 import { FacilityService } from '@services/facility.service';
+import { HeaderService } from '@services/header.service';
 import { UserService } from '@services/user.service';
 import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
 import { ToastrService } from 'ngx-toastr';
@@ -15,6 +16,8 @@ import { debounceTime } from 'rxjs';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
 
+const LANG = "pt-BR";
+const CURRENCY = "USD";
 
 @Component({
   selector: 'app-registration',
@@ -23,7 +26,9 @@ import { Moment } from 'moment';
 })
 
 export class RegistrationComponent implements OnInit {
+  headerTitle: string = '';
   form: FormGroup;
+  formattedValue: string = '';
   imagePreview: string | ArrayBuffer | null = null;
   facility_id: number;
   users: User[];
@@ -81,12 +86,13 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,  
+    private route: ActivatedRoute,
     private _facilityService: FacilityService,
     private readonly _toastrService: ToastrService,
     private readonly _userService: UserService,
     private readonly _router: Router,
-    private readonly _dialog: MatDialog,    
+    private readonly _dialog: MatDialog,
+    private headerService: HeaderService
   ) {}
 
 
@@ -99,18 +105,22 @@ export class RegistrationComponent implements OnInit {
       used: [''],
       size: [''],
       unity: [''],
-      report_last_update: [null, Validators.required],
+      report_last_update: [null, Validators.required], 
       consultant_name: [''],
       address: [''],
       city: [''],
       region: [''],
       country: [''],
       zip_code: [''],
-      year_installed: [''],
-      replacement_cost: [
-        '', [
-          Validators.pattern(/^\d+(\.\d{1,2})?$/),
-        ]],
+      year_installed: [ '',
+        [
+        Validators.required,
+        Validators.min(1900),
+        Validators.max(2099),
+        Validators.pattern(/^\d{4}$/), 
+        ],
+      ],
+      replacement_cost: ['', Validators.required],
       description: [''],
     });
 
@@ -118,24 +128,18 @@ export class RegistrationComponent implements OnInit {
 
     this.getUsers();
 
+    this.form.get('name')?.valueChanges.subscribe((value) => {
+      this.headerService.setHeaderTitle(value || ''); // Atualiza o título dinamicamente
+    });  
 
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      this.facility_id = parseInt(id);
-    
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id'); 
       if (id) {
-        this._facilityService.getById(parseInt(id))
-          .subscribe({
-            next: (res) => {
-              this.form.patchValue(res);
-              this.selectedOption = res.used; 
-              console.log("📌 Dados carregados:", res);
-            },
-            error: (error) => {
-              this._toastrService.error(error.error.message);
-            }
-          });
-      }
+        this.facility_id = parseInt(id, 10); 
+        this.loadFacilityData(this.facility_id); 
+      } else {
+        console.error('ID não encontrado na rota!');
+      }      
     });
 
     this.form.valueChanges
@@ -152,38 +156,74 @@ export class RegistrationComponent implements OnInit {
       this.getFacilityPhotos();
   }
 
+  
+    
+  
+
   onCurrencyChange(currency: any): void {
     this.selectedCurrency = currency;
   }
 
-  
+  loadFacilityData(id: number): void {
+    this._facilityService.getById(id).subscribe({
+      next: (res) => {
+        this.form.patchValue(res);
+        this.headerService.setHeaderTitle(res.name || ''); 
+      },
+      error: (error) => {
+        console.error('Erro ao carregar dados da facility:', error);
+        this._toastrService.error('Erro ao carregar dados da facility.');
+      },
+    });
+  }
 
+  validateYearInstalled(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+  
+    // Permitir apenas 4 caracteres
+    if (value.length > 4) {
+      input.value = value.slice(0, 4);
+      this.form.get('year_installed')?.setValue(input.value); // Atualizar o FormControl
+    }
+  }
+  
   applyCurrencyMask(event: any): void {
     const inputElement = event.target as HTMLInputElement;
     let value = inputElement.value;
   
-    // Remove todos os caracteres que não sejam números
-    const rawValue = value.replace(/\D/g, '');
+    // Remove tudo que não for número
+    let rawValue = value.replace(/[^\d]/g, '');
   
-    // Garante que o valor tenha pelo menos dois dígitos (para os centavos)
-    const paddedValue = rawValue.padStart(0, '0');
+    // Se o valor for vazio, define como '0'
+    if (!rawValue) {
+      rawValue = '0';
+    }
   
-    // Formata o valor com vírgula para separar os decimais
-    const formattedValue = `${paddedValue.slice(0, -2)},${paddedValue.slice(-2)}`;
+    // Converte para um valor com dois decimais (sempre adicionando os centavos)
+    const integerPart = rawValue.slice(-2) || ''; // Tudo antes dos dois últimos dígitos
+    const decimalPart = rawValue.slice(-2).padStart(2, ''); // Sempre 2 dígitos para os centavos
   
-    // Atualiza o valor no campo de entrada
+    // Formata a parte inteira com separadores de milhar
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  
+    // Combina a parte inteira e decimal no formato correto
+    const formattedValue = `${formattedInteger},${decimalPart}`;
+  
+    // Atualiza o valor do campo de entrada
     inputElement.value = formattedValue;
   
-    // Atualiza o FormControl com o valor formatado (string)
+    // Atualiza o FormControl associado sem disparar eventos
     this.form.get('replacement_cost')?.setValue(formattedValue, { emitEvent: false });
   
-    // Mantém o cursor na posição correta
-    const cursorPosition = inputElement.selectionStart;
-    if (cursorPosition !== null) {
+    // Mantém o cursor no final do campo
+    setTimeout(() => {
+      const cursorPosition = inputElement.value.length;
       inputElement.setSelectionRange(cursorPosition, cursorPosition);
-    }
+    }, 0);
   }
-
+  
+  
   onlyNumbers(event: KeyboardEvent): boolean {
     const charCode = event.which ? event.which : event.keyCode;
     
@@ -260,34 +300,54 @@ export class RegistrationComponent implements OnInit {
     this.selectedPhoto = null;
   }
 
-  updateFacility(value) {
+  updateFacility(value: any): void {
+    if (!this.facility_id) {
+      console.error('Facility ID não definido. Verifique se o ID foi carregado corretamente.');
+      return;
+    }
+  
+    let replacementCost = value.replacement_cost;
+  
+    // Converta replacementCost para string, caso não seja
+    if (typeof replacementCost !== 'string') {
+      replacementCost = String(replacementCost);
+    }
+  
+    // Transforme "1.000,00" em "1000.00"
+    replacementCost = replacementCost.replace(/\./g, '').replace(',', '.');
+  
     const updatedValue = {
       ...value,
-      used: this.form.get('used')?.value,
       unity: value.unity?.toString() || '',
-      
-      year_installed: value.year_installed?.toString() || '', // Converte para string
+      year_installed: value.year_installed?.toString() || '',
+      replacement_cost: replacementCost,
     };
-    console.log("Dados enviados:", updatedValue); // Debug para verificar os dados
-    this._facilityService.update(this.facility_id, updatedValue)
-      .subscribe({
-        next: () => {
-          console.log("Atualização bem-sucedida!");
-        },
-        error: (error) => {
-          console.log("Erro ao salvar:", error);
-          this._toastrService.error(error.error.message);
-        }
-      });
-
   
+    this._facilityService.update(this.facility_id, updatedValue).subscribe({
+      next: () => {
+        console.log('Atualização bem-sucedida!');
+      },
+      error: (error) => {
+        console.error('Erro ao salvar:', error);
+        this._toastrService.error('Erro ao salvar a facility. Verifique os dados e tente novamente.');
+      },
+    });
   }
-  
 
   getFacilityPhotos(): void {
-    this.extraPhotos = []
+    this._facilityService.getPhotos(this.facility_id).subscribe({
+      next: (res) => {
+        this.extraPhotos = res.data.map(photo => photo.path); // Extraindo os caminhos corretamente
+      },
+      error: (error) => {
+        console.error('❌ Erro ao carregar fotos:', error);
+        this._toastrService.error('Erro ao carregar fotos da facility.');
+      }
+    });
   }
-
+  
+  
+  
   goToActions(): void {
     // Navega para a aba "Actions"
     this._router.navigate([`/painel/facility/registration/${this.facility_id}`]).then(() => {

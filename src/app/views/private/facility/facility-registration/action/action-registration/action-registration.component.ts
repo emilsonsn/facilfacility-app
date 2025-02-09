@@ -96,6 +96,7 @@ export class ActionRegistrationComponent implements OnInit {
     { value: 'false', label: 'Inactive' },
   ];
 
+
   selectedPhoto: string | null = null;
   components: any[];
 
@@ -151,14 +152,52 @@ export class ActionRegistrationComponent implements OnInit {
     })
   }
 
-  update(id, action){
-    this._actionService.patchAction(id, action)
-    .subscribe({      
+  update(id: number, action: any): void {
+    // Verifica se a data está definida e a converte para o formato correto
+    if (action.date instanceof Date) {
+      action.date = action.date.toISOString().split('T')[0]; // Converte para YYYY-MM-DD
+    }
+  
+    const updatedAction = {
+      ...action,
+      coast: action.coast ? String(action.coast).replace(/\./g, '').replace(',', '.') : null,
+    };
+  
+    console.log('Atualizando ação:', updatedAction);
+  
+    this._actionService.patchAction(id, updatedAction).subscribe({
+      next: () => {},
       error: (error) => {
-        this._toastrService.error(error.error.message);
-      }
-    })
+        console.error('Erro ao atualizar ação:', error);
+        this._toastrService.error(error.error.message || 'Erro ao atualizar ação.');
+      },
+    });
   }
+
+
+  onlyNumbers(event: KeyboardEvent): boolean {
+    const charCode = event.which ? event.which : event.keyCode;
+    
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault(); // Impede a inserção de letras e caracteres especiais
+      return false;
+    }
+  
+    return true;
+  }
+  
+  onActionCoastInput(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+  
+    // Remove caracteres não numéricos e converte para número
+    let numericValue = inputElement.value.replace(/[^\d,-]/g, '');
+    numericValue = numericValue.replace(',', '.'); // Converte decimal para formato padrão
+  
+    // Atualiza o valor formatado no formulário
+    this.form.get('coast')?.setValue(numericValue, { emitEvent: false });
+  }
+  
+  
   
   getComponents(){
     this._componentService.search()

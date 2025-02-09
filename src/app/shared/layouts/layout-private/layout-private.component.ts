@@ -7,6 +7,7 @@ import {UserService} from "@services/user.service";
 import {ApiResponse} from "@models/application";
 import { SessionService } from '@store/session.service';
 import { SessionQuery } from '@store/session.query';
+import { HeaderService } from '@services/header.service';
 
 @Component({
   selector: 'app-layout-private',
@@ -14,7 +15,9 @@ import { SessionQuery } from '@store/session.query';
   styleUrl: './layout-private.component.scss'
 })
 export class LayoutPrivateComponent {
+  headerTitle: string = '';
   isCollapsed = false;
+  private subscription: Subscription;
 
   public permitedMenuItem: IMenuItem[] = [];
 
@@ -86,11 +89,16 @@ export class LayoutPrivateComponent {
     private readonly _sidebarService: SidebarService,
     private readonly _userService: UserService,
     private readonly _sessionService: SessionService,
-    private readonly _sessionQuery : SessionQuery
+    private readonly _sessionQuery : SessionQuery,
+    private headerService: HeaderService,
   ) { }
 
 
   ngOnInit(): void {
+
+    this.headerService.headerTitle$.subscribe((title) => {
+      this.headerTitle = title;
+    });
 
     document.getElementById('template').addEventListener('click', () => {
       this._sidebarService.retractSidebar();
@@ -101,6 +109,9 @@ export class LayoutPrivateComponent {
   ngOnDestroy(): void {
     if (this.resizeSubscription) {
       this.resizeSubscription.unsubscribe();
+    }
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 

@@ -6,13 +6,14 @@
                     <div class="carousel-photos mt-3" style="max-height: 400px; overflow-y: auto;">
 
                           <!-- Fotos extras do carousel -->
-                        <div *ngFor="let photo of extraPhotos; let i = index" class="carousel-photo d-flex justify-content-center">
+                        <!-- Fotos extras do carousel -->
+                        <div *ngFor="let photo of extraPhotos" class="carousel-photo d-flex justify-content-center">
                             <div class="photo-preview d-flex align-items-center justify-content-center"
                                 style="max-width: 160px;" (click)="openPreview(photo)">
-                            <img *ngIf="photo" [src]="photo" alt="Photo Preview" class="img-fluid"
-                                style="max-width: 100%; max-height: 100%; object-fit: cover;" />
+                                <img *ngIf="photo" [src]="photo" alt="Photo Preview" class="img-fluid"
+                                    style="max-width: 100%; max-height: 100%; object-fit: cover;" />
                             </div>
-                        </div>
+                        </div>                        
                     </div>
                     
                     
@@ -104,11 +105,12 @@
                                       {{ option }}
                                     </mat-option>
                                     <!-- Input para adicionar novas opções -->
+                                    <!-- [(ngModel)]="newOption" -->
                                     <mat-option>
                                         <mat-option disableRipple class="no-hover">
                                             <input
                                               type="text"
-                                              [(ngModel)]="newOption"
+                                              
                                               (keydown.enter)="addNewOption(); $event.stopPropagation();"
                                               (click)="$event.stopPropagation();"
                                               placeholder="Add new option"
@@ -160,7 +162,7 @@
                             <div class="col-md-12">
                                 <mat-form-field appearance="outline" class="w-100 mb-3">
                                   <mat-label>Report Last Update</mat-label>
-                                  <input matInput [matDatepicker]="picker" formControlName="report_last_update">
+                                  <input matInput formControlName="report_last_update" [matDatepicker]="picker">
                                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                   <mat-datepicker #picker></mat-datepicker>
                                 </mat-form-field>
@@ -196,7 +198,7 @@
                                     <input matInput type="text" formControlName="zip_code" />
                                 </mat-form-field>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <mat-form-field appearance="outline" class="w-100 mb-3">
                                   <mat-label>Year Installed</mat-label>
                                   <input
@@ -208,6 +210,8 @@
                                     step="1"
                                     placeholder="YYYY"
                                     formControlName="year_installed"
+                                    maxlength="4"
+                                    (input)="validateYearInstalled($event)"
                                   />
                                 </mat-form-field>
                               </div>
@@ -215,31 +219,40 @@
                                                          
                                      
 
-                            <div class="col-md-8 d-flex align-items-top">
+                            <div class="col-md-6 d-flex align-items-top">
                                 <!-- Dropdown alinhado à esquerda -->
-                                <mat-form-field appearance="outline" class="currency-select">
-                                    <mat-label>$</mat-label>
-                                  <mat-select
-                                    [(value)]="selectedCurrency"
-                                    (selectionChange)="onCurrencyChange($event.value)"
-                                  >
-                                    <mat-option *ngFor="let currency of currencies" [value]="currency">
-                                      {{ currency.label }} ({{ currency.symbol }})
-                                    </mat-option>
-                                  </mat-select>
-                                </mat-form-field>
+                                 
+                            <div class="col-md-10 d-flex align-items-start">
+
+                                <div class="col-md-3 d-flex align-items-start">
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <mat-label>$</mat-label>
+                                    <mat-select
+                                        [(value)]="selectedCurrency"
+                                        (selectionChange)="onCurrencyChange($event.value)">
+                                        <mat-option *ngFor="let currency of currencies" [value]="currency">
+                                        {{ currency.label }} ({{ currency.symbol }})
+                                        </mat-option>
+                                    </mat-select>
+                                    </mat-form-field>
+                                </div>
                               
                                 <!-- Campo de entrada alinhado à direita -->
-                                <mat-form-field appearance="outline" class="replacement-cost-input">
-                                    <mat-label>Replacement Cost</mat-label>
-                                    <input
-                                      matInput
-                                      type="text"
-                                      formControlName="replacement_cost"
-                                      (input)="applyCurrencyMask($event)"
-                                      placeholder="0,00"
-                                    />
-                                  </mat-form-field>
+                                <div class="col-md-12 d-flex align-items-start">
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <mat-label>Replacement Cost</mat-label>
+                                        <input
+                                            matInput
+                                            formControlName="replacement_cost"
+                                            currencyMask
+                                            [options]="{ 
+                                                prefix: '', 
+                                                thousands: '.', 
+                                                decimal: ',' }"/>
+                                        </mat-form-field>
+                                
+                                    </div>
+                            </div>
                               </div>
 
                             <div class="col-md-12">

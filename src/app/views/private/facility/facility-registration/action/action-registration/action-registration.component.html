@@ -86,10 +86,20 @@
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                    <mat-form-field appearance="outline" class="w-100 mb-3">
+                    <!-- <mat-form-field appearance="outline" class="w-100 mb-3">
                         <mat-label>Action date</mat-label>
                         <input matInput type="date" formControlName="date" />
-                    </mat-form-field>
+                    </mat-form-field> -->
+
+                    <mat-form-field appearance="outline" class="w-100 mb-3">
+                        <mat-label>Action date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+
+
+
                 </div>
                 <div class="col-md-4">
                     <mat-form-field appearance="outline" class="w-100 mb-3">
@@ -132,14 +142,24 @@
                 <div class="col-md-4">
                     <mat-form-field appearance="outline" class="w-100 mb-3">
                         <mat-label>Frequency</mat-label>
-                        <input matInput type="text" formControlName="frequency" />
+                        <input matInput type="number" formControlName="frequency" (keypress)="onlyNumbers($event)"/>
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field appearance="outline" class="w-100 mb-3">
-                        <mat-label>Action coast</mat-label>
-                        <input matInput type="text" formControlName="coast" />
-                    </mat-form-field>
+                        <mat-label>Action Coast</mat-label>
+                        <input 
+                          matInput
+                          formControlName="coast"
+                          (input)="onActionCoastInput($event)"
+                          currencyMask
+                          [options]="{ 
+                            prefix: '', 
+                            thousands: '.', 
+                            decimal: ',' 
+                          }"
+                        />
+                      </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field appearance="outline" class="w-100 mb-3">

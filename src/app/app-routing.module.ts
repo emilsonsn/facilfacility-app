@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {environment} from "@env/environment";
 import { hasSessionGuard } from './guards/has-session.guard';
+import { RegistrationComponent } from './views/private/facility/facility-registration/registration/registration.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: environment.home
+  },
+  {
+    path: 'registration',
+    component: RegistrationComponent,
   }
 ];
 

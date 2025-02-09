@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { component } from '@models/component';
@@ -43,6 +43,8 @@ export class ComponentRegistrationComponent implements OnInit {
     ];
   owners: string[] = ['Owner 1', 'Owner 2', 'Owner 3'];
 
+  unity: [''];
+
   unityOptions: string[] = [
     'SM', 'SF', 'LM', 'LF', 'Each', 'KW', 'Ton', 'BTU’s'
   ];
@@ -80,16 +82,27 @@ export class ComponentRegistrationComponent implements OnInit {
       uniformat: [],
       time_left_by_condition: [''],
       condition: [''],
-      year_installed: [''],
-      quantity: [''],
-      unity: [''],
-      unit_cost: [''],
+      year_installed: [ '',
+        [
+        Validators.required,
+        Validators.min(1900),
+        Validators.max(2099),
+        Validators.pattern(/^\d{4}$/), 
+        ],
+      ],
+      quantity: [0, [Validators.required, Validators.min(0)]],
+      unit_cost: [0, [Validators.required, Validators.min(0)]],
+      coast: [{ value: 0, disabled: true }],
       time_left_by_lifespan: [''],
-      coast: [''],
       currency: [''],
       unit_currency: [''],
+      lifespan: [''], // Adicionando o controle
       description: [''],
     });
+    
+
+    this.form.get('quantity')?.valueChanges.subscribe(() => this.calculateCoast());
+    this.form.get('unit_cost')?.valueChanges.subscribe(() => this.calculateCoast());
 
     if(this.component){
       this.form.patchValue(this.component);      
@@ -119,29 +132,63 @@ export class ComponentRegistrationComponent implements OnInit {
     })
   }
 
-  create(component){
-    this._componentService.create(component)
-    .subscribe({
+  create(component) {
+    console.log('Criando componente com os dados:', component);
+    this._componentService.create(component).subscribe({
       next: (res) => {
-        this.form.patchValue(res.data);
+        this.form.patchValue(res.data); 
       },
       error: (error) => {
-        this._toastrService.error(error.error.message);
+        console.error('Erro ao criar componente:', error);
+        this._toastrService.error(error.error.message || 'Erro ao criar componente. Tente novamente.');
       }
-    })
+    });
   }
 
-  update(id, component){
-    this._componentService.update(id, component)
-    .subscribe({
-      next: (res) => {
-        // this.form.patchValue(res.data);
+  update(id, component) {
+    const updatedComponent = {
+      ...component,
+      quantity: component.quantity?.toString() || '0',
+      unit_cost: component.unit_cost?.toString() || '0',
+      year_installed: component.year_installed?.toString() || '',
+      unit_currency: component.unit_currency?.toString() || '',
+      time_left_by_condition: component.time_left_by_condition?.toString() || '',
+      time_left_by_lifespan: component.time_left_by_lifespan?.toString() || '',
+      lifespan: component.lifespan?.toString() || '',
+    };
+  
+    console.log('Atualizando componente com os dados:', updatedComponent);
+  
+    this._componentService.update(id, updatedComponent).subscribe({
+      next: () => {
       },
       error: (error) => {
-        this._toastrService.error(error.error.message);
-      }
-    })
+        console.error('Erro ao atualizar componente:', error);
+        this._toastrService.error(error.error.message || 'Erro ao atualizar componente.');
+      },
+    });
   }
+  
+
+  calculateCoast(): void {
+    const quantity = Number(this.form.get('quantity')?.value) || 0;
+    const unitCost = Number(this.form.get('unit_cost')?.value) || 0;
+    const coast = quantity + unitCost;
+  
+    this.form.get('coast')?.setValue(coast, { emitEvent: false });
+  }
+
+  validateYearInstalled(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+  
+    // Permitir apenas 4 caracteres
+    if (value.length > 4) {
+      input.value = value.slice(0, 4);
+      this.form.get('year_installed')?.setValue(input.value); // Atualizar o FormControl
+    }
+  }
+    
 
   onSubmit(): void {
     console.log('Form Data:', this.form.value);

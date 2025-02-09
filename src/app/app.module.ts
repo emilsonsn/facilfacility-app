@@ -31,6 +31,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { RegistrationComponent } from './views/private/facility/facility-registration/registration/registration.component';
 import { PrivateModule } from './views/private/private.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { FacilityService } from '@services/facility.service';
 
 // Registra o idioma local (pt-BR)
 registerLocaleData(localePt, 'pt-BR');
@@ -71,6 +72,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     LayoutsModule, // Importa LayoutsModule para usar o SidebarComponent e outros layouts
   ],
   providers: [
+    FacilityService,
     provideNgxMask(),
     provideLottieOptions({
       player: () => player,

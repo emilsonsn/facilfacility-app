@@ -9,6 +9,13 @@ export class HeaderService {
   private _title: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private _subTitle: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private _search: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private headerTitleSubject = new BehaviorSubject<string>('');
+
+  headerTitle$ = this.headerTitleSubject.asObservable();
+
+  setHeaderTitle(title: string): void {
+    this.headerTitleSubject.next(title);
+  }
 
   public getTitle(): Observable<string> {
     return this._title.asObservable();

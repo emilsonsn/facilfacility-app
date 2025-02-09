@@ -88,7 +88,7 @@
                         <div class="col-md-6">
                             <mat-form-field appearance="outline" class="w-100 mb-3">
                                 <mat-label>Time left by condition</mat-label>
-                                <input matInput type="text" formControlName="time_left_by_condition" />
+                                <input matInput type="number" formControlName="time_left_by_condition" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-6">
@@ -102,79 +102,93 @@
                             </mat-form-field>
                         </div>
 
-                        <!-- Três colunas -->
                         <div class="col-md-4">
+                            <!-- <mat-form-field appearance="outline" class="w-100 mb-3">
+                              <mat-label>Year Installed</mat-label>
+                              <input matInput type="date" formControlName="year_installed" />
+                            </mat-form-field> -->
                             <mat-form-field appearance="outline" class="w-100 mb-3">
                                 <mat-label>Year Installed</mat-label>
-                                <input matInput type="date" formControlName="year_installed" />
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
+                                <input
+                                  matInput
+                                  id="yearInstalled"
+                                  type="number"
+                                  min="1900"
+                                  max="2099"
+                                  step="1"
+                                  placeholder="YYYY"
+                                  formControlName="year_installed"
+                                  maxlength="4"
+                                  (input)="validateYearInstalled($event)"
+                                />
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
                             <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Quantity</mat-label>
-                                <input matInput type="text" formControlName="quantity" />
+                              <mat-label>Lifespan</mat-label>
+                              <input matInput type="number" formControlName="lifespan" />
                             </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
+                          </div>
+                          <div class="col-md-4">
                             <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Unity</mat-label>
-                                <mat-select formControlName="unity">
-                                    <mat-option *ngFor="let unity of unityOptions" [value]="unity">
-                                        {{ unity }}
-                                    </mat-option>
-                                </mat-select>
+                              <mat-label>Time Left by Lifespan</mat-label>
+                              <input matInput type="number" formControlName="time_left_by_lifespan" />
                             </mat-form-field>
-                        </div>
-
-                        <!-- Duas colunas -->
-                        <div class="col-md-4">
+                          </div>
+                        
+                          <!-- Segunda linha -->
+                          <div class="col-md-4">
                             <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Lifespan</mat-label>
-                                <input matInput type="string" formControlName="time_left_by_lifespan" />
+                              <mat-label>Quantity</mat-label>
+                              <input matInput type="number" formControlName="quantity" />
                             </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
+                          </div>
+                          <div class="col-md-4">
                             <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Unit Cost</mat-label>
-                                <input matInput type="text" formControlName="unit_cost" />
+                              <mat-label>Unit Cost</mat-label>
+                              <input matInput type="number" formControlName="unit_cost" />
                             </mat-form-field>
-                        </div>
-
-                        <div class="col-md-4">
+                          </div>
+                          <div class="col-md-4">
                             <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label> $ / Unity</mat-label>
-                                <mat-select formControlName="unit_currency">
-                                    <mat-option value="active">1</mat-option>
-                                    <mat-option value="inactive">2</mat-option>
-                                    <mat-option value="inactive">3</mat-option>
-                                </mat-select>
+                              <mat-label>Coast</mat-label>
+                              <input matInput type="number" formControlName="coast" />
                             </mat-form-field>
-                        </div>
-
-                        <div class="col-md-4">
+                          </div>
+                        
+                          <!-- Terceira linha -->
+                          <div class="col-md-4">
                             <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Time Left by Lifespan</mat-label>
-                                <input matInput type="text" formControlName="time_left_by_lifespan" />
+                              <mat-label>Unity</mat-label>
+                              <mat-select formControlName="unity">
+                                <mat-option *ngFor="let unity of unityOptions" [value]="unity">
+                                  {{ unity }}
+                                </mat-option>
+                              </mat-select>
                             </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
+                          </div>
+                          <div class="col-md-4">
                             <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Coast</mat-label>
-                                <input matInput type="string" formControlName="coast" />
+                              <mat-label>$ / Unity</mat-label>
+                              <mat-select formControlName="unit_currency">
+                                <mat-option value="1">1</mat-option>
+                                <mat-option value="2">2</mat-option>
+                                <mat-option value="3">3</mat-option>
+                              </mat-select>
                             </mat-form-field>
-                        </div>
-                                                
-                        <!-- Uma coluna -->
-                        <div class="col-md-4">
+                          </div>
+                          <div class="col-md-4">
                             <mat-form-field appearance="outline" class="w-100 mb-3">
-                                <mat-label>Currency</mat-label>
-                                <mat-select formControlName="currency">
-                                    <mat-option value="active">1</mat-option>
-                                    <mat-option value="inactive">2</mat-option>
-                                    <mat-option value="inactive">3</mat-option>
-                                </mat-select>
+                              <mat-label>Currency</mat-label>
+                              <mat-select formControlName="currency">
+                                <mat-option value="1">1</mat-option>
+                                <mat-option value="2">2</mat-option>
+                                <mat-option value="3">3</mat-option>
+                              </mat-select>
                             </mat-form-field>
-                        </div>
+                          </div>
+                        
+                    
 
                         <div class="col-md-12">
                             <mat-form-field appearance="outline" class="w-100 mb-3">

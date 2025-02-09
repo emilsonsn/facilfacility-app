@@ -159,19 +159,39 @@ mat-option {
 }
 
 
+input[matInput] {
+  flex: 0; /* Faz o campo de entrada ocupar o espaço restante */
+}
 
-/* Ajusta o padding para garantir que o sticky funcione bem */
-// #facilityTabsContent {
-//   padding-left: 0;
-//   padding-right: 0;
-//   max-height: 100vh; /* Certifique-se de que a altura é suficiente para o sticky */
-// }
+.col-md-8-d-flex-align-items-top{
+  gap: -20;
+}
 
-/* Ajuste da altura dos inputs do formulário */
+.mat-mdc-text-field-wrapper {
+  height: auto !important; /* Mantém a altura automática */
+  will-change: unset !important; /* Remove a alteração dinâmica */
+}
+
+/* Centraliza os elementos na linha */
+.row.align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+/* Ajusta o espaçamento entre os dois campos */
+.col-md-2,
+.col-md-10 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* Certifica que os campos ocupam o espaço correto */
+mat-form-field {
+  width: 100%;
+}
 
 
-/* Ajusta o espaçamento entre os inputs */
-/* Ajusta o espaçamento entre os inputs */
+
 .mat-mdc-form-field {
   --mat-mdc-form-field-floating-label-scale: 0.75;
   gap: -10px; /* Reduz o espaço entre os campos de entrada */
