@@ -5,8 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToastrModule } from "ngx-toastr";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
-import { provideLottieOptions } from "ngx-lottie";
-import player from 'lottie-web';
+// import { provideLottieOptions } from "ngx-lottie";
+// import player from 'lottie-web';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
@@ -74,9 +74,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   providers: [
     FacilityService,
     provideNgxMask(),
-    provideLottieOptions({
-      player: () => player,
-    }),
+    // provideLottieOptions({
+    //   player: () => player,
+    // }),
     {
       provide: LOCALE_ID,
       useValue: 'pt-BR'
